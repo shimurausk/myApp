@@ -1,0 +1,80 @@
+// Place all the styles related to the blogs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$basebgcolor: #ececec;
+$basemargin: 8px;
+$baselinkcolor : #464646;
+$basefontsize : 100%;
+
+body{
+	background:$basebgcolor;
+	font-size: $basefontsize;
+}
+
+.header{
+	margin: $basemargin*2 $basemargin*6;
+	padding: $basemargin*2 0;
+}
+
+.contents{
+	margin: $basemargin*2 $basemargin*6;
+}
+
+.postslist {
+	background: white;
+	box-shadow: 1px 1px 1px #ccc;
+	a {
+		color: $baselinkcolor;
+		text-decoration:none;
+	}
+	h2{
+		font-size: $basefontsize *2.4;
+		text-shadow: -1px -1px 0px #eee;
+	}
+}
+
+.post{
+	padding: 0 $basemargin*2;
+	color: #666;
+}
+
+.sidenavi {
+
+	 .box {
+		padding: $basemargin $basemargin*2;
+		background: $baselinkcolor;
+		color: white;
+		box-shadow: 1px 1px 4px #999;
+	}
+
+	h3 {
+		margin: 0;
+		font-size: $basefontsize *1.5;
+	}
+	ul{
+		padding:0 $basemargin*2;
+
+	}
+
+}
+ 
+.side {
+	margin: 0px $basemargin*2;
+}
+
+
+
+.footer{
+	background: white;
+	padding: $basemargin*2 $basemargin*6;
+}
+
+.dev{
+	//display:none;
+}
+
+.field_with_errors {
+	float: left;
+	overflow: hidden;
+}
