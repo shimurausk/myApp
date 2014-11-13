@@ -28,7 +28,7 @@ gem 'spring',        group: :development
 
 gem 'rb-readline'
 gem 'carrierwave'
-#gem 'rmagick', require: 'RMagick'
+gem 'rmagick', require: false
 
 gem 'devise'
 gem 'rails_admin'

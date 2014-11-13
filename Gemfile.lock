@@ -121,6 +121,7 @@ GEM
     rdoc (4.1.2)
       json (~> 1.4)
     remotipart (1.2.1)
+    rmagick (2.13.3)
     safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.4)
@@ -171,6 +172,7 @@ DEPENDENCIES
   rails (= 4.1.5)
   rails_admin
   rb-readline
+  rmagick
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)
   spring
