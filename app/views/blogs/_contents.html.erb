@@ -1,0 +1,14 @@
+<article>
+	<% @blogs.each do |d| %>
+		<% if d.status %>	
+	  	<div class="post">
+			  <h2><%= image_tag d.avatar.url %><%= d.title %></h2><span><%= d.updated_at %></span>
+			  <div class="box"><%= d.text %></div>
+			  <div>
+			  	<button><%= link_to 'show', blog_path(d)%></button>
+			  </div>
+			</div>
+		<% end %>
+	<% end %>
+</article>
+
