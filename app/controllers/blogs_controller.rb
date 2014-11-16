@@ -1,11 +1,29 @@
 class BlogsController < ApplicationController
 
 	def index
-		@blogs = Blog.all
+		@blogs = Blog.all.order("id DESC")
+		#binding.pry
+		@blogs_hava_category = Blog.where("category not?",nil)
 	end
 
 	def show
 		@blog = Blog.find(params[:id])
+		#binding.pry
+		@blogs_hava_category = Blog.where("category not?",nil)
+	end
+
+	def category
+		#urlのパラメータに属するカラムを取得
+		@categorys = Blog.where(category: params[:category])
+
+		#binding.pry
+		@blogs_hava_category = Blog.where("category not?",nil)
+		#@blogs_hava_category.each do |c|
+			#binding.pry
+			#@blogs_category = c.category
+		#end
+		
+		#@categorys = @blogs_hava_category.where(category: params[:category])
 	end
 
 	# def create

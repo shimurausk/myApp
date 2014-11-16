@@ -5,6 +5,7 @@
 $basebgcolor: #ececec;
 $basemargin: 8px;
 $baselinkcolor : #464646;
+$sidelinkcolor: #ede;
 $basefontsize : 100%;
 
 body{
@@ -56,7 +57,9 @@ body{
 		padding:0 $basemargin*2;
 
 	}
-
+	a{
+	color:$sidelinkcolor;
+	}
 }
  
 .side {

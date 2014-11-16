@@ -2,10 +2,11 @@
 	<% @blogs.each do |d| %>
 		<% if d.status %>	
 	  	<div class="post">
-			  <h2><%= image_tag d.avatar.url %><%= d.title %></h2><span><%= d.updated_at %></span>
-			  <div class="box"><%= d.text %></div>
+			  <h2><%= d.title %></h2>
+			  <span><%= d.updated_at %></span><span><%= d.category %></span>
+			  <div class="box"><%= image_tag d.avatar.url %><%= d.text %></div>
 			  <div>
-			  	<button><%= link_to 'show', blog_path(d)%></button>
+			  	<button><%= link_to '続きを見る', blog_path(d)%></button>
 			  </div>
 			</div>
 		<% end %>
