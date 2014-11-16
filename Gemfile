@@ -33,6 +33,14 @@ gem 'rmagick', require: false
 gem 'devise'
 gem 'rails_admin'
 gem 'cancancan'
+
+group :development, :test do
+gem 'pry-rails'
+gem 'pry-doc'
+#gem 'pry-stack_explorer'
+#gem 'pry-byebug'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

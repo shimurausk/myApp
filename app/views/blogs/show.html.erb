@@ -5,7 +5,8 @@
     <div class="postslist pure-u-2-3">
 		<article>
 			<div class="post">
-		      <h2><%= @blog.title %></h2><span><%= @blog.updated_at %></span>
+		      <h2><%= @blog.title %></h2>
+		      <span><%= @blog.created_at %></span><span><%= @blog.category %></span>
 		      <div class="box"><%= image_tag @blog.avatar.url %> <%= @blog.text %></div>
 		      <div class="comment">
 		      	<h3>Comments</h3>
