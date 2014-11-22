@@ -1,15 +1,28 @@
 class BlogsController < ApplicationController
 
+	before_action :get_category
+
+	def get_category
+		@blogs_hava_category = Blog.where("category not?",nil)
+
+		@blogs_category = []
+		@blogs_hava_category.each do |c|
+			@blogs_category.push(c.category)
+		end 
+		#binding.pry
+		@blogs_category = @blogs_category.uniq()
+	end
+
 	def index
 		@blogs = Blog.all.order("id DESC")
 		#binding.pry
-		@blogs_hava_category = Blog.where("category not?",nil)
 	end
 
 	def show
 		@blog = Blog.find(params[:id])
 		#binding.pry
-		@blogs_hava_category = Blog.where("category not?",nil)
+		#@blogs_hava_category = Blog.where("category not?",nil)
+
 	end
 
 	def category
@@ -17,12 +30,12 @@ class BlogsController < ApplicationController
 		@categorys = Blog.where(category: params[:category])
 
 		#binding.pry
-		@blogs_hava_category = Blog.where("category not?",nil)
+		#@blogs_hava_category = Blog.where("category not?",nil)
 		#@blogs_hava_category.each do |c|
 			#binding.pry
 			#@blogs_category = c.category
 		#end
-		
+		 
 		#@categorys = @blogs_hava_category.where(category: params[:category])
 	end
 

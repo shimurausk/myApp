@@ -3,8 +3,8 @@
 	  <div class="box">
 	  	<h3>category</h3>
 	    <ul>
-		  	<% @blogs_hava_category.each do |c| %>
-	      <li><%= link_to c.category, blog_path(c) %></li>
+		  	<% @blogs_category.each do |c| %>
+	      <li><%= link_to c, category_path(c) %></li>
 	      <% end %>
 	    </ul>
 	  </div>
