@@ -14,6 +14,14 @@ RailsAdmin.config do |config|
   ## == PaperTrail ==
   # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
 
+  #rails_admin 
+  #config.included_models = ['ActsAsTaggableOn::Tag'] 
+  # config.model Blog do
+  # list do
+  #   #field :title
+  #   field :tag_list
+  # end
+
   ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
 
   config.actions do
@@ -34,7 +42,7 @@ RailsAdmin.config do |config|
 
   # config.model 'Blog' do
   #   edit do
-  #     field :avatar, :carrierwave
+  #     field :tag_list, :ActsAsTaggableOn
   #   end
   # end
 end

@@ -21,22 +21,10 @@ class BlogsController < ApplicationController
 	def show
 		@blog = Blog.find(params[:id])
 		#binding.pry
-		#@blogs_hava_category = Blog.where("category not?",nil)
-
 	end
 
 	def category
-		#urlのパラメータに属するカラムを取得
 		@categorys = Blog.where(category: params[:category])
-
-		#binding.pry
-		#@blogs_hava_category = Blog.where("category not?",nil)
-		#@blogs_hava_category.each do |c|
-			#binding.pry
-			#@blogs_category = c.category
-		#end
-		 
-		#@categorys = @blogs_hava_category.where(category: params[:category])
 	end
 
 	# def create
@@ -76,7 +64,7 @@ class BlogsController < ApplicationController
 
 	private
 		def blogs_params
-			params.require(:blog).permit(:title,:text,:avatar)		
+			params.require(:blog).permit(:title,:text,:avatar,:tag_list)		
 		end	
 
 end
