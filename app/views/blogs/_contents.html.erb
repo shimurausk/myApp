@@ -1,14 +1,7 @@
 <article>
 	<% @blogs.each do |d| %>
 		<% if d.status %>	
-	  	<div class="post">
-			  <h2><%= d.title %></h2>
-			  <span><%= d.updated_at %></span><span><%= d.category %></span>
-			  <div class="box"><%= image_tag d.avatar.url %><%= d.text %></div>
-			  <div>
-			  	<button><%= link_to '続きを見る', blog_path(d)%></button>
-			  </div>
-			</div>
+			<%= render 'post', val: d %>
 		<% end %>
 	<% end %>
 </article>

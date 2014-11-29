@@ -3,8 +3,8 @@
   <div class="contents pure-g">
     <div class="postslist pure-u-2-3">
       <article>
-				<% @categorys.each do |d| %>
-					<% if d.status %>	
+				<% @tag.each do |d| %>
+	      	<% if d.status %>	
 						<%= render 'post', val: d %>
 					<% end %>
 				<% end %>

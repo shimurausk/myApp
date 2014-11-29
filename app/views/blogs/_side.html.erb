@@ -1,6 +1,12 @@
 <aside>
   <div class="side">
 	  <div class="box">
+	  	<form action="">
+		  	<input type="text" placeholder="検索">
+		  	<!-- <button type="submit">Search</button> -->
+	  	</form>
+	  </div>
+	  <div class="box">
 	  	<h3>Category</h3>
 	    <ul>
 		  	<% @blogs_category.each do |c| %>
@@ -10,6 +16,18 @@
 	  </div>
 	  <div class="box">
 	  	<h3>Tag</h3>
+	    <div class="tag_cloud">
+	    <%# binding.pry %>
+				<% tag_cloud Blog.tag_counts, %W[s m l] do |t,css_class| %>
+					<%= link_to t.name, tag_path(t.name), class: css_class %>
+				<% end %>
+	    </div>
+	  </div>
+	  <div class="box">
+	  	<h3>Related Posts</h3>
+	    <ul>
+	    
+	    </ul>
 	  </div>
   </div>
 </aside>

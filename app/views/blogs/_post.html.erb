@@ -1,0 +1,17 @@
+<div class="post">
+  <h2><%= val.title %></h2>
+  <div class="option">
+  	<span><%= val.updated_at %></span>
+	  <span>Category:<%= link_to val.category, category_path(val.category) %></span>
+	  <% if val.tags.any? %>
+	  <span>Tag:<%= raw val.tags.map(&:name).map { |t| link_to t, tag_path(t)}.join(', ') %></span>
+	  <% end %>
+  </div>
+  <div class="box">
+	  <div class="photo"><%= image_tag val.avatar.url %></div>
+	  <div class="text"><%= val.text %></div>
+  </div>
+  <div class="btn">
+  	<button><%= link_to '続きを見る', blog_path(val)%></button>
+  </div>
+</div>
