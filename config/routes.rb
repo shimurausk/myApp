@@ -1,4 +1,23 @@
 Rails.application.routes.draw do
+  devise_for :users
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
+  resources :blogs do
+    resources :comments
+  end
+
+  #get 'blogs/:category' => 'blogs#index', as: :category
+  #get 'blogs' , to:'blogs#index'
+  #get 'blogs/:id' , to:'blogs#show', as: :blog
+  get 'blogs/category/:category' , to:'blogs#category', as: :category
+  get 'blogs/tag/:tag' , to:'blogs#tag', as: :tag
+  
+  #get 'blogs/dashborads/', to:'dashborads#index',as: :blogs
+  #resource :dashborads
+# Blog.all.each do |cat|
+#   get "#{cat.category}" => 'blogs#view', :id => cat.id
+# end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

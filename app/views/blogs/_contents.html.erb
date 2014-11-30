@@ -1,0 +1,8 @@
+<article>
+	<% @blogs.each do |d| %>
+		<% if d.status %>	
+			<%= render 'post', val: d %>
+		<% end %>
+	<% end %>
+</article>
+

@@ -1,0 +1,139 @@
+// Place all the styles related to the blogs controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$basebgcolor: #e5e5e5;
+$basemargin: 8px;
+$baselinkcolor : #464646;
+$sidelinkcolor: #429e99;
+$basefontsize : 100%;
+
+body{
+	background:$basebgcolor;
+	font-size: $basefontsize;
+}
+
+.header{
+	margin: $basemargin*2 $basemargin*6;
+	padding: $basemargin*2 0;
+	a {
+	text-decoration:none;
+	color: $baselinkcolor;
+	}
+	ul{
+		text-align:right;
+	}
+	ul li {
+		display: inline;
+	}
+	li.contact a {
+		background: #333;
+		color: #fff;
+		padding: 8px 16px;
+		margin-left: 8px;
+		&:hover{
+			opacity:0.7;
+		}
+		}
+}
+
+.contents{
+	margin: $basemargin*2 $basemargin*6;
+	h2{
+		margin:4px 0;
+	}
+	.option{
+		font-size:80%;
+		a{
+			color: $sidelinkcolor;
+			text-decoration:underline;
+		}
+	}
+	.photo{
+		margin: 8px auto;
+		img {
+			width: 100%;
+		}
+	}
+	.text{
+		color: #666;
+	}
+}
+
+.postslist {
+	background: white;
+	box-shadow: 1px 1px 1px #ccc;
+	a {
+		color: $baselinkcolor;
+		text-decoration:none;
+	}
+	h2{
+		font-size: $basefontsize *2.4;
+		text-shadow: -1px -1px 0px #eee;
+	}
+	.btn{
+		margin:16px 0;
+		clear:both;
+		button{
+			border:none;
+			background:#eee;
+			color:#333;
+			font-size:80%;
+		}
+	}
+}
+
+.post{
+	padding: $basemargin*2;
+	color: #333;
+}
+
+.sidenavi {
+
+	 .box {
+	 	margin-bottom:24px;
+		padding: $basemargin $basemargin*2;
+		background: $baselinkcolor;
+		color: white;
+		box-shadow: 1px 1px 4px #999;
+	}
+
+	h3 {
+		margin: 0;
+		font-size: $basefontsize *1.5;
+	}
+	ul{
+		padding:0 $basemargin*2;
+
+	}
+	a{
+	color:$sidelinkcolor;
+	}
+}
+ 
+.side {
+	margin: 0px $basemargin*2;
+}
+
+
+
+.footer{
+	background: #efefef;
+	padding: $basemargin*2 $basemargin*6;
+}
+
+.dev{
+	//display:none;
+}
+
+.field_with_errors {
+	float: left;
+	overflow: hidden;
+}
+
+.tag_cloud{
+	line-height:1.6;
+	.s{ font-size:10px}
+	.m{ font-size:12px}
+	.l{ font-size:14px}
+}

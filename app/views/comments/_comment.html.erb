@@ -1,0 +1,10 @@
+<div class="comment">
+	<strong><%= comment.commenter %></strong>
+	<p><%= comment.body %></p>
+</div>
+
+<div class="dev">
+	<%= link_to "削除", [comment.blog,comment],
+				method: :delete,
+				data:{ confirm: 'ok?'} %>
+</div>

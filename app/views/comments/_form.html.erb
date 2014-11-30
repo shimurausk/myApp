@@ -1,0 +1,11 @@
+<%= form_for ([@blog,@blog.comments.build]) , html:{class:"pure-form pure-form-aligned"} do |f| %>
+  <div class="pure-control-group">
+  	<%= f.label :commenter, "名前" %>
+  	<%= f.text_field :commenter %>
+  </div>
+  <div class="pure-control-group">
+  	<%= f.label :body, "コメント" %>
+  	<%= f.text_area :body %>
+  </div>
+  <%= f.submit "Submit" %>
+<% end %>

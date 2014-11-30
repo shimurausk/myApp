@@ -1,0 +1,31 @@
+<%= form_for @blog, html:{class:"pure-form pure-form-aligned"} do |f| %>
+
+	<% if @blog.errors.any? %>
+		<div id="error_explanation">
+			<ul>
+				<% @blog.errors.full_messages.each do |msg| %>
+				<li><%= msg %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
+
+	<div class="pure-control-group">
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</div>
+	<div class="pure-control-group">
+		<%= f.label :text %>
+		<%= f.text_area :text %>
+	</div>
+	<div class="pure-control-group">
+		<%#= f.label :avatar %>
+		<%#= f.file_field :avatar %>
+	</div>
+	<div class="pure-control-group">
+		<%#= f.select :status,[["下書き","draft"],["公開","public"]] %>
+	</div>
+
+	<%= f.submit %>
+
+<% end %> 
