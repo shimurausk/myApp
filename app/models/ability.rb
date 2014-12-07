@@ -8,9 +8,23 @@ class Ability
         if user.admin?
          can :access, :rails_admin
          can :manage, :all
-    #   else
-    #     can :read, :all
+       else
+         can :read, :all
        end
+
+    # if user.has_role?('admin')
+    #   can :read, :all
+    #   can :access, :rails_admin
+    #   can :dashboard
+    #   if user.has_role?('superadmin')
+    #     can :manage, :all
+    #   else
+    #     can :manage, [] # A
+    #   end
+    # else
+    #   can :read, [] # B
+    #   can :create, [] # C
+    # end
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.

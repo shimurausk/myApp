@@ -1,4 +1,5 @@
 <%= form_for @blog, html:{class:"pure-form pure-form-aligned"} do |f| %>
+<%#= form_for @blog,:url => dashboards_path, html:{class:"pure-form pure-form-aligned"}   do |f| %>
 
 	<% if @blog.errors.any? %>
 		<div id="error_explanation">
@@ -11,21 +12,33 @@
 	<% end %>
 
 	<div class="pure-control-group">
-		<%= f.label :title %>
+		<%= f.label 'タイトル' %>
 		<%= f.text_field :title %>
 	</div>
 	<div class="pure-control-group">
-		<%= f.label :text %>
+		<%= f.label '本文' %>
 		<%= f.text_area :text %>
 	</div>
 	<div class="pure-control-group">
-		<%#= f.label :avatar %>
-		<%#= f.file_field :avatar %>
+		<%= f.label 'カテゴリー' %>
+		<%= f.text_area :category %>
 	</div>
 	<div class="pure-control-group">
-		<%#= f.select :status,[["下書き","draft"],["公開","public"]] %>
+		<%= f.label 'タグ' %>
+		<%= f.text_field :tag_list %>
 	</div>
-
-	<%= f.submit %>
+	<div class="pure-control-group avatar">
+		<%= f.label '画像' %>
+		<%= f.file_field :avatar %>
+		<%= f.hidden_field :avatar_cache %>
+		<span><%= image_tag @blog.avatar.thumb.url if @blog.avatar? %></span>
+	</div>
+	<div class="pure-control-group">
+		<%= f.label '公開状態' %>
+		<%= f.select :status,[["下書き","draft"],["公開","public"]] %>
+	</div>
+<%  #binding.pry%>
+	<%= f.submit '編集する' %>
 
 <% end %> 
+

@@ -1,10 +1,12 @@
+<% #binding.pry %>
+<%# if comment? %>
 <div class="comment">
 	<strong><%= comment.commenter %></strong>
 	<p><%= comment.body %></p>
+	<div class="del">
+		<%= link_to "削除", [comment.blog,comment],:class => "button-warning pure-button button-xsmall",
+					method: :delete,
+					data:{ confirm: 'このコメントを削除します。よろしいですか?'} %>
+	</div>
 </div>
-
-<div class="dev">
-	<%= link_to "削除", [comment.blog,comment],
-				method: :delete,
-				data:{ confirm: 'ok?'} %>
-</div>
+<%# end %>

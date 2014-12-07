@@ -2,8 +2,17 @@ Rails.application.routes.draw do
   devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
+
+  get 'blogs/dashboards', to:'dashboards#index' 
+  get 'blogs/dashboards/:id', to:'dashboards#edit',as: :dashboards
+  put 'blogs/dashboards/:id', to:'dashboards#update'
+  delete 'blogs/dashboards/:id', to:'dashboards#destroy'
+
   resources :blogs do
     resources :comments
+    # member do 
+    #  resources :dashborads
+    # end
   end
 
   #get 'blogs/:category' => 'blogs#index', as: :category
@@ -11,9 +20,10 @@ Rails.application.routes.draw do
   #get 'blogs/:id' , to:'blogs#show', as: :blog
   get 'blogs/category/:category' , to:'blogs#category', as: :category
   get 'blogs/tag/:tag' , to:'blogs#tag', as: :tag
-  
-  #get 'blogs/dashborads/', to:'dashborads#index',as: :blogs
-  #resource :dashborads
+
+
+
+
 # Blog.all.each do |cat|
 #   get "#{cat.category}" => 'blogs#view', :id => cat.id
 # end

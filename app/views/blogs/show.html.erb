@@ -14,15 +14,20 @@
 					  <% end %>
 				  </div>
 				  <div class="box">
-					  <div class="photo"><%= image_tag @blog.avatar.url %></div>
+					  <div class="photo"><%= image_tag @blog.avatar.thumb.url if @blog.avatar? %></div>
 					  <div class="text"><%= @blog.text %></div>
 				  </div>
-				  <div class="comment">
+				  <div class="comment_area">
 		      	<h3>コメント</h3>
-		        <%= render @blog.comments %>
-						<h3>コメントする</h3>
-						<%= render 'comments/form' %>
+		      	<%= render @blog.comments %>
+		      	<%= render 'comments/form' %>
 				  </div>
+				  <div class="dev">
+					  <ul>
+					    <li><%= link_to '編集',dashboards_path, :class => "button-secondary pure-button button-xsmall" %></li>
+					    <li><%= link_to '削除', dashboards_path(@blog),method: :delete, data: { confirm: 'この記事を削除します。よろしいですか?' }, :class => "button-warning pure-button button-xsmall" %></li>
+					  </ul>
+					</div>
 				</div>
 			</article>
     </div>

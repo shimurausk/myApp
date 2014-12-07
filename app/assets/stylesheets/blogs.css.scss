@@ -8,6 +8,62 @@ $baselinkcolor : #464646;
 $sidelinkcolor: #429e99;
 $basefontsize : 100%;
 
+.pure-button{
+	color: white !important;
+}
+.button-success,
+.button-error,
+.button-warning,
+.button-secondary {
+    color: white;
+    border-radius: 4px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.button-success {
+    background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+    background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+    background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+    background: rgb(66, 184, 221); /* this is a light blue */
+}
+.button-xsmall {
+    font-size: 70%;
+}
+
+.button-small {
+    font-size: 85%;
+}
+
+.button-large {
+    font-size: 110%;
+}
+
+.button-xlarge {
+    font-size: 125%;
+}
+
+.pure-control-group.avatar {
+
+	span {
+		display: block;
+		margin-left: 180px;
+		}
+}
+
+.pure-form-aligned .pure-control-group label {
+	text-align: left;
+	width: 5em;
+}
+
 body{
 	background:$basebgcolor;
 	font-size: $basefontsize;
@@ -51,9 +107,6 @@ body{
 	}
 	.photo{
 		margin: 8px auto;
-		img {
-			width: 100%;
-		}
 	}
 	.text{
 		color: #666;
@@ -71,22 +124,33 @@ body{
 		font-size: $basefontsize *2.4;
 		text-shadow: -1px -1px 0px #eee;
 	}
-	.btn{
-		margin:16px 0;
-		clear:both;
-		button{
-			border:none;
-			background:#eee;
-			color:#333;
-			font-size:80%;
-		}
+	.more{
+		margin: $basemargin*2 0;
 	}
 }
 
 .post{
 	padding: $basemargin*2;
 	color: #333;
+	.comment_area{
+		h3 {
+		background: #e5e5e5;
+		padding: 2px 8px;
+		}
+		input[type='submit']{
+			border:none;
+			color: #333 !important;
+		}
+	}
+	.comment {
+		//border-bottom: 1px solid #999;
+		//background: #efefef;
+		//border-radius: 8px;
+		padding: 8px;
+		margin: 8px 0;
+	}
 }
+
 
 .sidenavi {
 
@@ -123,7 +187,18 @@ body{
 }
 
 .dev{
-	//display:none;
+	margin: $basemargin*2;
+	border: 1px solid #ccc;
+	background: #eee;
+	ul{
+	overflow:hidden;
+	padding:0;
+		li{
+			list-style-type:none;
+			padding-left:16px;
+			float:left;
+		}
+	}
 }
 
 .field_with_errors {
