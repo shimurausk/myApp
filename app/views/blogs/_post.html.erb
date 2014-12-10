@@ -19,8 +19,8 @@
 <% if user_signed_in? %>
 <div class="dev">
   <ul>
-    <li><%= link_to '編集',dashboards_path(val), :class => "button-secondary pure-button button-xsmall" %></li>
-    <li><%= link_to '削除', dashboards_path(val),method: :delete, data: { confirm: 'この記事を削除します。よろしいですか' }, :class => "button-warning pure-button button-xsmall" %></li>
+    <li><%= link_to '編集',edit_dashboards_path(id: val), :class => "button-secondary pure-button button-xsmall" %></li>
+    <li><%= link_to '削除', delete_dashboards_path(id: val),method: :delete, data: { confirm: 'この記事を削除します。よろしいですか' }, :class => "button-warning pure-button button-xsmall" %></li>
   </ul>
 </div>
 <% end %>

@@ -1,5 +1,5 @@
 <%#= form_for @blog, html:{class:"pure-form pure-form-aligned"} do |f| %>
-<%= form_for @blog,:url => edit_dashboards_path, html:{class:"pure-form pure-form-aligned"}   do |f| %>
+<%= form_for @blog,:url => update_dashboards_url, html:{class:"pure-form pure-form-aligned"}   do |f| %>
 
 	<% if @blog.errors.any? %>
 		<div id="error_explanation">

@@ -3,10 +3,16 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
 
-  get 'blogs/dashboards', to:'dashboards#index' 
-  get 'blogs/dashboards/:id', to:'dashboards#edit',as: :dashboards
-  put 'blogs/dashboards/:id', to:'dashboards#update'
-  delete 'blogs/dashboards/:id', to:'dashboards#destroy'
+  get 'blogs/dashboards', to:'dashboards#index' ,as: :dashboards
+  get 'blogs/dashboards/:id/edit', to:'dashboards#edit', as: :edit_dashboards
+  put 'blogs/dashboards/:id/', to:'dashboards#update', as: :update_dashboards
+  patch 'blogs/dashboards/:id/', to:'dashboards#update'
+  delete 'blogs/dashboards/:id/', to:'dashboards#destroy', as: :delete_dashboards
+
+  # get 'blogs/dashboards', to:'dashboards#index' ,as: :dashboards
+  # match 'blogs/dashboards/edit', :via => :get
+  # match 'blogs/dashboards/update', :via => 'put'
+  # match 'blogs/dashboards/delete',:via => 'delete'
 
   resources :blogs do
     resources :comments
