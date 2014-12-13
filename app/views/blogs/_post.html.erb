@@ -1,17 +1,27 @@
 <div class="post">
   <h2><%= val.title %></h2>
   <div class="option">
-  	<span><%= val.updated_at %></span>
+  	<span><%= val.created_at.strftime('%Y/%m/%d') %></span>
 	  <span>Category:<%= link_to val.category, category_path(val.category) %></span>
 	  <% if val.tags.any? %>
 	  <span>Tag:<%= raw val.tags.map(&:name).map { |t| link_to t, tag_path(t)}.join(', ') %></span>
 	  <% end %>
   </div>
   <div class="box">
-	  <div class="photo"><%= image_tag val.avatar.url %></div>
+	  <div class="photo">
+    <%= image_tag val.avatar.thumb.url if val.avatar? %></div>
 	  <div class="text"><%= val.text %></div>
   </div>
-  <div class="btn">
-  	<button><%= link_to '続きを見る', blog_path(val)%></button>
+  <div class="more">
+  	<%= link_to '続きを見る', blog_path(val), :class => "pure-button-primary pure-button button-xsmall" %>
   </div>
 </div>
+<% if user_signed_in? %>
+<div class="dev">
+  <ul>
+    <li><%= link_to '編集',edit_dashboards_path(id: val), :class => "button-secondary pure-button button-xsmall" %></li>
+    <li><%= link_to '削除', delete_dashboards_path(id: val),method: :delete, data: { confirm: 'この記事を削除します。よろしいですか' }, :class => "button-warning pure-button button-xsmall" %></li>
+  </ul>
+</div>
+<% end %>
+      
