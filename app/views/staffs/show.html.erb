@@ -1,0 +1,16 @@
+<% if user_signed_in? %>
+<h1>スタッフ詳細</h1>
+
+<table class="staff_table">
+		<tr>
+			<th>名前</th>
+			<th>メール</th>
+			<th>備考</th>
+		</tr>
+		<tr>
+			<td><%= @staff.name %></td>
+			<td><%= @staff.email %></td>
+			<td><%= @staff.memo %></td>
+		</tr>
+</table>
+<% end %>

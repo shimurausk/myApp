@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get 'blogs/category/:category' , to:'blogs#category', as: :category
   get 'blogs/tag/:tag' , to:'blogs#tag', as: :tag
 
-
+resources :staffs
 
 
 # Blog.all.each do |cat|
