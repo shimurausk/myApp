@@ -1,0 +1,25 @@
+<%= javascript_tag do %>
+<% #binding.pry %>
+$(function(){
+	$('#calendar').fullCalendar({
+		lang: 'ja',
+		header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+		events: 
+		<%= raw @works_json.to_json(methods: :icon) %>
+
+		,
+
+		timeFormat: 'H:mm', // uppercase H for 24-hour clock
+
+	})
+
+})
+  
+<% end %>
+
+<div id="calendar"></div>
+	<%= raw @works_json.to_json(methods: :icon) %>
