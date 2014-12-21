@@ -1,33 +1,25 @@
-<script>
+<%= javascript_tag do %>
+<% #binding.pry %>
 $(function(){
-$('#calendar').fullCalendar({
-	header: {
-		//それぞれの位置に設置するボタンやタイトルをスペース区切りで指定できます。指定しない場合、非表示にできます。
-		// 'title'→月・週・日のそれぞれの表示に応じたタイトル
-		// 'prev'→前へボタン
-		// 'next'→次へボタン
-		// 'today'→当日表示ボタン
-		// title→月・週・日のそれぞれの表示に応じたタイトル
-		// left: 'today prev', //左側に配置する要素
-		// center: 'title', //中央に配置する要素
-		// right: 'next' //右側に配置する要素
-	}
-	,
-	dayClick: function(date, jsEvent, view) {
+	$('#calendar').fullCalendar({
+		lang: 'ja',
+		header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+		events: 
+		<%= raw @works_json.to_json(methods: :icon) %>
 
-        alert('Clicked on: ' + date.format());
+		,
 
-        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+		timeFormat: 'H:mm', // uppercase H for 24-hour clock
 
-        alert('Current view: ' + view.name);
-
-        // change the day's background color just for fun
-        $(this).css('background-color', 'red');
-
-    }
+	})
 
 })
+  
+<% end %>
 
-})
-</script>
 <div id="calendar"></div>
+	<%= raw @works_json.to_json(methods: :icon) %>

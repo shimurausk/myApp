@@ -20,3 +20,4 @@
 
 //= require jquery-ui.custom.min
 //= require fullcalendar.min
+//= require lang-all

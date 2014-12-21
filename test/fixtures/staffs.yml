@@ -3,9 +3,19 @@
 one:
   name: MyString
   email: MyString
+  address: MyText
+  age: 1
+  post: MyString
+  hourlywage: 1
   memo: MyText
+  icon: MyString
 
 two:
   name: MyString
   email: MyString
+  address: MyText
+  age: 1
+  post: MyString
+  hourlywage: 1
   memo: MyText
+  icon: MyString

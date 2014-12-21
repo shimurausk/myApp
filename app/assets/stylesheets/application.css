@@ -16,3 +16,28 @@
  *= require 'fullcalendar.min'
  */
 
+.new_user {
+background: #fff;
+border: 1px solid #ccc;
+box-shadow: -1px -1px 3px rgba(255,255,255,1);
+width: 320px;
+margin: 0 auto;
+padding: 8px;
+label {
+color: #777;
+font-size: 14px;
+}
+
+input,
+form input[type=checkbox] {
+background: #fbfbfb;
+border-radius: 8px;
+}
+
+}
+
+
+.sch {
+margin: 24px auto;
+width: 90%;
+}
