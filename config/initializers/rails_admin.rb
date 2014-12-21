@@ -40,9 +40,9 @@ RailsAdmin.config do |config|
     # history_show
   end
 
-  # config.model 'Blog' do
+  # config.model 'Staff' do
   #   edit do
-  #     field :tag_list, :ActsAsTaggableOn
+  #     field :icon, :carrierwave
   #   end
   # end
 end
