@@ -3,16 +3,27 @@
 $(function(){
 	$('#calendar').fullCalendar({
 		lang: 'ja',
+		eventRender: function(events, element) {
+			if(events.img){
+			    $(element[0]).find('.fc-title').prepend('.fc-content')  //imgプロパティが存在するイベントだけtitleを画像に差し替え
+			    .css("border-color", "transparent")
+			    .css("background-color", "transparent")
+			    .html('<img src="'+events.img+'" width="16" height="16" />');
+			}
+    },
 		header: {
 				left: 'prev,next today',
 				center: 'title',
 				right: 'month,basicWeek,basicDay'
 			},
+		displayEventEnd:{
+    month: true,
+    basicWeek: true,
+    'default': true
+},	
 		events: 
-		<%= raw @works_json.to_json(methods: :icon) %>
-
-		,
-
+		<%= raw @works_json.to_json() %>
+	,
 		timeFormat: 'H:mm', // uppercase H for 24-hour clock
 
 	})
@@ -22,4 +33,3 @@ $(function(){
 <% end %>
 
 <div id="calendar"></div>
-	<%= raw @works_json.to_json(methods: :icon) %>
