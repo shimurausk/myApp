@@ -1,0 +1,33 @@
+
+<h4>ご予約はこちらから</h4>
+
+<%= form_for @new_reservation,:url => reservations_confirm_path do |f| %>
+
+	<% if @new_reservation.errors.any? %>
+		<strong>入力内容をご確認ください</strong>
+		<ul>
+			<% @new_reservation.errors.each do |attr,msg| %>
+				<li><%= msg %></li>
+			<% end %>
+		</ul>
+	<% end %>
+
+
+  <dl id="reservation_form" class="pure-g-r">
+		<dt class="pure-u-1-4"><%= f.label 'お名前' %></dt>
+    <dd class="pure-u-3-4"><%= f.text_field :name, class: "class" %></dd>
+    <dt class="pure-u-1-4"><%= f.label 'メールアドレス' %></dt>
+    <dd class="pure-u-3-4"><%= f.text_field :email, class: "class" %></dd>
+    <dt class="pure-u-1-4"><%= f.label '日付' %></dt>
+    <dd class="pure-u-3-4 day"><%= f.datetime_select :day,:start_year => Time.now.year, :end_year => Time.now.year + 1,:start_hour => 10, :end_hour => 20,:use_month_numbers => true,:minute_step => 30, :date_separator => '-', :time_separator => ':', :datetime_separator => '<br>' %></dd>
+    <dt class="pure-u-1-4"><%= f.label '時間' %></dt>
+    <dd class="pure-u-3-4"><%= f.datetime_select :time,:minute_step => 30,:discard_year => true,:discard_month => true,:discard_day => true,:discard_minute => true,:start_hour => 1, :end_hour => 8 %>時間</dd>
+    <dt class="pure-u-1-4"><%= f.label '人数' %></dt>
+    <dd class="pure-u-3-4"><%= f.select :member, [["1人", "1"], ["2人", "2"], ["3人", "3"], ["4人", "4"], ["5人以上", "5"]] %></dd>
+    <dt class="pure-u-1-4"><%= f.label '内容' %></dt>
+    <dd class="pure-u-3-4"><%= f.text_area :content, class: "class" %></dd>
+  </dl>
+	<p>
+		<%= f.submit '確認画面へ' %>
+	</p>
+<% end %>

@@ -12,7 +12,7 @@ class StaffsController < ApplicationController
 								'title' => staff.name,
 								'start' => work.start.strftime("%Y-%m-%d %H:%M:%S"),
 								'end' => work.end.strftime("%Y-%m-%d %H:%M:%S"),
-								'img' => staff.icon.to_s,
+								'img' => staff.icon.url,
 								'backgroundColor' => '#fc0',
 								'borderColor' => '#fc3'
 							}
@@ -35,7 +35,7 @@ class StaffsController < ApplicationController
 								'title' => @staff.name,
 								'start' => work.start.strftime("%Y-%m-%d %H:%M:%S"),
 								'end' => work.end.strftime("%Y-%m-%d %H:%M:%S"),
-								'img' => @staff.icon.to_s,
+								'img' => @staff.icon.url,
 								'backgroundColor' => '#fc0',
 								'borderColor' => '#fc3'
 							}
