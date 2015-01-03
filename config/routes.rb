@@ -31,6 +31,11 @@ resources :staffs do
   resources :works
 end
 
+match 'reservations/confirm' ,:via => :post
+match 'reservations/thanks' ,:via => :post
+get 'reservations/list/:day' ,to: 'reservations#list', as: :day
+resources :reservations
+
 
 # Blog.all.each do |cat|
 #   get "#{cat.category}" => 'blogs#view', :id => cat.id
@@ -40,7 +45,7 @@ end
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+   root 'blogs#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
