@@ -1,0 +1,38 @@
+
+<h1>予約</h1>
+<%= javascript_tag do %>
+<%# binding.pry %>
+$(function(){
+	$('#calendar').fullCalendar({
+		lang: 'ja',
+		header: {
+				left: '',
+				center: 'title',
+				right: ''
+			},
+		events: 
+		<%= raw @reservation_data.to_json %>,
+		eventMouseover: function(){
+			$(this).css('background', '#fcc');
+    },
+    eventMouseout: function(){
+			$(this).css('background', '#fc0');
+    },
+		timeFormat: 'H:mm', // uppercase H for 24-hour clock
+
+	})
+
+})
+  
+<% end %>
+
+<section>
+  <div class="contents pure-g">
+    <div id="calendar" class="pure-u-1-2"></div>
+    <div class="sidenavi pure-u-1-3">
+      <%#= raw @reservation_data.to_json %>
+    </div>
+  </div>
+</section> 
+
+

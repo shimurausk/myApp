@@ -9,9 +9,10 @@ class StaffsController < ApplicationController
 			staff.works.each do |work|
 			#binding.pry 
 			@work_data = {
-								'title' => '<img src="'+staff.icon.to_s+'">',
+								'title' => staff.name,
 								'start' => work.start.strftime("%Y-%m-%d %H:%M:%S"),
 								'end' => work.end.strftime("%Y-%m-%d %H:%M:%S"),
+								'img' => staff.icon.url,
 								'backgroundColor' => '#fc0',
 								'borderColor' => '#fc3'
 							}
@@ -34,6 +35,7 @@ class StaffsController < ApplicationController
 								'title' => @staff.name,
 								'start' => work.start.strftime("%Y-%m-%d %H:%M:%S"),
 								'end' => work.end.strftime("%Y-%m-%d %H:%M:%S"),
+								'img' => @staff.icon.url,
 								'backgroundColor' => '#fc0',
 								'borderColor' => '#fc3'
 							}

@@ -41,3 +41,12 @@ border-radius: 8px;
 margin: 24px auto;
 width: 90%;
 }
+
+.fc-day-grid-event .fc-time {
+float: right;
+font-size: 80%;
+line-height: 1.7;
+}
+.fc-event-container a {
+padding: 4px 4px 0;
+}
