@@ -12,25 +12,25 @@ $(function(){
 			},
 		events: 
 		<%= raw @reservation_list.to_json %>,
-    eventClick: function(calEvent, jsEvent, view) {
-    <%#= redirect_to :action => "show", :id => reservation_path(1) %>
-				location.href = '/reservations/' + calEvent.id;
-    },
-    eventMouseover: function(){
-			$(this).css('background', '#fcc');
-    },
-    eventMouseout: function(){
-			$(this).css('background', '#fc0');
+    dayClick: function(date, jsEvent, view) {
+				location.href = '/reservations/list/' + date.format();
     },
 		timeFormat: 'H:mm', // uppercase H for 24-hour clock
 	})
 
 })
-  
+$(function(){
+	$('.fc-day').mouseover(function(){
+	$(this).addClass('on');
+	})
+	$('.fc-day').mouseout(function(){
+	$(this).removeClass('on');
+	})
+})
 <% end %>
 
 <section>
-  <div class="contents pure-g">
+  <div class="contents reservations pure-g">
     <div id="calendar" class="pure-u-3-5"></div>
     <div class="sidenavi pure-u-2-5">
       <%= render 'form' %>

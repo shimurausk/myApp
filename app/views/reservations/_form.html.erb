@@ -1,11 +1,11 @@
 
 <h4>ご予約はこちらから</h4>
 
-<%= form_for @new_reservation,:url => reservations_confirm_path do |f| %>
+<%= form_for @new_reservation,:url => reservations_confirm_path,html:{class:"pure-form pure-form-aligned"} do |f| %>
 
 	<% if @new_reservation.errors.any? %>
 		<strong>入力内容をご確認ください</strong>
-		<ul>
+		<ul class="error">
 			<% @new_reservation.errors.each do |attr,msg| %>
 				<li><%= msg %></li>
 			<% end %>
@@ -14,7 +14,7 @@
 
 
   <dl id="reservation_form" class="pure-g-r">
-		<dt class="pure-u-1-4"><%= f.label 'お名前' %></dt>
+	<dt class="pure-u-1-4"><%= f.label 'お名前' %></dt>
     <dd class="pure-u-3-4"><%= f.text_field :name, class: "class" %></dd>
     <dt class="pure-u-1-4"><%= f.label 'メールアドレス' %></dt>
     <dd class="pure-u-3-4"><%= f.text_field :email, class: "class" %></dd>
@@ -27,7 +27,7 @@
     <dt class="pure-u-1-4"><%= f.label '内容' %></dt>
     <dd class="pure-u-3-4"><%= f.text_area :content, class: "class" %></dd>
   </dl>
-	<p>
-		<%= f.submit '確認画面へ' %>
+	<p class="btn">
+		<%= f.submit '確認画面へ',class:"button-secondary pure-button button-small" %>
 	</p>
 <% end %>

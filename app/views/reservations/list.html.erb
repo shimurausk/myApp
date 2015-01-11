@@ -6,21 +6,14 @@ $(function(){
 	$('#calendar').fullCalendar({
 		lang: 'ja',
 		header: {
-				left: 'prev,next today',
+				left: '',
 				center: 'title',
 				right: ''
 			},
 		events: 
 		<%= raw @reservation_list.to_json %>,
-    eventClick: function(calEvent, jsEvent, view) {
-    <%#= redirect_to :action => "show", :id => reservation_path(1) %>
-				location.href = '/reservations/' + calEvent.id;
-    },
-    eventMouseover: function(){
-			$(this).css('background', '#fcc');
-    },
-    eventMouseout: function(){
-			$(this).css('background', '#fc0');
+    dayClick: function(date, jsEvent, view) {
+				location.href = '/reservations/list/' + date.format();
     },
 		timeFormat: 'H:mm', // uppercase H for 24-hour clock
 	})
@@ -28,12 +21,36 @@ $(function(){
 })
   
 <% end %>
+<% 
+@businessHours = (10..22).to_a
+#binding.pry
+ %>
 
 <section>
-  <div class="contents pure-g">
+  <div class="contents reservations pure-g">
     <div id="calendar" class="pure-u-3-5"></div>
     <div class="sidenavi pure-u-2-5">
-      <%#= render 'form' %>
+      <table class="today">
+      <caption><%= params[:day] %></caption>
+		    <% @businessHours.each do |t| %>
+		    	<tr
+		    	<% if @todaysReservation.nil? %>
+			    	>
+			    	<% else %>
+			      <% @todaysReservation.each do |reservation| %>
+				      <% if reservation.day.hour <= t && t <= reservation.day.hour + reservation.time.hour %>
+			      	 class="no"
+				      <% end %>
+				    <% end %>
+				    >
+				  <% end %>
+			      <th><%= t %><span>:</span>00</th>
+			      <td>&nbsp;</td>
+			    </tr>
+		    <% end %>
+      </table>
     </div>
   </div>
 </section>
+
+<%= raw @reservation_list.to_json %>
