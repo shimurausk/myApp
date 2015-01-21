@@ -2,9 +2,9 @@
 
 <p>入力内容をご確認ください。</p>
 
-<%= form_for @reservation,:url => reservations_thanks_path do |f| %>
+<%= form_for @reservation,:url => reservations_thanks_path,html:{class:"pure-form pure-form-aligned"} do |f| %>
 <% #binding.pry %>
-<dl id="name" class="pure-g-r">
+<dl id="reservation_form" class="pure-g-r">
 	<dt class="pure-u-1-4"><%= f.label 'お名前' %></dt>
   <dd class="pure-u-3-4"><%= f.hidden_field :name %><%= @reservation.name %></dd>
   <dt class="pure-u-1-4"><%= f.label 'メールアドレス' %></dt>
@@ -19,8 +19,8 @@
   <dd class="pure-u-3-4"><%= f.hidden_field :content %><%= @reservation.content %></dd>
 </dl>
 
-<p>
-<%= f.submit '送信' %>
+<p class="btn">
+<%= f.submit '送信',class:"button-secondary pure-button button-small" %>
 </p>
 <% end %>
 

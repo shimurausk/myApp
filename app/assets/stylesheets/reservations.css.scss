@@ -1,11 +1,74 @@
 // Place all the styles related to the reservations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.reservations {
+
+.sidenavi {
+form {
+margin: 0 auto;
+padding: 16px;
+width: 80%;
+border: 2px solid #999;
+}
+.error{
+color:#f00;	
+}
+}
+
 h4 {
 margin: 0 16px;
+color:#333;
 }
 
 dl#reservation_form {
-margin:0 16px;
+overflow:hidden;
+margin:0 auto;
+dt{
+	margin:8px 0;
+	clear:both;
+	float:left;
+}
+dd{
+	margin:8px 0;
+}
+}
 
+.btn {
+text-align: center;
+}
+
+.on{
+	background:#fc0;
+}
+
+
+
+table.today {
+margin: 0 24px;
+caption {
+padding: 4px 0;
+background: #333;
+color: #fff;
+}
+th,td {
+padding: 4px 8px;
+border: 1px solid #666;
+color: #333;
+}
+td {
+width: 100%;
+}
+.no{
+	th {
+background: #999;
+color: #666;
+}
+td {
+background: #999;
+}
+}
+}
+
+	
 }
