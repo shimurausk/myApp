@@ -12,7 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer',  platforms: :ruby
+ gem 'therubyracer',  platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -29,7 +29,7 @@ gem 'spring',        group: :development
 gem 'rb-readline'
 gem 'carrierwave'
 gem 'rmagick', require: false
-
+#gem 'rmagick',  '2.13.3'
 gem 'devise'
 gem 'rails_admin'
 gem 'cancancan'
@@ -41,11 +41,15 @@ gem 'pry-doc'
 #gem 'pry-byebug'
 end
 
+gem 'bootstrap-sass', '~> 3.1.1'
+gem 'momentjs-rails', '>= 2.8.1'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+ gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

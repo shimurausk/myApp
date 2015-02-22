@@ -29,6 +29,10 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
+    bootstrap-sass (3.1.1.1)
+      sass (~> 3.2)
+    bootstrap3-datetimepicker-rails (4.0.0)
+      momentjs-rails (>= 2.8.1)
     builder (3.2.2)
     cancancan (1.8.4)
     carrierwave (0.10.0)
@@ -77,6 +81,8 @@ GEM
     mime-types (1.25.1)
     mini_portile (0.6.0)
     minitest (5.4.2)
+    momentjs-rails (2.9.0)
+      railties (>= 3.1)
     multi_json (1.10.1)
     nested_form (0.3.2)
     nokogiri (1.6.3.1)
@@ -132,7 +138,7 @@ GEM
     rdoc (4.1.2)
       json (~> 1.4)
     remotipart (1.2.1)
-    rmagick (2.13.3)
+    rmagick (2.13.4)
     safe_yaml (1.0.4)
     sass (3.2.19)
     sass-rails (4.0.4)
@@ -176,12 +182,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap-sass (~> 3.1.1)
+  bootstrap3-datetimepicker-rails (~> 4.0.0)
   cancancan
   carrierwave
   coffee-rails (~> 4.0.0)
   devise
   jbuilder (~> 2.0)
   jquery-rails
+  momentjs-rails (>= 2.8.1)
   pry-doc
   pry-rails
   rails (= 4.1.5)

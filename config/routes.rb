@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  get 'pages/index'
+
   devise_for :users
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
 
 
   get 'blogs/dashboards', to:'dashboards#index' ,as: :dashboards
@@ -31,6 +34,8 @@ resources :staffs do
   resources :works
 end
 
+#match 'reservations/entry' ,:via => :post,as: :reservations_entry
+#match 'reservations/search_result' ,:via => :post
 match 'reservations/confirm' ,:via => :post
 match 'reservations/thanks' ,:via => :post
 get 'reservations/list/:day' ,to: 'reservations#list', as: :day
@@ -45,7 +50,7 @@ resources :reservations
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'blogs#index'
+   root 'pages#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

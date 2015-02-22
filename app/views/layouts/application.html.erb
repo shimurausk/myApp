@@ -2,16 +2,52 @@
 <html>
 <head>
   <title>MyApp</title>
-  <%= stylesheet_link_tag    'http://yui.yahooapis.com/pure/0.5.0/pure-min.css', media: 'all', 'data-turbolinks-track' => true %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <script>
+  $(function(){
+  	$(window).on('load resize', function(){
+			if($(window).width()>902){
+	  		$(".header .nav").css("display","block");
+	  	}
+		});
+  	$(".smart").click(function() {
+  		$(".header .nav").toggle();
+  	});
+  })
+  </script>
 </head>
 <body>
+	<div class="container">
+		<header>
+			<div class="header row">
+				<h1><%= link_to 'Shop name',root_path %></h1>
+				<div class="smart"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></div>
+				<nav>
+					<ul class="nav nav-pills pull-right">
+						<li><%= link_to 'ブログ', blogs_path %></li>
+						<% if user_signed_in? %>
+						<li><%= link_to 'スタッフ管理', staffs_path %></li>
+						<% end %>
+						<li><%= link_to '予約', reservations_path %></li>
+						<li><a href="/">EC Shop</a></li>
+						<li><a href="">お問い合わせ</a></li>
+						<li class="signin"><a href="/admin">ログイン</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
 
+	<%= yield %>
 
-
-<%= yield %>
-
+		<footer>
+		  <div class="footer row">
+		    <p class="col-sm-12">&copy; writer</p>
+		  </div>  
+		</footer>
+	</div>
 </body>
 </html>

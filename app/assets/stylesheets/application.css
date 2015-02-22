@@ -14,7 +14,16 @@
  *= require_self
 
  *= require 'fullcalendar.min'
+ *= require bootstrap
+ *= require bootstrap-datetimepicker
  */
+
+@import 'reservations.css.scss'
+
+ul{
+		list-style-type: none;
+		padding-left: 0;
+	}
 
 .new_user {
 background: #fff;
@@ -23,6 +32,8 @@ box-shadow: -1px -1px 3px rgba(255,255,255,1);
 width: 320px;
 margin: 0 auto;
 padding: 8px;
+}
+
 label {
 color: #777;
 font-size: 14px;
@@ -33,20 +44,35 @@ form input[type=checkbox] {
 background: #fbfbfb;
 border-radius: 8px;
 }
-
+.field_with_errors {
+  float: none;
+}
+.tbar {
+	margin-bottom: 16px;
+	font-size: 24px;
+}
+.dpn{
+	display:none;
+}
+.dpb{
+	display:block;
+}
+.tac{
+	text-align: center;
 }
 
-
-.sch {
-margin: 24px auto;
-width: 90%;
-}
 
 .fc-day-grid-event .fc-time {
 float: right;
-font-size: 80%;
+font-size: 100%;
 line-height: 1.7;
+color: #fff;
 }
 .fc-event-container a {
 padding: 4px 4px 0;
+}
+
+
+@media all and (max-width:768px) {
+
 }

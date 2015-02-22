@@ -1,8 +1,15 @@
 
-<h1>予約</h1>
 <%= javascript_tag do %>
-<%# binding.pry %>
 $(function(){
+	$('.search_btn').click(function(){
+      if($('#datetimepicker1 input').val().length>0){
+          var date = $('#datetimepicker1 input').val().split(/\s/)[0].replace(/\//g,'-');
+          location.href = '/reservations/list/' +date;
+      } else {
+          $(this).parents('.reservation').find('.error_date').css('display','block');
+          return  false;
+      }
+  });
 	$('#calendar').fullCalendar({
 		lang: 'ja',
 		header: {
@@ -21,19 +28,24 @@ $(function(){
 })
 $(function(){
 	$('.fc-day').mouseover(function(){
-	$(this).addClass('on');
+		$(this).addClass('on');
 	})
 	$('.fc-day').mouseout(function(){
-	$(this).removeClass('on');
+		$(this).removeClass('on');
 	})
+	var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
+
+    $('.datepicker').attr(data);
+    $('.datepicker').datetimepicker();
 })
 <% end %>
 
 <section>
-  <div class="contents reservations pure-g">
-    <div id="calendar" class="pure-u-3-5"></div>
-    <div class="sidenavi pure-u-2-5">
-      <%= render 'form' %>
+  <div class="contents reservations row">
+	  <div class="reservation">
+	  	<h4 class="tbar">ご予約はこちらから</h4>
+      <%= render 'search' %>
     </div>
+    <div id="calendar"></div>
   </div>
 </section>

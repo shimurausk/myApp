@@ -1,41 +1,54 @@
-
-<h1>予約</h1>
+ 
 <%= javascript_tag do %>
-<%# binding.pry %>
- $(function(){
+$(function(){
 	$('#calendar').fullCalendar({
 		lang: 'ja',
 		header: {
-				left: 'prev,next today',
+				left: '',
 				center: 'title',
 				right: ''
 			},
-			//defaultView:'basicDay',
 		events: 
-		<%= raw @reservation_data.to_json %>,
-		eventMouseover: function(){
-			$(this).css('background', '#fcc');
-    },
-    eventMouseout: function(){
-			$(this).css('background', '#fc0');
+		<%= raw @reservation_list.to_json %>,
+    dayClick: function(date, jsEvent, view) {
+				location.href = '/reservations/list/' + date.format();
     },
 		timeFormat: 'H:mm', // uppercase H for 24-hour clock
-
 	})
-
-})
-
-  
+	$('.form').addClass('dpn');
+	$('.form').parent().click(function(){
+		$(this).children('.form').toggle(function(){
+		var test;
+		});
+	})
+})	
 <% end %>
 
+
 <section>
-  <div class="contents pure-g">
-    <div id="calendar" class="pure-u-3-5"></div>
-    <div class="sidenavi pure-u-2-5">
-      <%#= raw @reservation_data.to_json %>
+  <div class="contents reservations row">
+    <div class="sidenavi today col-sm-12 col-md-3">
+      <table>
+      <caption><%= params[:day] %></caption>
+		    <% @reservation_today.each do |t| %>
+		    	<tr
+		    	<% if t[1]=='X' %>
+		    		class="no"
+					<% end %>
+		    		>
+			    	<th><%= t[0] %><span>:</span>00</th>
+			      <td>
+				      <span><%= t[1] %></span>
+				      <% if t[1]=='○' %>
+				      <% end %>
+			      </td>
+			    </tr>
+		    <% end %>
+      </table>
     </div>
+    <div id="calendar" class="col-sm-12 col-md-9"></div>
   </div>
-</section> 
+</section>
 
 
 <%= raw @reservation_list.to_json %>

@@ -1,0 +1,32 @@
+<%= javascript_tag do %>
+$(function(){
+	$('#calendar').fullCalendar({
+		lang: 'ja',
+		eventRender: function(events, element) {
+			if(events.img){
+			    $(element[0]).find('.fc-title');
+			}
+    },
+		header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+		displayEventEnd:{
+    month: true,
+    basicWeek: true,
+    'default': true
+},	
+		events: 
+		<%= raw @works_json.to_json() %>
+	,
+		timeFormat: 'H:mm', // uppercase H for 24-hour clock
+
+	})
+	//名前消す
+	$('.fc-title').css('display','none');
+})
+  
+<% end %>
+
+<div id="calendar"></div>

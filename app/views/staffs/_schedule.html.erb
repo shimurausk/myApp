@@ -1,15 +1,15 @@
 <%= javascript_tag do %>
-<% #binding.pry %>
 $(function(){
 	$('#calendar').fullCalendar({
 		lang: 'ja',
 		eventRender: function(events, element) {
-			if(events.img){
-			    $(element[0]).find('.fc-title').prepend('.fc-content')  //imgプロパティが存在するイベントだけtitleを画像に差し替え
-			    .css("border-color", "transparent")
-			    .css("background-color", "transparent")
-			    .html('<img src="'+events.img+'" width="16" height="16" />');
-			}
+			//if(events.img){
+			//    $(element[0]).find('.fc-title').prepend('.fc-content')
+			//imgプロパティが存在するイベントだけtitleを画像に差し替え
+			//    .css("border-color", "transparent")
+			//    .css("background-color", "transparent")
+			//    .html('<img src="'+events.img+'" width="32" height="32" class="icon" alt="'+ events.title +'" title="'+  events.title +'" />');
+			//}
     },
 		header: {
 				left: 'prev,next today',
@@ -27,7 +27,8 @@ $(function(){
 		timeFormat: 'H:mm', // uppercase H for 24-hour clock
 
 	})
-
+	$($(".fc-event-container")[0]).addClass('icons').prepend($('.fc-content'));
+	$(".fc-time").css('display','none');
 })
   
 <% end %>

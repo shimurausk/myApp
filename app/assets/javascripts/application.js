@@ -21,3 +21,24 @@
 //= require jquery-ui.custom.min
 //= require fullcalendar.min
 //= require lang-all
+
+
+//= require bootstrap
+//= require moment
+//= require bootstrap-datetimepicker
+$(function(){
+ //slide
+	// $('.Slide .Btn').click(function() {
+ //      var Inner= $(this).parent().children('.Inner');
+ //      Inner.toggle();
+ //  });
+  $('.search_btn').click(function(){
+      if($('#datetimepicker1 input').val().length>0){
+          var date = $('#datetimepicker1 input').val().split(/\s/)[0].replace(/\//g,'-');
+          location.href = '/reservations/list/' +date;
+      } else {
+          $(this).parents('.reservation').find('.error_date').css('display','block');
+          return  false;
+      }
+  })
+})

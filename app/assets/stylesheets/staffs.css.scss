@@ -2,21 +2,52 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.staff_table {
-	width: 90%;
-	border-collapse: collapse;
-	margin: 0 auto;
-th {
-	border: #e3e3e3 1px solid;
-		text-align: center;
-	background: #f7f7f7;
-	padding: 10px;
-	font-weight: normal;
-}
-td {
-	border: #e3e3e3 1px solid;
-	background: #fff;
-	text-align: left;
-	padding: 10px;
-}
+.staff{
+	.staff_table {
+			width: 100%;
+			border-collapse: collapse;
+			margin: 0 auto;
+		th {
+			border: #e3e3e3 1px solid;
+			text-align: center;
+			background: #f7f7f7;
+			padding: 10px;
+			font-weight: normal;
+		}
+		td {
+			border: #e3e3e3 1px solid;
+			background: #fff;
+			text-align: left;
+			padding: 10px;
+		}
+	}
+	
+	.sch {
+		margin: 24px auto;
+		width: 100%;
+	}
+	.fc-event{
+		border: none;
+		background: none;
+	}
+	.fc-content{
+		font-size:125%;
+	}
+	.icons{
+		.fc-content{
+			font-size:125%;
+			display:inline;
+		}
+	}
+	.fc-month-view {
+		.fc-time{
+			
+		}
+	}
+	.fc-basicWeek-view{
+
+	}
+	.fc-basicDay-view{
+
+	}
 }

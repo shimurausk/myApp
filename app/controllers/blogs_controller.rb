@@ -2,17 +2,16 @@ class BlogsController < ApplicationController
 
 	before_action :get_category
 	before_action :get_tags
+	before_action :related_post
 
 	def get_category
 		#@blogs_hava_category = Blog.where("category not?",nil)
-		#binding.pry
 		@blogs_hava_category = Blog.where(status:true)
-		#binding.pry
 		@blogs_category = []
 		@blogs_hava_category.each do |c|
 			@blogs_category.push(c.category)
 		end 
-		#binding.pry
+		
 		@blogs_category = @blogs_category.uniq()
 	end
 
@@ -21,34 +20,29 @@ class BlogsController < ApplicationController
 		@blogs_tags = []
 
 		@blogs.each do |t|
-			#binding.pry
 			#raw d.tags.map(&:name).map { |t| link_to t, tag_path(d)}.join(', ')
 			if(t.tags.any?)
 				t.tags.each do |hadTag|
-					#binding.pry
 					@blogs_tags.push(hadTag.name)
 				end
 			end
 			#t.tags.any? ? @blogs_tags.push(t.tags.map(&:name)) : ''
 		end
 		
-		#binding.pry
+		
 		@blogs_tags = @blogs_tags.uniq()
 	end
 
 	def related_post
-		@blog = Blog.all
-		
+		@Recently =  Blog.where(created_at: Date.today<<6...Date.today)
 	end
 
 	def index
 		@blogs = Blog.all.order("id DESC")
-		#binding.pry
 	end
 
 	def show
 		@blog = Blog.find(params[:id])
-		#binding.pry
 	end
 
 	def category
@@ -57,7 +51,6 @@ class BlogsController < ApplicationController
 
 	def tag
 		@tag = Tag.find_by_name(params[:tag]).blogs
-		#binding.pry
 	end
 
 	# def create

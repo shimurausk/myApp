@@ -1,0 +1,93 @@
+// Place all the styles related to the pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.kv{
+	margin: 0 auto;
+	text-align: center;
+	img {
+		width: 100%;
+	}
+}
+
+.datepicker{
+	position: relative;
+}
+.bg-danger{
+	color: #666;
+	margin-bottom: 8px;
+	padding: 8px 16px;
+	border-radius: 4px;
+}
+.error_date{
+	display:none;
+}
+.search_box{
+	position: relative;
+	background: #eee;
+	border: 2px solid #ddd;
+	border-radius: 4px;
+	padding: 16px;
+	label {
+		display: block;
+		margin-top: 8px;
+	}
+	.date {
+		width: 36%;
+		input{
+			width: 100% !important;
+		}
+	}
+}
+
+.form-inline{
+	.form-group{
+		margin-left: 16px;
+	}
+}
+
+.feature{
+	ul{
+		margin-top:24px;
+		padding-left: 0;
+	}
+	li {
+		list-style-type: none;
+	}
+}
+
+#new_reservation {
+	
+}
+
+
+@media all and (max-width:768px) {
+	.search_box{
+			margin-bottom: 15px;
+		.date {
+			width: 94%;
+			margin: 16px auto;
+			input{
+				width:auto;
+			}
+		}
+		.form-group{
+			margin-right:0;
+			line-height:2.4;
+			select {
+				margin-right:16px;
+				width: 80%;
+				float: left;
+			}
+		}
+	}
+	.feature{
+		li {
+			margin-top:24px;
+			list-style-type: none;
+		}
+	}
+	
+}
+

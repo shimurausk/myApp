@@ -7,14 +7,13 @@ class StaffsController < ApplicationController
 		@works_json =[]
 		@staffs.each do |staff|
 			staff.works.each do |work|
-			#binding.pry 
 			@work_data = {
 								'title' => staff.name,
 								'start' => work.start.strftime("%Y-%m-%d %H:%M:%S"),
 								'end' => work.end.strftime("%Y-%m-%d %H:%M:%S"),
-								'img' => staff.icon.url,
-								'backgroundColor' => '#fc0',
-								'borderColor' => '#fc3'
+								#'backgroundColor' => '#fc0',
+								#'borderColor' => '#fc3',
+								'img' => staff.icon.url
 							}
 			@works_json.push(@work_data)
 			
@@ -30,7 +29,6 @@ class StaffsController < ApplicationController
 
 		@works_json =[]
 			@staff.works.each do |work|
-			#binding.pry 
 			@work_data = {
 								'title' => @staff.name,
 								'start' => work.start.strftime("%Y-%m-%d %H:%M:%S"),
@@ -42,7 +40,5 @@ class StaffsController < ApplicationController
 			@works_json.push(@work_data)
 
 			end
-		#end
-
 	end
 end

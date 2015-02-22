@@ -23,7 +23,7 @@ class Ability
         can :manage, [Blog,Comment,Tag] # A
       end
     else
-      can :read, [Blogs] # B
+      can :read, [Blog] # B
       #can :create, [] # C
     end
     #

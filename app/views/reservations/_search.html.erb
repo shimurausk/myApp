@@ -1,0 +1,44 @@
+<%# params[:day] = Date.today.strftime('%Y-%m-%d') %>
+<%#= form_for @new_reservation,:url => reservations_search_result_path,html:{class:"form-inline reservation_form search"} do |f| %>
+<div class="error_date bg-danger">
+    <span class="">日付を指定してください</span>
+</div>
+<% if @new_reservation.errors.any? %>
+    <div class="bg-danger">
+        <strong>入力内容をご確認ください</strong>
+        <ul class="error">
+            <% @new_reservation.errors.each do |attr,msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<%= form_tag('',:method => 'get',class: "form-inline reservation_form search_box") do %>
+    <div class='input-group date' id='datetimepicker1'>
+        <%= text_field_tag 'params[:day]',{}, placeholder: '2015/2/10 14:30',:class => 'form-control' %>
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        <%#= f.datetime_select :day,:start_year => Time.now.year, :end_year => Time.now.year + 1,:start_hour => 10, :end_hour => 20,:use_month_numbers => true,:minute_step => 30, :date_separator => '-', :time_separator => ':', :datetime_separator => '<br><br>',class: "form-control datepicker" %>
+    </div>
+    <div class="form-group time">
+        <%= select_tag 'params[time]',options_for_select([["利用時間を選択",""],["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"]]),:class => 'form-control' %><span>時間</span>
+    </div>
+    <div class="form-group member">
+        <%= select_tag 'params[member]', options_for_select([["人数を選択",""],["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"]]),:class => 'form-control' %><span>人</span>
+    </div>
+    <div class="form-group content">
+        <%= select_tag 'params[content]', options_for_select([["プランを選択",""],["コースA", "コースA"], ["コースB", "コースB"], ["カット", "カット"], ["パーマ", "パーマ"]]),:class => 'form-control' %>
+    </div>
+    <div type="submit" class="form-group tac">
+        <%= link_to '空き状況を確認', {},class: "btn btn-default search_btn" %>
+    </div>
+<% end %>
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY/MM/DD HH:mm',
+            stepping: 30
+        });
+        
+    });
+</script>

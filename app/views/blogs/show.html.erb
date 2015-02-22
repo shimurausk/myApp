@@ -1,8 +1,7 @@
-<%= render 'header' %>
 
 <section>
-  <div class="contents pure-g">
-    <div class="postslist pure-u-2-3">
+  <div class="contents blog row">
+    <div class="postslist col-sm-12 col-md-8">
 			<article>
 				<div class="post">
 				  <h2><%= @blog.title %></h2>
@@ -17,26 +16,11 @@
 					  <div class="photo"><%= image_tag @blog.avatar.thumb.url if @blog.avatar? %></div>
 					  <div class="text"><%= @blog.text %></div>
 				  </div>
-				  <div class="comment_area">
-		      	<h3>コメント</h3>
-		      	<%= render @blog.comments %>
-		      	<%= render 'comments/form' %>
-				  </div>
-				  <% if user_signed_in? %>
-					  <div class="dev">
-						  <ul>
-						    <li><%= link_to '編集',edit_dashboards_path(id: @blog.id), :class => "button-secondary pure-button button-xsmall" %></li>
-						    <li><%= link_to '削除', delete_dashboards_path(id: @blog.id),method: :delete, data: { confirm: 'この記事を削除します。よろしいですか?' }, :class => "button-warning pure-button button-xsmall" %></li>
-						  </ul>
-						</div>
-					<% end %>
 				</div>
 			</article>
     </div>
-    <div class="sidenavi pure-u-1-3">
+    <div class="sidenavi col-sm-12 col-md-4">
       <%= render 'side' %>
     </div>
   </div>
 </section>
-
-<%= render 'footer' %>

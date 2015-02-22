@@ -1,7 +1,5 @@
 
-<h1>予約</h1>
 <%= javascript_tag do %>
-<%# binding.pry %>
 $(function(){
 	$('#calendar').fullCalendar({
 		lang: 'ja',
@@ -17,40 +15,37 @@ $(function(){
     },
 		timeFormat: 'H:mm', // uppercase H for 24-hour clock
 	})
-
 })
-  
+
 <% end %>
-<% 
-@businessHours = (10..22).to_a
-#binding.pry
- %>
 
 <section>
-  <div class="contents reservations pure-g">
-    <div id="calendar" class="pure-u-3-5"></div>
-    <div class="sidenavi pure-u-2-5">
-      <table class="today">
-      <caption><%= params[:day] %></caption>
-		    <% @businessHours.each do |t| %>
-		    	<tr
-		    	<% if @todaysReservation.nil? %>
-			    	>
-			    	<% else %>
-			      <% @todaysReservation.each do |reservation| %>
-				      <% if reservation.day.hour <= t && t <= reservation.day.hour + reservation.time.hour %>
-			      	 class="no"
-				      <% end %>
-				    <% end %>
-				    >
-				  <% end %>
-			      <th><%= t %><span>:</span>00</th>
-			      <td>&nbsp;</td>
-			    </tr>
-		    <% end %>
-      </table>
+  <div class="contents reservations row">
+    <div class="today">
+      <h3><%= params[:day] %></h3>
+      <p>以下の時間でご予約ができます。</p>
+      <%= form_for @new_reservation,:url => new_reservation_path(),:method => 'get',html:{class:"form-inline"} do |f| %>
+			<%# @new_reservation.day = 'test' %>
+      <%= f.hidden_field :day,:value => params[:day] %>
+      <ul>
+        <% @reservation_today.each do |t| %>
+          <% if t[1]=='○' %>
+            <li>
+            	<%= button_tag(type: 'submit',name: 'daytime',value: t[0],:class => 'btn btn-default') do %>
+            		<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+								<%= content_tag(:strong, "#{t[0]}:00") %>
+							<% end %>
+							<%#= button_to "#{t[0]}:00",:class =>'btn btn-default' %>
+
+              <!-- <a href="<%=  %>" class="btn btn-default">
+                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span><strong><%= t[0] %><span>:</span>00</strong>
+              </a> -->
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+      <% end %>
     </div>
+    <div id="calendar"></div>
   </div>
 </section>
-
-<%= raw @reservation_list.to_json %>

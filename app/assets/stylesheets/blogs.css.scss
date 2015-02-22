@@ -6,122 +6,76 @@ $basebgcolor: #e5e5e5;
 $basemargin: 8px;
 $baselinkcolor : #464646;
 $sidelinkcolor: #429e99;
-$basefontsize : 100%;
-
-.pure-button{
-	color: white !important;
-}
-.button-success,
-.button-error,
-.button-warning,
-.button-secondary {
-    color: white;
-    border-radius: 4px;
-    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-}
-
-.button-success {
-    background: rgb(28, 184, 65); /* this is a green */
-}
-
-.button-error {
-    background: rgb(202, 60, 60); /* this is a maroon */
-}
-
-.button-warning {
-    background: rgb(223, 117, 20); /* this is an orange */
-}
-
-.button-secondary {
-    background: rgb(66, 184, 221); /* this is a light blue */
-}
-.button-xsmall {
-    font-size: 70%;
-}
-
-.button-small {
-    font-size: 85%;
-}
-
-.button-large {
-    font-size: 110%;
-}
-
-.button-xlarge {
-    font-size: 125%;
-}
-
-.pure-control-group.avatar {
-
-	span {
-		display: block;
-		margin-left: 180px;
-		}
-}
-
-.pure-form-aligned .pure-control-group label {
-	text-align: left;
-	width: 5em;
-}
+$basefontsize : 150%;
 
 body{
-	background:$basebgcolor;
 	font-size: $basefontsize;
 }
 
 .header{
-	margin: $basemargin*2 $basemargin*6;
+	margin: $basemargin*2 $basemargin;
 	padding: $basemargin*2 0;
-	a {
-	text-decoration:none;
-	color: $baselinkcolor;
+	border-bottom: 1px solid $basebgcolor;
+	overflow: hidden;
+	h1 {
+		padding-bottom: 19px;
+		margin-top: 0;
+		margin-bottom: 0;
+		line-height: 40px;
+		float: left;
 	}
-	ul{
+	.smart{
+		display: none;
+	}
+	a {
+		text-decoration:none;
+		color: $baselinkcolor;
+		&:hover{
+			text-decoration:none;
+			color: $baselinkcolor;
+		}
+	}
+	.nav{
 		text-align:right;
 	}
-	ul li {
-		display: inline;
-	}
-	li.contact a {
+	li.signin a {
 		background: #333;
 		color: #fff;
-		padding: 8px 16px;
-		margin-left: 8px;
 		&:hover{
-			opacity:0.7;
+			color: #333;
 		}
-		}
+	}
 }
 
 .contents{
-	margin: $basemargin*2 $basemargin*6;
-	h2{
-		margin:4px 0;
-	}
+	margin: $basemargin*2 $basemargin;
+	
 	.option{
-		font-size:80%;
 		a{
 			color: $sidelinkcolor;
 			text-decoration:underline;
 		}
+	}
+	.article {
+		margin: 32px 0;
 	}
 	.photo{
 		margin: 8px auto;
 	}
 	.text{
 		color: #666;
+		font-size: 20px;
 	}
 }
 
 .postslist {
-	background: white;
-	box-shadow: 1px 1px 1px #ccc;
+	padding: 0;
 	a {
 		color: $baselinkcolor;
 		text-decoration:none;
 	}
 	h2{
-		font-size: $basefontsize *2.4;
+		font-size: $basefontsize *1.5;
 		text-shadow: -1px -1px 0px #eee;
 	}
 	.more{
@@ -130,8 +84,14 @@ body{
 }
 
 .post{
-	padding: $basemargin*2;
+	padding: $basemargin 0;
 	color: #333;
+	h2{
+	  margin:0 0 8px;
+	}
+	.option {
+		font-size: 16px;
+	}
 	.comment_area{
 		h3 {
 		background: #e5e5e5;
@@ -153,13 +113,19 @@ body{
 
 
 .sidenavi {
-
+	.search{
+		margin-bottom:$basemargin*2;
+		input {
+			width: 170px;
+			height: 30px;
+		}
+	}
 	 .box {
-	 	margin-bottom:24px;
+	 	margin-bottom:$basemargin;
 		padding: $basemargin $basemargin*2;
-		background: $baselinkcolor;
-		color: white;
-		box-shadow: 1px 1px 4px #999;
+		//background: $baselinkcolor;
+		//color: white;
+		//box-shadow: 1px 1px 4px #999;
 	}
 
 	h3 {
@@ -168,31 +134,29 @@ body{
 	}
 	ul{
 		padding:0 $basemargin*2;
-
 	}
 	a{
-	color:$sidelinkcolor;
+		color:$sidelinkcolor;
 	}
 }
  
 .side {
-	margin: 0px $basemargin*2;
+	ul{
+		margin: $basemargin*2 0;
+	}
 }
 
 
 
 .footer{
 	background: #efefef;
-	padding: $basemargin*2 $basemargin*6;
+	padding: $basemargin*2 $basemargin;
 }
 
-.dev{
-	margin: $basemargin*2;
-	border: 1px solid #ccc;
-	background: #eee;
+.jumbotron{
 	ul{
-	overflow:hidden;
-	padding:0;
+		overflow:hidden;
+		padding:0;
 		li{
 			list-style-type:none;
 			padding-left:16px;
@@ -211,4 +175,52 @@ body{
 	.s{ font-size:10px}
 	.m{ font-size:12px}
 	.l{ font-size:14px}
+}
+
+@media all and (max-width:768px) {
+.header{
+	text-align: center;
+	h1{
+		float: none;
+	}
+	.smart {
+		position: absolute;
+		left: 24px;
+		top: 24px;
+		font-size: 32px;
+		width: 46px;
+		height: 46px;
+		background: #eee;
+		color: #fff;
+		display: table;
+		.nav{
+			display: table-cell;
+			text-align: center;
+			vertical-align: middle;
+		}
+	}
+	.pull-right {
+		float: none;
+		margin: 0 auto;
+	}
+	.nav{
+	display:none;
+	}
+	ul li {
+		width: 48%;
+		text-align: center;
+	}
+}
+.sidenavi {
+padding: 24px 0 0;
+border-top: 1px solid #eee;
+.search input {
+width: 75%;
+}
+.box {
+padding: 8px 0;
+}
+}
+   
+
 }
