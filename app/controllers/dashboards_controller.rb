@@ -1,5 +1,7 @@
 class DashboardsController < ApplicationController
 	def index
+		@work = Work.all
+		@new_work = Work.new
 		@blogs = Blog.all.order("id DESC")
 		#binding.pry
 	end
@@ -48,6 +50,18 @@ class DashboardsController < ApplicationController
 		redirect_to blogs_path
 	end
 
+	def confirm
+		#入力チェック
+  	@data = Work.new(dashboard_params)
+  		
+  	if @data.valid?
+  		render :action => 'confirm'
+  	else
+
+  		@new_reservation = @data
+  		render :action => 'new'
+  	end
+	end
 
 	 private
 		def blogs_params

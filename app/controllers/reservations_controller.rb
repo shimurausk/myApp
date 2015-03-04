@@ -1,28 +1,24 @@
 class ReservationsController < ApplicationController
 
+include ApplicationHelper
+
 	def index
 		@reservations = Reservation.all
 
 		@reservation_list = []
 
 		@reservations.each do |reservation|
-			#binding.pry
-			# @end = Time.zone.local(reservation.day.year,
-			# 											 reservation.day.month,
-			# 											 reservation.day.day,
-			# 											 reservation.day.hour+reservation.time.hour,
-			# 											 reservation.time.min
-			# 											)
+
+			@start_end = reservation.day.strftime("%H:%M")+'-'+reservation.time.strftime("%H:%M")
 					
 			@reservation_data = {
 								'id' => reservation.id,
-								'title' => 'X',
+								'title' => @start_end,
 								'start' => reservation.day.strftime("%Y-%m-%d %H:%M:%S"),
 								'end' => reservation.time.strftime("%Y-%m-%d %H:%M:%S"),
-								# 'end' => @end.strftime("%Y-%m-%d %H:%M:%S"),
 								'backgroundColor' => '#aaa',
 								'borderColor' => '#aaa',
-								'textColor' => '#ccc'
+								'textColor' => '#fff'
 							}
 			@reservation_list.push(@reservation_data)
 			
@@ -30,39 +26,42 @@ class ReservationsController < ApplicationController
 
 		@new_reservation = Reservation.new
 
+		setTime()
+  	setMember()
+  	setContent()
+
 	end
 
 	def show
-		@reservation = Reservation.find(params[:id])
+		# @reservation = Reservation.find(params[:id])
 
-		@reservation_list = []
+		# @reservation_list = []
 		#@reservations.each do |reservation|
-		@end = Time.zone.local(@reservation.day.year,@reservation.day.month,@reservation.day.day,@reservation.day.hour+@reservation.time.hour,@reservation.time.min)
+		# @end = Time.zone.local(@reservation.day.year,@reservation.day.month,@reservation.day.day,@reservation.day.hour+@reservation.time.hour,@reservation.time.min)
 			
-		@reservation_data = {
-							'title' => 'X',
-							'start' => @reservation.day.strftime("%Y-%m-%d %H:%M:%S"),
-							'end' => @end.strftime("%Y-%m-%d %H:%M:%S"),
-							'backgroundColor' => '#aaa',
-							'borderColor' => '#aaa',
-							'textColor' => '#ccc'
-						}
+		# @reservation_data = {
+		# 					'title' => 'X',
+		# 					'start' => @reservation.day.strftime("%Y-%m-%d %H:%M:%S"),
+		# 					'end' => @end.strftime("%Y-%m-%d %H:%M:%S"),
+		# 					'backgroundColor' => '#aaa',
+		# 					'borderColor' => '#aaa',
+		# 					'textColor' => '#ccc'
+		# 				}
 
-			@reservation_list.push(@reservation_data)
+		# 	@reservation_list.push(@reservation_data)
 		#end
 	end
 
-	def list		
-		#@reservations = Reservation.where(:day=>params[:day])
+	def list
 		from = Time.zone.parse(params[:day])
-		to = from + 1.day
+		to = Time.zone.parse((from + 1.day).strftime("%Y-%m-%d"))
 
 		if Reservation.where(day: from...to).length > 0
 			@todaysReservations = Reservation.where(day: from...to)
 			@re = []
 			@todaysReservations.each do |todaysReservation|
 				num = 0
-				while num <= todaysReservation.time.strftime("%H").to_i do
+				while num <= todaysReservation.time.strftime("%H").to_i-todaysReservation.day.strftime("%H").to_i do
 					@re.push(todaysReservation.day.strftime("%H").to_i+num)
 					num = num +1
 				end
@@ -80,21 +79,17 @@ class ReservationsController < ApplicationController
 				@reservation_today[hour] = @re.index(hour) ? 'X' : '○'
 			end
 		end	
-			
+
 		@reservations = Reservation.all
 		@reservation_list = []
 
 		@reservations.each do |reservation|
-			# @end = Time.zone.local(reservation.day.year,
-			# 											 reservation.day.month,
-			# 											 reservation.day.day,
-			# 											 reservation.day.hour+reservation.time.hour,
-			# 											 reservation.time.min
-			# 											)
+
+			@start_end = reservation.day.strftime("%H:%M")+'-'+reservation.time.strftime("%H:%M")
 					
 			@reservation_data = {
 								'id' => reservation.id,
-								'title' => 'X',
+								'title' => @start_end,
 								'start' => reservation.day.strftime("%Y-%m-%d %H:%M:%S"),
 								'end' => reservation.time.strftime("%Y-%m-%d %H:%M:%S"),
 								'backgroundColor' => '#aaa',
@@ -102,7 +97,6 @@ class ReservationsController < ApplicationController
 								'textColor' => '#ccc'
 							}
 			@reservation_list.push(@reservation_data)
-			
 		end
 		@new_reservation = Reservation.new
 	end
@@ -112,41 +106,46 @@ class ReservationsController < ApplicationController
 		@new_reservation = Reservation.new
 
 		@new_reservation[:day] = params[:reservation][:day] + ' ' + params[:daytime]
-
+		
+		setTime()
+		setMember()
+		setContent()
 	end
 
 	def confirm
 
-  		# @year = reservation_params['day(1i)']
-  		# @month = reservation_params['day(2i)']
-  		# @day = reservation_params['day(3i)']
-  		# @hour = reservation_params['day(4i)']
-  		# @min = reservation_params['day(5i)']
+		# @year = reservation_params['day(1i)']
+		# @month = reservation_params['day(2i)']
+		# @day = reservation_params['day(3i)']
+		# @hour = reservation_params['day(4i)']
+		# @min = reservation_params['day(5i)']
 
-  		
-  		# reservation_params['day(4i)'].replace(@hour)
-  		# reservation_params['day(5i)'].replace(@min)
-  		# reservation_params['time(1i)'].replace(@year)
-  		# reservation_params['time(2i)'].replace(@month)
-  		# reservation_params['time(3i)'].replace(@day)
+		
+		# reservation_params['day(4i)'].replace(@hour)
+		# reservation_params['day(5i)'].replace(@min)
+		# reservation_params['time(1i)'].replace(@year)
+		# reservation_params['time(2i)'].replace(@month)
+		# reservation_params['time(3i)'].replace(@day)
 
-  		# @date = reservation_params[:day].to_time.to_i
-  		# @time = reservation_params[:time].to_i*60*60
-  		# reservation_params[:time] = Time.at(@date+@time)
- 			
- 			#日時がすでにあればエラー
-  		#if Reservation.where("day<?",params[:day])
+		# @date = reservation_params[:day].to_time.to_i
+		# @time = reservation_params[:time].to_i*60*60
+		# reservation_params[:time] = Time.at(@date+@time)
+			
+			#日時がすでにあればエラー
+		#if Reservation.where("day<?",params[:day])
+
 
 
   	#入力チェック
-  	@reservation = Reservation.new(reservation_params)
+  	@new_reservation = Reservation.new(reservation_params)
 
-  	
+  	setTime()
+  	setMember()
+  	setContent()
   		
-  	if @reservation.valid?
+  	if @new_reservation.valid?
   		render :action => 'confirm'
   	else
-  		@new_reservation = @reservation
   		render :action => 'new'
   	end
 
@@ -154,9 +153,9 @@ class ReservationsController < ApplicationController
 
   def create
   	#メール送信
-  	@reservation = Reservation.new(reservation_params)
-  	@reservation.save
-  	#ContactMailer.received_email(@reservation).deliver
+  	@new_reservation = Reservation.new(reservation_params)
+  	@new_reservation.save
+  	#ContactMailer.received_email(@new_reservation).deliver
   	render :action => 'create'
   end
 

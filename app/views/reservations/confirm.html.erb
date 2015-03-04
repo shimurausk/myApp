@@ -1,28 +1,39 @@
+<script type="text/javascript">
+    $(function () {
+        $('button').click(function(){
+          window.history.back(-1);
+          return false;
+        });
+    });
+</script>
 <section>
   <div class="contents reservations row">
-    <p>以下の内容でご予約を承ります。よろしいでしょうか？ </p>
+    <div class="new">
+      <p>以下の内容でご予約を承ります。よろしいでしょうか？ </p>
 
-      <%= form_for @reservation,html:{class:"form-group reservation_form"} do |f| %>
-      
+      <%= form_for @new_reservation,html:{class:"form-group reservation_form"} do |f| %>
       <dl>
+        <dt class="col-sm-12 col-md-2"><%= f.label '日時' %></dt>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :day %><%= @new_reservation.day.strftime("%Y/%m/%d %H:%M") %></dd>
         <dt class="col-sm-12 col-md-2"><%= f.label 'お名前' %></dt>
-        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :name %><%= @reservation.name %></dd>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :name %><%= @new_reservation.name %></dd>
         <dt class="col-sm-12 col-md-2"><%= f.label 'メールアドレス' %></dt>
-        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :email %><%= @reservation.email %></dd>
-        <dt class="col-sm-12 col-md-2"><%= f.label '日付' %></dt>
-        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :day %><%= @reservation.day.year %><span>年</span><%= @reservation.day.month %><span>月</span><%= @reservation.day.day %><span>日</span> <%= @reservation.day.hour %><span>:</span><%= @reservation.day.min %></dd>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :email %><%= @new_reservation.email %></dd>
         <dt class="col-sm-12 col-md-2"><%= f.label '時間' %></dt>
-        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :time %><%= @reservation.time.hour-@reservation.day.hour %><span>時間</span></dd>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :time %><%= @new_reservation.time.hour-@new_reservation.day.hour %><span>時間</span></dd>
         <dt class="col-sm-12 col-md-2"><%= f.label '人数' %></dt>
-        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :member %><%= @reservation.member %><span>人</span></dd>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :member %><%= @new_reservation.member %><span>人</span></dd>
         <dt class="col-sm-12 col-md-2"><%= f.label '内容' %></dt>
-        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :content %><%= @reservation.content %></dd>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :content %><%= @new_reservation.content %></dd>
       </dl>
 
       <p class="tac">
+        <%= button_tag(type: 'button',class:"btn btn-default") do
+          content_tag(:span, '戻る')
+        end %>
         <%= f.submit '送信',class:"btn btn-default" %>
       </p>
-    <% end %>
-
+      <% end %>
+    </div>
   </div>
 </section>

@@ -6,11 +6,11 @@ Rails.application.routes.draw do
 
 
 
-  get 'blogs/dashboards', to:'dashboards#index' ,as: :dashboards
-  get 'blogs/dashboards/:id/edit', to:'dashboards#edit', as: :edit_dashboards
-  put 'blogs/dashboards/:id/', to:'dashboards#update', as: :update_dashboards
-  patch 'blogs/dashboards/:id/', to:'dashboards#update'
-  delete 'blogs/dashboards/:id/', to:'dashboards#destroy', as: :delete_dashboards
+  # get 'blogs/dashboards', to:'dashboards#index' ,as: :dashboards
+  # get 'blogs/dashboards/:id/edit', to:'dashboards#edit', as: :edit_dashboards
+  # put 'blogs/dashboards/:id/', to:'dashboards#update', as: :update_dashboards
+  # patch 'blogs/dashboards/:id/', to:'dashboards#update'
+  # delete 'blogs/dashboards/:id/', to:'dashboards#destroy', as: :delete_dashboards
 
   # get 'blogs/dashboards', to:'dashboards#index' ,as: :dashboards
   # match 'blogs/dashboards/edit', :via => :get
@@ -20,7 +20,6 @@ Rails.application.routes.draw do
   resources :blogs do
     resources :comments
     # member do 
-    #  resources :dashborads
     # end
   end
 
@@ -37,11 +36,15 @@ end
 #match 'reservations/entry' ,:via => :post,as: :reservations_entry
 #match 'reservations/search_result' ,:via => :post
 match 'reservations/confirm' ,:via => :post
-match 'reservations/thanks' ,:via => :post
+# match 'reservations/thanks' ,:via => :post
+# post 'reservations/list/:day' ,to: 'reservations#list', as: :day
+# get 'reservations/list/:day' ,to: 'reservations#list', as: :days
+post 'reservations/list/' ,to: 'reservations#list'
 get 'reservations/list/:day' ,to: 'reservations#list', as: :day
 resources :reservations
 
-
+match 'dashboards/confirm' ,:via => :post
+resources :dashboards
 # Blog.all.each do |cat|
 #   get "#{cat.category}" => 'blogs#view', :id => cat.id
 # end

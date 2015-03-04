@@ -42,7 +42,6 @@ font-size: 14px;
 input,
 form input[type=checkbox] {
 background: #fbfbfb;
-border-radius: 8px;
 }
 .field_with_errors {
   float: none;

@@ -1,6 +1,10 @@
 <% if user_signed_in? %>
 <section>
   <div class="contents staff Slide">
+  <%= link_to '管理画面',dashboards_path %>
+  	<div class="sch">
+      <%= render 'schedule' %>
+    </div>
   	<div class="tbar Btn">スタッフ一覧▼</div>
   	<div class="Inner">
       <table class="staff_table">
@@ -14,10 +18,6 @@
 				<% end %>
 			</table>
     </div>
-    <div class="sch">
-      <%= render 'schedule' %>
-    </div>
-    
   </div>
 </section>
 
