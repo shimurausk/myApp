@@ -43,6 +43,7 @@ post 'reservations/list/' ,to: 'reservations#list'
 get 'reservations/list/:day' ,to: 'reservations#list', as: :day
 resources :reservations
 
+get 'dashboards/workday/:workday' ,to: 'dashboards#workday', as: :workday
 match 'dashboards/confirm' ,:via => :post
 resources :dashboards
 # Blog.all.each do |cat|

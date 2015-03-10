@@ -2,6 +2,7 @@
 $(function(){
 	$('#calendar').fullCalendar({
 		lang: 'ja',
+		height:1000,
 		eventRender: function(events, element) {
 			//if(events.img){
 			//    $(element[0]).find('.fc-title').prepend('.fc-content')
@@ -27,8 +28,8 @@ $(function(){
 		timeFormat: 'H:mm', // uppercase H for 24-hour clock
 
 	})
-	$($(".fc-event-container")[0]).addClass('icons').prepend($('.fc-content'));
-	$(".fc-time").css('display','none');
+	//$($(".fc-event-container")[0]).addClass('icons').prepend($('.fc-content'));
+	//$(".fc-time").css('display','none');
 })
   
 <% end %>

@@ -12,7 +12,7 @@
 <% end %>
 
 <%= form_for @new_reservation,:url => reservations_confirm_path,html:{class:"form-group reservation_form"} do |f| %>
-    
+    <%# binding.pry %>
     <%= f.label '日時' %>
     <h4><%=  @new_reservation.day.strftime('%Y-%m-%d %H:%M') %></h4><%= f.hidden_field :day %>
     <div class="form-group name">

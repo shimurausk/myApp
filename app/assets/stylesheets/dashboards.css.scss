@@ -1,3 +1,20 @@
 // Place all the styles related to the dashboards controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+.dash{
+	margin-bottom:16px;
+	.title{
+		h2{
+			display:inline;
+		}
+		strong{
+			margin:0 8px;
+		}
+	}
+	
+	.block{
+		margin:8px 0;
+	}
+}

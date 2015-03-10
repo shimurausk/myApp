@@ -27,6 +27,21 @@ module ApplicationHelper
 			@new_reservation[:day] = Date.today
 		end
 
+		# @dc = Reservation.where(:day => @new_reservation.day.strftime('%Y-%m-%d')..(@new_reservation.day+1.day).strftime('%Y-%m-%d'))
+		#binding.pry
+
+		# checktimes = []
+		# @dc.each do |f|
+		# 	if f.day-params[:reservation][:day].to_time+params[:daytime].to_i.hours > 0
+		# 		checktimes.push(f.day.strftime('%H:%M'))
+		# 	end
+
+		# 	checktimes.sort
+
+		# end
+		#予約できる時間を割り出す
+		#その日時の予約をとって、次の予約までの時間帯を表示
+
 		while num <= 8 do
 			@time.push([num,@new_reservation[:day]+num.hour])
 			num = num +1
