@@ -21,6 +21,8 @@
         <dd class="col-sm-12 col-md-10"><%= f.hidden_field :email %><%= @new_reservation.email %></dd>
         <dt class="col-sm-12 col-md-2"><%= f.label '時間' %></dt>
         <dd class="col-sm-12 col-md-10"><%= f.hidden_field :time %><%= @new_reservation.time.hour-@new_reservation.day.hour %><span>時間</span></dd>
+        <dt class="col-sm-12 col-md-2"><%= f.label '担当' %></dt>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :staff_id %><%= @staff_name %></dd>
         <dt class="col-sm-12 col-md-2"><%= f.label '人数' %></dt>
         <dd class="col-sm-12 col-md-10"><%= f.hidden_field :member %><%= @new_reservation.member %><span>人</span></dd>
         <dt class="col-sm-12 col-md-2"><%= f.label '内容' %></dt>

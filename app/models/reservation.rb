@@ -1,4 +1,5 @@
 class Reservation < ActiveRecord::Base
+	belongs_to :staff
 	validates :name, :presence => {:message => '名前を入力してください'}
 	VALID_EMAIL_REGEX =  /\A[^@]+@.+\..+\z/i
 	validates :email, :presence => {:message => 'メールアドレスを入力してください'},

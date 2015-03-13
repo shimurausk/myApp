@@ -106,7 +106,8 @@ include ApplicationHelper
 		@new_reservation = Reservation.new
 
 		@new_reservation[:day] = params[:reservation][:day] + ' ' + params[:daytime]
-		
+
+		setStaff()
 		setTime()
 		setMember()
 		setContent()
@@ -139,10 +140,11 @@ include ApplicationHelper
   	#入力チェック
   	@new_reservation = Reservation.new(reservation_params)
 
+  	setStaff()
   	setTime()
   	setMember()
   	setContent()
-  		
+  		@staff_name = Staff.all[@new_reservation.staff_id][:name]
   	if @new_reservation.valid?
   		render :action => 'confirm'
   	else
@@ -161,7 +163,7 @@ include ApplicationHelper
 
   private
   	def reservation_params
-  		params.require(:reservation).permit(:name,:email,:day,:time,:member,:content)
+  		params.require(:reservation).permit(:name,:email,:day,:time,:member,:content,:staff_id)
   	end
 
 end

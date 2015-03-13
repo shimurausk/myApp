@@ -12,7 +12,7 @@
 <% end %>
 
 <%= form_for @new_reservation,:url => reservations_confirm_path,html:{class:"form-group reservation_form"} do |f| %>
-    <%# binding.pry %>
+    <%# binding.pry %>    
     <%= f.label '日時' %>
     <h4><%=  @new_reservation.day.strftime('%Y-%m-%d %H:%M') %></h4><%= f.hidden_field :day %>
     <div class="form-group name">
@@ -20,6 +20,9 @@
     </div>
     <div class="form-group mail">
         <%= f.label 'メールアドレス' %><%= f.text_field :email, class: "form-control" %>
+    </div>
+    <div class="form-group staff">
+        <%= f.select :staff_id,options_for_select(@staffs),{:prompt => 'Staffを選択'}, {:class => 'form-control'} %>
     </div>
     <div class="form-group time">
         <%= f.select :time,options_for_select(@time,:selected => @new_reservation.time.to_s),{:prompt => '利用時間を選択'}, {:class => 'form-control'} %>

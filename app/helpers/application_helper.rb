@@ -57,6 +57,17 @@ module ApplicationHelper
 		end
 	end
 
+	def setStaff
+		@staffs = []
+		@allstaff = Staff.all
+		
+		@allstaff.each do |staff|
+			
+			@staffs.push([staff[:name],staff[:id]])
+		end
+		
+	end
+
 	def setContent
 		@content = ["カット", "カット"], ["パーマ", "パーマ"]
 
@@ -72,6 +83,7 @@ module ApplicationHelper
 			end
 		end
 
+		#電話で予約取る場合もあり。少しバッファを持たせた方がいい
 		if @course_a < 3
 			@content.push(["コースA", "コースA"])
 		end

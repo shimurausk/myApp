@@ -24,6 +24,7 @@ $(function(){
     <div class="today">
       <h3><%= params[:day] %></h3>
       <p>以下の時間でご予約ができます。</p>
+      <%# binding.pry %>
       <%= form_for @new_reservation,:url => new_reservation_path(),:method => 'get',html:{class:"form-inline"} do |f| %>
       <ul>
         <% @reservation_today.each do |t| %>
