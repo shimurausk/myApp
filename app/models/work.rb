@@ -1,5 +1,5 @@
 class Work < ActiveRecord::Base
-  belongs_to :staff
+  # belongs_to :staff
   #validates :date,presence: true
   #validates :start,presence: true
   #validates :end,presence: true

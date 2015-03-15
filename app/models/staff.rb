@@ -1,4 +1,5 @@
 class Staff < ActiveRecord::Base
+	belongs_to :user
 	has_many :works
 	has_many :reservations, dependent: :destroy
 	validates :name,presence: true

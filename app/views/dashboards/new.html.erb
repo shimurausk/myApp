@@ -1,7 +1,11 @@
 <% if user_signed_in? %>
+<% 
+	staff = Staff.where(:name=>current_user[:name])
+	staff_id = staff[0].name
+ %>
 <div class="dash">
 	<div class="title">
-		<h2>Dashboard<strong>:<%= current_user.email %></strong></h2>
+		<h2>Dashboard<strong>:<%= staff[0].name %></strong></h2>
 	</div>
 
 		<h3>シフト登録</h3>
@@ -15,10 +19,10 @@
 		        </ul>
 		    </div>
 		<% end %>
-
+	
 	<%= form_for @new_work,:url => dashboards_confirm_path,html:{class:"form-inline"} do |f| %>
-
-	    <%= f.hidden_field :staff_id,:value => 3 %>
+	
+	    <%= f.hidden_field :staff_id,:value => staff[0].id %>
 			
 	    <!-- 2週間分を登録申請 -->
 	    <% @days.each do |day| %>

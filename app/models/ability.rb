@@ -23,7 +23,9 @@ class Ability
         can :manage, [Blog,Comment,Tag] # A
       end
     else
-      can :read, [Blog] # B
+      can :access, :rails_admin
+      can :dashboard
+      can :read, [Blog,Staff] # B
       #can :create, [] # C
     end
     #

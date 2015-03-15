@@ -18,7 +18,7 @@
  *= require bootstrap-datetimepicker
  */
 
-@import 'reservations.css.scss'
+@import 'reservations.css.scss';
 
 ul{
 		list-style-type: none;
