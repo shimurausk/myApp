@@ -1,5 +1,62 @@
-<h1>投稿の編集</h1>
+<% if user_signed_in? %>
+<%= render 'layouts/header' %>
+<div class="dash">
+	<div class="title">
+		<h2>Dashboard<strong>:<%= current_user.username %></strong></h2>
+	</div>
 
-<%= render 'form' %>
+	<h3>登録情報</h3>
+	<% if @staff_info.errors.any? %>
+    <div class="bg-danger">
+      <strong>入力内容をご確認ください</strong>
+      <ul class="error">
+        <% @staff_info.errors.each do |attr,msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+	<% end %>
 
-<p><%= link_to '戻る', blog_path %></p>
+	<%= form_for @staff_info,:url => dashboard_path,html:{class:"form-group"} do |f| %>
+    <div class="block">
+			<%= f.hidden_field :id %>
+	    <div class="form-group name">
+	        <%= f.label 'お名前' %><%= f.text_field :name, class: "form-control" %>
+	    </div>
+	    <div class="form-group mail">
+	        <%= f.label 'メールアドレス' %><%= f.text_field :email, class: "form-control" %>
+	    </div>
+	    <div class="form-group address">
+	        <%= f.label '住所' %><%= f.text_field :address, class: "form-control" %>
+	    </div>
+	    <div class="form-group age">
+	        <%= f.label '年齢' %><%= f.text_field :age, class: "form-control" %>
+	    </div>
+	    <div class="form-group icon">
+	        <%= f.label 'アイコン' %>
+	        <%= f.file_field :icon %>
+					<%= f.hidden_field :icon_cache %>
+					<span><%= image_tag @staff_info.icon.thumb.url if @staff_info.icon? %></span>
+	    </div>
+	    <% @staff_info.reservations %>
+	    <div class="form-group post">
+	        <%#= f.label '役職' %><%#= f.text_field :post, class: "form-control" %>
+	    </div>
+	    <div class="form-group memo">
+	        <%#= f.label '備考' %><%#= f.text_field :memo, class: "form-control" %>
+	    </div>
+	    <div class="form-group memo">
+	        <%#= f.label '時給' %><%#= f.text_field :hourlywage, class: "form-control" %>
+	    </div>
+	    <div type="submit" class="form-group tac">
+	    	<%= f.submit '編集する',class:"btn btn-default" %>
+			  <%#= button_tag(type: 'submit',class:"btn btn-default") do
+          content_tag(:span, '編集する')
+        end %>
+	    </div>
+    </div>
+	<% end %>	
+</div>
+
+<%= render 'layouts/footer' %>
+<% end %>

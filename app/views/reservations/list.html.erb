@@ -1,4 +1,4 @@
-
+<%= render 'layouts/header' %>
 <%= javascript_tag do %>
 $(function(){
 	$('#calendar').fullCalendar({
@@ -9,7 +9,7 @@ $(function(){
 				right: ''
 			},
 		events: 
-		<%= raw @reservation_list.to_json %>,
+		<%= raw @all_reservation.to_json %>,
     dayClick: function(date, jsEvent, view) {
 				location.href = '/reservations/list/' + date.format();
     },
@@ -24,10 +24,10 @@ $(function(){
     <div class="today">
       <h3><%= params[:day] %></h3>
       <p>以下の時間でご予約ができます。</p>
-      <%# binding.pry %>
+
       <%= form_for @new_reservation,:url => new_reservation_path(),:method => 'get',html:{class:"form-inline"} do |f| %>
       <ul>
-        <% @reservation_today.each do |t| %>
+        <% @yet_reservation_time.each do |t| %>
           <% if t[1]=='○' %>
             <li>
             	<%= button_tag(type: 'submit',name: 'daytime',value: t[0],:class => 'btn btn-default') do %>
@@ -44,3 +44,4 @@ $(function(){
     <div id="calendar"></div>
   </div>
 </section>
+<%= render 'layouts/footer' %>

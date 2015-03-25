@@ -38,11 +38,16 @@ body{
 	.nav{
 		text-align:right;
 	}
-	li.signin a {
-		background: #333;
-		color: #fff;
-		&:hover{
-			color: #333;
+	li{
+		.signin {
+			background: #333;
+			color: #fff;
+			&:hover{
+				color: #333;
+			}
+		}
+		.signout {
+			background: #ccc;
 		}
 	}
 }

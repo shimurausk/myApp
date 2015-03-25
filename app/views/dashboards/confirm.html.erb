@@ -1,3 +1,4 @@
+<%= render 'layouts/header' %>
 <script type="text/javascript">
     $(function () {
         $('button').click(function(){
@@ -9,31 +10,34 @@
 <section>
   <div class="contents works row">
     <p>以下の日時で登録します。よろしいですか？</p>
-
       <%= form_for @works,:url => dashboards_path,html:{class:"form-group"} do |f| %>
-      
-      <table class="table table-bordered">
-        <tr class="active">
-          <th><%= f.label '日時' %></th>
-          <th><%= f.label '開始時間' %></th>
-          <th><%= f.label '終了時間' %></th>
-        </tr>
-        <tr>
-          <td><%= f.hidden_field :date %><%= @works.date.strftime("%Y/%m/%d") %></td>
-          <td><%= f.hidden_field :start %><%= @works.start.strftime("%H:%M") %></td>
-          <td><%= f.hidden_field :end %><%= @works.end.strftime("%H:%M") %></td>
-        </tr>
-      </table>
-      
-      <%= f.hidden_field :break %>
-      <%= f.hidden_field :staff_id %>
-      <p class="tac">
-        <%= button_tag(type: 'button',class:"btn btn-default") do
-          content_tag(:span, '戻る')
-        end %>
-        <%= f.submit '送信',class:"btn btn-default" %>
-      </p>
+        <table class="table table-bordered">
+          <tr class="active">
+            <th><%= f.label '日時' %></th>
+            <th><%= f.label '開始時間' %></th>
+            <th><%= f.label '終了時間' %></th>
+          </tr>
+         <% @works.each do |work| %>
+           <%= fields_for 'work[]',work,index: nil do |fh| %>
+            <tr>
+              <td><%= fh.hidden_field :date %><%= work.date.strftime("%Y/%m/%d") %></td>
+              <td><%= fh.hidden_field :start %><%= work.start %></td>
+              <td>
+                  <%= fh.hidden_field :end %><%= work.end %>
+                  <%= fh.hidden_field :break %>
+                  <%= fh.hidden_field :staff_id %>
+              </td>
+            </tr>
+           <% end %>
+         <% end %>
+        </table>
+        <p class="tac">
+          <%= button_tag(type: 'button',class:"btn btn-default") do
+            content_tag(:span, '戻る')
+          end %>
+          <%= f.submit '送信',class:"btn btn-default" %>
+        </p>
     <% end %>
-
   </div>
 </section>
+<%= render 'layouts/footer' %>

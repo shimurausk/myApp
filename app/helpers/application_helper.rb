@@ -1,51 +1,125 @@
 module ApplicationHelper
 
+	STAFF_START_TIME = 9
+	STAFF_END_TIME = 21
+
+	STORE_START_TIME = 10
+	STORE_END_TIME = 20
+
 	def tag_cloud(tags, classes)
 
 		max = tags.sort_by(&:count).last
 
 		tags.each do |tag|
-							#binding.pry
+							
 			index = tag.count.to_f / max.count * (classes.size-1)
 
 			yield(tag,classes[index.round])
 		end
 	end
 
-	def businessHours(startTime, endTime)
-		keys = (startTime..endTime).to_a
-		values = (startTime..endTime).to_a
+	def businessHours
+		@business_hours = (STORE_START_TIME..STORE_END_TIME).to_a
+		values = (STORE_START_TIME..STORE_END_TIME).to_a
 		transposed = [keys, values].transpose
-		@businessHours = Hash[transposed]
+		@business_hours = Hash[transposed]
+	end
+
+	def halfMonth
+		today = Time.zone.now
+
+		#1--14,15--30(28.31)
+		if today<today.beginning_of_month+2.week
+			startday = today.beginning_of_month
+			endday = today.beginning_of_month+2.week
+		else
+			startday = today.beginning_of_month+2.week
+			endday = today.end_of_month
+		end
+
+		@days = []
+
+		num = 0
+
+		(startday.strftime('%d').to_i..endday.strftime('%d').to_i).each do |n|			
+			@days.push(startday+num.day)
+			num += 1
+		end
+
+	end
+
+	def allReservation
+		
+		@reservations = Reservation.all
+		@all_reservation = []
+
+		@reservations.each do |reservation|
+			@start_end = reservation.day.strftime("%H:%M")+'-'+reservation.time.strftime("%H:%M")
+					
+			@reservation_data = {
+								'id' => reservation.id,
+								'title' => @start_end,
+								'start' => reservation.day.strftime("%Y-%m-%d %H:%M:%S"),
+								'end' => reservation.time.strftime("%Y-%m-%d %H:%M:%S"),
+								'backgroundColor' => '#aaa',
+								'borderColor' => '#aaa',
+								'textColor' => '#ccc'
+							}
+
+			@all_reservation.push(@reservation_data)
+		end
+
+	end
+
+	def todaysReservation(day)
+		@todays_reservation = []
+		from = Time.zone.parse(day)
+		to = Time.zone.parse((from + 1.day).strftime("%Y-%m-%d"))
+
+		if Reservation.where(day: from...to).any?
+			@get_reservations = Reservation.where(day: from...to)
+			
+			@get_reservations.each do |t|
+				num = 0
+				while num <= t.time.strftime("%H").to_i-t.day.strftime("%H").to_i do
+					@todays_reservation.push(t.day.strftime("%H").to_i+num)
+					num = num +1
+				end
+			end
+		end
+
 	end
 
 	def setTime
 		@time = []
-		num = 1
 
 		if @new_reservation[:day].nil? 
 			@new_reservation[:day] = Date.today
 		end
 
-		# @dc = Reservation.where(:day => @new_reservation.day.strftime('%Y-%m-%d')..(@new_reservation.day+1.day).strftime('%Y-%m-%d'))
-		#binding.pry
-
-		# checktimes = []
-		# @dc.each do |f|
-		# 	if f.day-params[:reservation][:day].to_time+params[:daytime].to_i.hours > 0
-		# 		checktimes.push(f.day.strftime('%H:%M'))
-		# 	end
-
-		# 	checktimes.sort
-
-		# end
 		#予約できる時間を割り出す
 		#その日時の予約をとって、次の予約までの時間帯を表示
 
-		while num <= 8 do
-			@time.push([num,@new_reservation[:day]+num.hour])
-			num = num +1
+		num = 0
+
+		if @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0].nil?
+
+			# 予約が入ってない、選択時間が予約時間より後の場合は営業終了時間までを表示
+			while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
+				@time.push([num+1,@new_reservation[:day]+(num+1).hour])
+				num = num +1
+			end
+
+		else	
+
+			next_reservation_time = @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0]
+			while num < next_reservation_time-params[:daytime].to_i do
+				@time.push([num+1,@new_reservation[:day]+(num+1).hour])
+				num = num +1
+			end
+
 		end
+		
 	end
 
 	def setMember
@@ -57,12 +131,17 @@ module ApplicationHelper
 		end
 	end
 
+	def setUser(username)
+		@this_user = {}
+		alluser = User.all
+		
+		@this_user = Staff.where(:name=>username)
+	end
+
 	def setStaff
 		@staffs = []
 		@allstaff = Staff.all
-		
 		@allstaff.each do |staff|
-			
 			@staffs.push([staff[:name],staff[:id]])
 		end
 		

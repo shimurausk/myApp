@@ -1,4 +1,5 @@
 <% if user_signed_in? %>
+<%= render 'layouts/header' %>
 <section>
   <div class="contents staff row">
   	<div class="tbar">スタッフ詳細</div>
@@ -22,9 +23,11 @@
 					<td><%= @staff.hourlywage %></td>
 				</tr>
 		</table>
-		<% end %>
+		
 
 		<div class="sch">
 			<%= render 'detail' %>
 		</div>
 	</div>
+	<%= render 'layouts/footer' %>
+	<% end %>

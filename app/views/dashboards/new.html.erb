@@ -1,56 +1,59 @@
 <% if user_signed_in? %>
-<% 
-	staff = Staff.where(:name=>current_user[:name])
-	staff_id = staff[0].name
- %>
+<%= render 'layouts/header' %>
+
 <div class="dash">
 	<div class="title">
-		<h2>Dashboard<strong>:<%= staff[0].name %></strong></h2>
+		<h2>Dashboard<strong>:<%= current_user[:username] %></strong></h2>
 	</div>
 
 		<h3>シフト登録</h3>
 		<% if @new_work.errors.any? %>
 		    <div class="bg-danger">
-		        <strong>入力内容をご確認ください</strong>
-		        <ul class="error">
-		            <% @new_work.errors.each do |attr,msg| %>
-		                <li><%= msg %></li>
-		            <% end %>
-		        </ul>
+	        <strong>入力内容をご確認ください</strong>
+	        <ul class="error">
+            <% @new_work.errors.each do |attr,msg| %>
+              <li><%= msg %></li>
+            <% end %>
+	        </ul>
 		    </div>
 		<% end %>
 	
-	<%= form_for @new_work,:url => dashboards_confirm_path,html:{class:"form-inline"} do |f| %>
-	
-	    <%= f.hidden_field :staff_id,:value => staff[0].id %>
-			
-	    <!-- 2週間分を登録申請 -->
-	    <% @days.each do |day| %>
+	<%#= form_for @new_work,:url => dashboards_confirm_path,html:{class:"form-inline"} do |f| %>
+	<%= form_tag('/dashboards/confirm',class:"form-inline") do %>
+	    
+    <!-- 2週間分を登録申請 -->
+    <% @days.each do |day| %>
 
-		    <% 
-		    	@worktimes = []
-			    (10..22).each { |n| @worktimes.push([n,day+n.hour]) }
-		     %>
+	    <% 
+	    	@worktimes = []
+		    (10..22).each { |n| @worktimes.push([n,day+n.hour]) }
+	     %>
+			<%= fields_for 'work[]',day,index: nil do |fh| %>
+			<%= fh.hidden_field :staff_id,:value => current_user.staff[:id] %>
 
 		    <div class="block">
 			    <div class='input-group date'>
 				    <%= day.strftime('%Y-%m-%d') %>
-				    <%= f.hidden_field :date,:value => day.strftime('%Y-%m-%d') %>
+				    <%= fh.hidden_field :date,:value => day.strftime('%Y-%m-%d') %>
+			    </div>				    
+			    <div class="form-group time">
+				    <%= select_tag 'work[][start]', options_for_select(@worktimes),:selected => @new_work.start.to_s,:prompt => '開始時間を選択',:class => 'form-control' %>
 			    </div>
 			    <div class="form-group time">
-			    	<%= f.select :start,options_for_select(@worktimes,:selected => @new_work.start.to_s),{:prompt => '開始時間を選択'}, {:class => 'form-control'} %>
-			    	
-			    </div>
-			    <div class="form-group time">
-			    	<%= f.select :end,options_for_select(@worktimes,:selected => @new_work.start.to_s),{:prompt => '終了時間を選択'}, {:class => 'form-control'} %>
+				    <%= select_tag 'work[][end]', options_for_select(@worktimes),:selected => @new_work.start.to_s,:prompt => '終了時間を選択',:class => 'form-control' %>
 			    </div>
 		    </div>
-		    <%= f.hidden_field :break,:value => (day+1.hour).strftime('%Y-%m-%d %H:%M') %>
+				    <%= fh.hidden_field :break,:value => (day+1.hour).strftime('%Y-%m-%d %H:%M') %>
 			<% end %>
-
-	    <div type="submit" class="form-group tac">
-	        <%= f.submit '確認画面へ',class:"btn btn-default" %>
-	    </div>
+		<% end %>
+		
+    <div class="tac">
+      <%= button_tag(type: 'submit',class:"btn btn-default") do
+        content_tag(:span, '確認画面へ')
+      end %>
+    </div>
 	<% end %>
 </div>
+
+<%= render 'layouts/footer' %>
 <% end %>

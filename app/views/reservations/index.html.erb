@@ -1,4 +1,4 @@
-
+<%= render 'layouts/header' %>
 <%= javascript_tag do %>
 $(function(){
 	$('.search_btn').click(function(){
@@ -18,7 +18,7 @@ $(function(){
 				right: ''
 			},
 		events: 
-		<%= raw @reservation_list.to_json %>,
+		<%= raw @all_reservation.to_json %>,
     dayClick: function(date, jsEvent, view) {
 				location.href = '/reservations/list/' + date.format();
     },
@@ -49,3 +49,4 @@ $(function(){
     <div id="calendar"></div>
   </div>
 </section>
+<%= render 'layouts/footer' %>

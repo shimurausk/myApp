@@ -1,0 +1,21 @@
+		<header>
+			<div class="header row">
+				<h1><%= link_to 'Shop name',root_path %></h1>
+				<div class="smart"><span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span></div>
+				<nav>
+					<ul class="nav nav-pills pull-right">
+						<li><%= link_to 'ブログ', blogs_path %></li>
+						<li><%= link_to '予約', reservations_path %></li>
+						<li><a href="/">EC Shop</a></li>
+						<li><a href="">お問い合わせ</a></li>
+					<% if user_signed_in? %>
+						<li><%= link_to 'スタッフ管理', staffs_path %></li>
+						<li><%= link_to '管理画面', dashboards_path %></li>
+						<li><%= link_to 'ログアウト',destroy_user_session_path,method: :delete,:class => 'signout' %></li>
+					<% else  %>
+						<li><%= link_to 'ログイン',new_user_session_path,:class => 'signin' %></li>
+					<% end %>
+					</ul>
+				</nav>
+			</div>
+		</header>

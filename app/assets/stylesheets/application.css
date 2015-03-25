@@ -27,11 +27,35 @@ ul{
 
 .new_user {
 background: #fff;
-border: 1px solid #ccc;
-box-shadow: -1px -1px 3px rgba(255,255,255,1);
-width: 320px;
-margin: 0 auto;
-padding: 8px;
+max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
+.form-signin .checkbox {
+  font-weight: normal;
+}
+
+.checkbox label, .radio label {
+  min-height: 20px;
+  padding-left: 20px;
+  margin-bottom: 0;
+  font-weight: 400;
+  cursor: pointer;
+}
+.checkbox input[type="checkbox"]{
+  margin-left: 0 !important;
 }
 
 label {

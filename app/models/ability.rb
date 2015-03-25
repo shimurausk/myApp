@@ -20,12 +20,13 @@ class Ability
       if user.has_role?('superadmin')
         can :manage, :all
       else
-        can :manage, [Blog,Comment,Tag] # A
+        can :manage, [Blog,Comment,Tag,Reservation,Staff,Work] # manager
       end
     else
-      can :access, :rails_admin
+      #can :access, :rails_admin
       can :dashboard
-      can :read, [Blog,Staff] # B
+      can :manage, [Blog,Comment,Tag,Staff,Work] # staff
+      can :read, [Blog,Staff] 
       #can :create, [] # C
     end
     #

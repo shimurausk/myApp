@@ -1,7 +1,7 @@
 <% if user_signed_in? %>
+<%= render 'layouts/header' %>
 <section>
   <div class="contents staff Slide">
-  <%= link_to '管理画面',dashboards_path %>
   	<div class="sch">
       <%= render 'schedule' %>
     </div>
@@ -20,5 +20,5 @@
     </div>
   </div>
 </section>
-
+<%= render 'layouts/footer' %>
 <% end %>

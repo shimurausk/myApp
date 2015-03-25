@@ -2,11 +2,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
 	def create
     build_resource(sign_up_params)
 
-    ## この部分を加えることで関連モデルを自動的に作成してくれるっぽい
-    #staff_data = sign_up_params.except('password','password_confirmation')
     resource.build_staff
-#binding.pry
+    resource.staff[:email] = sign_up_params[:email]
+
     resource_saved = resource.save
+    
     yield resource if block_given?
     if resource_saved
       if resource.active_for_authentication?
