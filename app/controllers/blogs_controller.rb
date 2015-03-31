@@ -1,5 +1,6 @@
 class BlogsController < ApplicationController
 
+	include ApplicationHelper
 	before_action :get_category
 	before_action :get_tags
 	before_action :related_post
@@ -29,7 +30,6 @@ class BlogsController < ApplicationController
 			#t.tags.any? ? @blogs_tags.push(t.tags.map(&:name)) : ''
 		end
 		
-		
 		@blogs_tags = @blogs_tags.uniq()
 	end
 
@@ -53,44 +53,52 @@ class BlogsController < ApplicationController
 		@tag = Tag.find_by_name(params[:tag]).blogs
 	end
 
-	# def create
-	# 	@blog = Blog.new(blogs_params)
+	def create
+		@blog = Blog.new(blogs_params)
 
-	# 	if @blog.save
-	# 		redirect_to @blog
-	# 	else
-	# 		render 'new'
-	# 	end	
-	# end
+		if @blog.save
+			redirect_to @blog
+		else
+			all_category
+			all_tag
+			render 'new'
+		end	
+	end
 
-	# def new
-	# 	@blog = Blog.new
-	# end
+	def new
+		@blog = Blog.new
+		all_category
+		all_tag
+	end
 
-	# def edit
-	# 	@blog = Blog.find(params[:id])
-	# end
+	def edit
+		@blog = Blog.find(params[:id])
+		all_category
+		all_tag
+	end
 
-	# def update
-	# 	@blog = Blog.find(params[:id])
+	def update
+		@blog = Blog.find(params[:id])
 
-	# 	if @blog.update(blogs_params)
-	# 		redirect_to @blog
-	# 	else
-	# 		render "edit"
-	# 	end
-	# end
+		if @blog.update(blogs_params)
+			redirect_to @blog
+		else
+			all_category
+			all_tag
+			render "edit"
+		end
+	end
 
-	# def destroy
-	# 	@blog = Blog.find(params[:id])
+	def destroy
+		@blog = Blog.find(params[:id])
 
-	# 	@blog.destroy
-	# 	redirect_to blogs_path
-	# end
+		@blog.destroy
+		redirect_to blogs_path
+	end
 
 	private
 		def blogs_params
-			params.require(:blog).permit(:title,:text,:avatar,:tag_list)		
+			params.require(:blog).permit(:title,:text,:avatar,:category,:tag_list,:status)		
 		end	
 
 end

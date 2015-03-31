@@ -1,18 +1,4 @@
 <%= render 'layouts/header' %>
-<%= javascript_tag do %>
-$(function(){
-  $('.search_btn').click(function(){
-      if($('#datetimepicker1 input').val().length>0){
-          var date = $('#datetimepicker1 input').val().split(/\s/)[0].replace(/\//g,'-');
-          location.href = '/reservations/list/' +date;
-      } else {
-          $(this).parents('.reservation').find('.error_date').css('display','block');
-          return  false;
-      }
-  });
-})
-
-<% end %>
 <section>
   <div class="contents blog row">
     <div class="kv"><img src="http://lorempixel.com/800/240/city/" alt=""></div>

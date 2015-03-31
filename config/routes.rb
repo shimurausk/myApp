@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   
   devise_for :users, :controllers => {
       :sessions => 'users/sessions',
+      :passwords => 'users/passwords',
       :registrations => 'users/registrations'
     }
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
@@ -46,6 +47,13 @@ match 'reservations/confirm' ,:via => :post
 post 'reservations/list/' ,to: 'reservations#list'
 get 'reservations/list/:day' ,to: 'reservations#list', as: :day
 resources :reservations
+
+#get 'dashboards/blog' ,to: 'dashboards_blog#blog'
+get 'dashboards/blogs', to:'dashboards_blog#index' ,as: :dashboards_blog
+get 'dashboards/blogs/:id/edit', to:'dashboards_blog#edit', as: :edit_dashboards_blog
+put 'dashboards/blogs/:id/', to:'dashboards_blog#update', as: :update_dashboards_blog
+patch 'dashboards/blogs/:id/', to:'dashboards_blog#update'
+delete 'dashboards/blogs/:id/', to:'dashboards_blog#destroy', as: :delete_dashboards_blog
 
 get 'dashboards/workday/:workday' ,to: 'dashboards#workday', as: :workday
 match 'dashboards/confirm' ,:via => :post

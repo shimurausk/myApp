@@ -1,0 +1,57 @@
+<%= javascript_tag do %>
+$(function(){
+	$('#calendar').fullCalendar({
+		lang: 'ja',
+		height:700,
+		eventRender: function(events, element) {
+			//if(events.img){
+			//    $(element[0]).find('.fc-title').prepend('.fc-content')
+			//imgプロパティが存在するイベントだけtitleを画像に差し替え
+			//    .css("border-color", "transparent")
+			//    .css("background-color", "transparent")
+			//    .html('<img src="'+events.img+'" width="32" height="32" class="icon" alt="'+ events.title +'" title="'+  events.title +'" />');
+			//}
+    },
+
+		header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+		displayEventEnd:{
+    month: true,
+    basicWeek: true,
+    'default': true
+},	
+		events: 
+		<%= raw @work_list.to_json() %>,
+		dayClick: function(date, jsEvent, view) {
+				location.href = '/dashboards/workday/' + date.format();
+    }
+	,
+		timeFormat: 'H:mm', // uppercase H for 24-hour clock
+
+	})
+	//名前消す
+	//$('.fc-title').css('display','none');
+	//$($(".fc-event-container")[0]).addClass('icons').prepend($('.fc-content'));
+	//$(".fc-time").css('display','none');
+})
+  
+<% end %>
+<div class="dash">
+	<div class="title">
+		<h2>Dashboard<strong>:<%= current_user.username %></strong></h2>
+	</div>
+
+	<ul class="navi row">
+		<li class="col-xs-3"><%= link_to 'Blog',{ :anchor => "blog"}, :class => 'btn btn-default' %></li>
+		<li class="col-xs-3"><%= link_to 'シフト登録', new_dashboard_path(),:class => 'btn btn-default' %></li>
+		<li class="col-xs-3"><%= link_to '登録情報',edit_dashboard_path(current_user[:id]),:class => 'btn btn-default' %></li>
+		<li class="col-xs-3"><%= mail_to 'user@example.com','メールで連絡する',:class => 'btn btn-default' %></li>
+	</ul>
+
+	
+
+	<div id="calendar"></div>
+</div>
