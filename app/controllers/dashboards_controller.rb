@@ -4,29 +4,15 @@ include ApplicationHelper
 
 	def index
 		setUser(current_user.username)
-		@works = Work.where(:staff_id => current_user.staff[:id])
-		@works_list = []
+		workList
 
-		@works.each do |work|
-
-			@start_end = work.start.strftime("%H:%M")+'-'+work.end.strftime("%H:%M")
-					
-			@work_data = {
-								'id' => work.id,
-								'title' => @start_end,
-								'start' => work.date.strftime("%Y-%m-%d %H:%M:%S"),
-								'end' => work.date.strftime("%Y-%m-%d %H:%M:%S"),
-								'backgroundColor' => '#fc0',
-								'borderColor' => '#fc0',
-								'textColor' => '#fff'
-							}
-			@works_list.push(@work_data)
-			
-		end
+		@blogs = Blog.all
 	end
 
 	def show
 		#@blog = Blog.find(params[:id])
+		@staff_data = User.find(params[:id]).staff
+		workList
 	end
 
 	def new
@@ -41,10 +27,10 @@ include ApplicationHelper
 		@new_work.date = params[:workday]
 		
 		@worktimes = []
-
-		while STAFF_START_TIME<=STAFF_END_TIME do
-			@worktimes.push([STAFF_START_TIME,@new_work.date+STAFF_START_TIME.hour])
-			STAFF_START_TIME = STAFF_START_TIME+1
+		num = 0
+		while num < STAFF_END_TIME-STAFF_START_TIME do
+			@worktimes.push([STAFF_START_TIME+num,@new_work.date+(STAFF_START_TIME+num).hour])
+			num = num+1
 		end
 	end	
 
@@ -102,8 +88,9 @@ include ApplicationHelper
 
 	def edit
 		#@blog = Blog.find(params[:id])
-		@staff_info = User.find(params[:id]).staff
-		@staff_reservations = Reservation.where(:staff_id=>@staff_info[:id])
+		@staff_data = User.find(params[:id]).staff
+		@staff_reservations = Reservation.where(:staff_id=>@staff_data[:id])
+
 	end
 
 	def update

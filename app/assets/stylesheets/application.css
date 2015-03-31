@@ -70,6 +70,17 @@ background: #fbfbfb;
 .field_with_errors {
   float: none;
 }
+.devise br{
+display:none;
+}
+.devise .btn{
+margin-top: 16px;
+}
+.devise .field_with_errors .form-control,
+.error {
+  border:1px solid #EF9494 !important;
+}
+
 .tbar {
 	margin-bottom: 16px;
 	font-size: 24px;

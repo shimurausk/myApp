@@ -3,6 +3,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     build_resource(sign_up_params)
 
     resource.build_staff
+    resource.staff[:name] = sign_up_params[:username]
     resource.staff[:email] = sign_up_params[:email]
 
     resource_saved = resource.save

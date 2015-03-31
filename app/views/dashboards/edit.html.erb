@@ -6,18 +6,18 @@
 	</div>
 
 	<h3>登録情報</h3>
-	<% if @staff_info.errors.any? %>
+	<% if @staff_data.errors.any? %>
     <div class="bg-danger">
       <strong>入力内容をご確認ください</strong>
       <ul class="error">
-        <% @staff_info.errors.each do |attr,msg| %>
+        <% @staff_data.errors.each do |attr,msg| %>
           <li><%= msg %></li>
         <% end %>
       </ul>
     </div>
 	<% end %>
 
-	<%= form_for @staff_info,:url => dashboard_path,html:{class:"form-group"} do |f| %>
+	<%= form_for @staff_data,:url => dashboard_path,html:{class:"form-group"} do |f| %>
     <div class="block">
 			<%= f.hidden_field :id %>
 	    <div class="form-group name">
@@ -36,9 +36,9 @@
 	        <%= f.label 'アイコン' %>
 	        <%= f.file_field :icon %>
 					<%= f.hidden_field :icon_cache %>
-					<span><%= image_tag @staff_info.icon.thumb.url if @staff_info.icon? %></span>
+					<span><%= image_tag @staff_data.icon.thumb.url if @staff_data.icon? %></span>
 	    </div>
-	    <% @staff_info.reservations %>
+	    <% @staff_data.reservations %>
 	    <div class="form-group post">
 	        <%#= f.label '役職' %><%#= f.text_field :post, class: "form-control" %>
 	    </div>

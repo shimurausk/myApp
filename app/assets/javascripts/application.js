@@ -41,4 +41,17 @@ $(function(){
           return  false;
       }
   })
+
+  $('.dash select').change(function(event) {
+    var starttime = new Date($(this).parents('.block').children('.start').children().val()).getTime();
+    var endtime = new Date($(this).parents('.block').children('.end').children().val()).getTime();
+
+    if( endtime - starttime <= 0 ){
+      $(this).parents('.block').children('.time').children().addClass('error');
+    } else {
+      $(this).parents('.block').children('.time').children().removeClass('error');
+    }
+
+  });
+
 })

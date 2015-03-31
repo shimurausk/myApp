@@ -18,7 +18,6 @@
 		    </div>
 		<% end %>
 	
-	<%#= form_for @new_work,:url => dashboards_confirm_path,html:{class:"form-inline"} do |f| %>
 	<%= form_tag('/dashboards/confirm',class:"form-inline") do %>
 	    
     <!-- 2週間分を登録申請 -->
@@ -36,10 +35,10 @@
 				    <%= day.strftime('%Y-%m-%d') %>
 				    <%= fh.hidden_field :date,:value => day.strftime('%Y-%m-%d') %>
 			    </div>				    
-			    <div class="form-group time">
+			    <div class="form-group time start">
 				    <%= select_tag 'work[][start]', options_for_select(@worktimes),:selected => @new_work.start.to_s,:prompt => '開始時間を選択',:class => 'form-control' %>
 			    </div>
-			    <div class="form-group time">
+			    <div class="form-group time end">
 				    <%= select_tag 'work[][end]', options_for_select(@worktimes),:selected => @new_work.start.to_s,:prompt => '終了時間を選択',:class => 'form-control' %>
 			    </div>
 		    </div>

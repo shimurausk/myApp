@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  def current_ability
+    @current_ability ||= Ability.new(current_admin_user)
+  end  
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to main_app.dashboards_path
   end

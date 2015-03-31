@@ -1,5 +1,4 @@
-<%#= form_for @blog, html:{class:"pure-form pure-form-aligned"} do |f| %>
-<%= form_for @blog,:url => edit_dashboards_path, html:{class:"pure-form pure-form-aligned"}   do |f| %>
+<%= form_for @blog, html:{class:"form-horizontal"} do |f| %>
 
 	<% if @blog.errors.any? %>
 		<div id="error_explanation">
@@ -11,34 +10,36 @@
 		</div>
 	<% end %>
 
-	<div class="pure-control-group">
-		<%= f.label 'タイトル' %>
-		<%= f.text_field :title %>
+	<div class="form-group">
+		<%= f.label 'タイトル',:class => 'control-label' %>
+		<%= f.text_field :title,:class => 'form-control' %>
 	</div>
-	<div class="pure-control-group">
-		<%= f.label '本文' %>
-		<%= f.text_area :text %>
+	<div class="form-group">
+		<%= f.label '本文',:class => 'control-label' %>
+		<%= f.text_area :text,:class => 'form-control' %>
 	</div>
-	<div class="pure-control-group">
-		<%= f.label 'カテゴリー' %>
-		<%= f.text_area :category %>
+	<div class="form-group">
+		<%= f.label 'カテゴリー',:class => 'control-label' %>
+		<%#= f.select :category,options_for_select(@all_category),{:prompt => 'カテゴリーを選択'}, {:class => 'form-control'} %>
+		<%= f.text_field :category,:placeholder => "新規カテゴリー",:class => 'form-control inline' %>
 	</div>
-	<div class="pure-control-group">
-		<%= f.label 'タグ' %>
-		<%= f.text_field :tag_list %>
+	<div class="form-group">
+		<%= f.label 'タグ',:class => 'control-label' %>
+		<%#= f.select :tag_list,options_for_select(@all_tag),{:prompt => 'タグを選択'}, {:class => 'form-control'} %>
+		<%= f.text_field :tag_list,:class => 'form-control inline' %>
 	</div>
-	<div class="pure-control-group avatar">
-		<%= f.label '画像' %>
+	<div class="form-group avatar">
+		<%= f.label '画像',:class => 'control-label' %>
 		<%= f.file_field :avatar %>
 		<%= f.hidden_field :avatar_cache %>
 		<span><%= image_tag @blog.avatar.thumb.url if @blog.avatar? %></span>
 	</div>
-	<div class="pure-control-group">
-		<%= f.label '公開状態' %>
-		<%= f.select :status,[["下書き","draft"],["公開","public"]] %>
+	<div class="form-group">
+		<%= f.label '公開状態',:class => 'control-label' %>
+		<%= f.select :status,[["下書き",false],["公開",true]],{},:class => 'form-control' %>
 	</div>
-<%  #binding.pry%>
-	<%= f.submit '編集する' %>
 
+	<%= link_to 'back',dashboards_path,:class => 'btn btn-default' %>
+	<%= f.submit '送信する',:class => 'btn btn-primary' %>
 <% end %> 
 

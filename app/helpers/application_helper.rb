@@ -18,6 +18,42 @@ module ApplicationHelper
 		end
 	end
 
+	def markdown(text)
+    unless @markdown
+      renderer = Redcarpet::Render::HTML.new(hard_wrap: true, filter_html: true)
+      options = {
+      	tables: true
+      	# autolink: true,
+	      # no_intra_emphasis: true,
+	      # fenced_code_blocks: true,
+	      # lax_html_blocks: true,
+	      # strikethrough: true,
+	      # superscript: true
+      }
+      @markdown = Redcarpet::Markdown.new(renderer,options)
+    end
+
+    @markdown.render(text).html_safe
+  end
+
+  def all_category
+  	@all_category = []
+  	(@blogs = Blog.all).each do |blog|
+  		@all_category.push([blog.category,blog.category])
+  	end
+  	@all_category.uniq!
+  end
+
+  def all_tag
+  	@all_tag = []
+  	(@blogs = Blog.all).each do |blog|
+  		(tags = blog.tags).each do |tag|
+	  		@all_tag.push([tag.name,tag.name])
+	  	end
+  	end
+  	@all_tag.uniq!
+  end
+
 	def businessHours
 		@business_hours = (STORE_START_TIME..STORE_END_TIME).to_a
 		values = (STORE_START_TIME..STORE_END_TIME).to_a
@@ -47,6 +83,29 @@ module ApplicationHelper
 		end
 
 	end
+
+	def workList
+		@works = Work.where(:staff_id => current_user.staff[:id])
+		@work_list = []
+
+		@works.each do |work|
+
+			@start_end = work.start.strftime("%H:%M")+'-'+work.end.strftime("%H:%M")
+					
+			@work_data = {
+								'id' => work.id,
+								'title' => @start_end,
+								'start' => work.date.strftime("%Y-%m-%d %H:%M:%S"),
+								'end' => work.date.strftime("%Y-%m-%d %H:%M:%S"),
+								'backgroundColor' => '#fc0',
+								'borderColor' => '#fc0',
+								'textColor' => '#fff'
+							}
+							
+			@work_list.push(@work_data)
+			
+		end
+	end	
 
 	def allReservation
 		
@@ -102,22 +161,31 @@ module ApplicationHelper
 
 		num = 0
 
-		if @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0].nil?
+		if @todays_reservation.present?
 
-			# 予約が入ってない、選択時間が予約時間より後の場合は営業終了時間までを表示
-			while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
-				@time.push([num+1,@new_reservation[:day]+(num+1).hour])
-				num = num +1
+			if @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0].nil?
+
+				# 予約が入ってない、選択時間が予約時間より後の場合は営業終了時間までを表示
+				while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
+					@time.push([num+1,@new_reservation[:day]+(num+1).hour])
+					num = num +1
+				end
+
+			else	
+
+				next_reservation_time = @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0]
+				while num < next_reservation_time-params[:daytime].to_i do
+					@time.push([num+1,@new_reservation[:day]+(num+1).hour])
+					num = num +1
+				end
+
 			end
-
-		else	
-
-			next_reservation_time = @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0]
-			while num < next_reservation_time-params[:daytime].to_i do
-				@time.push([num+1,@new_reservation[:day]+(num+1).hour])
-				num = num +1
-			end
-
+		else 
+				#日付が決まってない場合 page/index reservation/index
+				while num < (STORE_END_TIME.to_i)-(STORE_START_TIME.to_i) do
+					@time.push([num+1,num+1])
+					num = num +1
+				end
 		end
 		
 	end
