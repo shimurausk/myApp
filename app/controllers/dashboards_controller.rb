@@ -10,13 +10,11 @@ include ApplicationHelper
 	end
 
 	def show
-		#@blog = Blog.find(params[:id])
 		@staff_data = User.find(params[:id]).staff
 		workList
 	end
 
 	def new
-		#@blog = Blog.new
 		@new_work = Work.new
 		halfMonth
 		
@@ -87,21 +85,12 @@ include ApplicationHelper
 	end
 
 	def edit
-		#@blog = Blog.find(params[:id])
 		@staff_data = User.find(params[:id]).staff
 		@staff_reservations = Reservation.where(:staff_id=>@staff_data[:id])
 
 	end
 
 	def update
-		#@blog = Blog.find(params[:id])
-
-		# if @blog.update(blogs_params)
-		# 	redirect_to @blog
-		# else
-		# 	render "edit"
-		# end
-
 		@staff_update = Staff.find(params[:staff][:id])
 		if @staff_update.update(staff_params)
 			redirect_to dashboard_path
