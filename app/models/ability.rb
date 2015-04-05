@@ -13,21 +13,17 @@ class Ability
        # end
 
     if user.has_role?('admin')
-      #can :read, []
-      #can :read, :all
       can :access, :rails_admin
       can :dashboard
-      if user.has_role?('superadmin')
+      if user.has_role?('superadmin') #
         can :manage, :all
       else
         can :manage, [Blog,Comment,Tag,Reservation,Staff,Work] # manager
       end
     else
-      #can :access, :rails_admin
       can :dashboard
-      can :manage, [Blog,Comment,Tag,Staff,Work] # staff
-      can :read, [Blog,Staff] 
-      #can :create, [] # C
+      can :manage, [Blog,Comment,Tag] # staff
+      can :read, [Blog,Staff]
     end
     #
     # The first argument to `can` is the action you are giving the user

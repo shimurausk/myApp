@@ -4,13 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
-
-  def current_ability
-    @current_ability ||= Ability.new(current_admin_user)
-  end  
-
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to main_app.dashboards_path
+  
+  def after_sign_in_path_for(resource)
+    if can? :manage, @users
+      rails_admin_path
+    else
+      dashboards_path
+    end
   end
 
   protected
@@ -21,8 +21,5 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.for(:sign_up) << :username
       #  account_updateのときに、usernameも許可する
       devise_parameter_sanitizer.for(:account_update) << :username
-      # devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :remember_me) }
-      # devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
-      # devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password, :password_confirmation, :current_password) }
     end
 end

@@ -8,15 +8,15 @@
 						<li><%= link_to '予約', reservations_path %></li>
 						<li><a href="/">EC Shop</a></li>
 						<li><a href="">お問い合わせ</a></li>
-					<%# if can? :manage, @users %>
+				<% if user_signed_in? %>
+					<% if can? :manage, Staff %>
 						<li><%= link_to 'スタッフ管理', staffs_path %></li>
-					<%# end %>
-					<% if user_signed_in? %>	
+					<% end %>
 						<li><%= link_to '管理画面', dashboards_path %></li>
 						<li><%= link_to 'ログアウト',destroy_user_session_path,method: :delete,:class => 'signout' %></li>
-					<% else  %>
+				<% else  %>
 						<li><%= link_to 'ログイン',new_user_session_path,:class => 'signin' %></li>
-					<% end %>
+				<% end %>
 					</ul>
 				</nav>
 			</div>

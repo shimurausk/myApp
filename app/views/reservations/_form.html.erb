@@ -3,7 +3,7 @@
 <% if @new_reservation.errors.any? %>
     <div class="bg-danger">
         <strong>入力内容をご確認ください</strong>
-        <ul class="error">
+        <ul>
             <% @new_reservation.errors.each do |attr,msg| %>
                 <li><%= msg %></li>
             <% end %>
@@ -11,8 +11,7 @@
     </div>
 <% end %>
 
-<%= form_for @new_reservation,:url => reservations_confirm_path,html:{class:"form-group reservation_form"} do |f| %>
-    <%# binding.pry %>    
+<%= form_for @new_reservation,:url => reservations_confirm_path,html:{class:"form-group reservation_form"} do |f| %> 
     <%= f.label '日時' %>
     <h4><%=  @new_reservation.day.strftime('%Y-%m-%d %H:%M') %></h4><%= f.hidden_field :day %>
     <div class="form-group name">

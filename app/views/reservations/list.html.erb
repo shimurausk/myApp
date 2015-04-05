@@ -23,19 +23,18 @@ $(function(){
   <div class="contents reservations row">
     <div class="today">
       <h3><%= params[:day] %></h3>
+      <%= @not_reservation_text %>
       <p>以下の時間でご予約ができます。</p>
 
       <%= form_for @new_reservation,:url => new_reservation_path(),:method => 'get',html:{class:"form-inline"} do |f| %>
       <ul>
-        <% @yet_reservation_time.each do |t| %>
-          <% if t[1]=='○' %>
-            <li>
-            	<%= button_tag(type: 'submit',name: 'daytime',value: t[0],:class => 'btn btn-default') do %>
-            		<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
-								<%= content_tag(:strong, "#{t[0]}:00") %>
-							<% end %>
-            </li>
-          <% end %>
+        <% @search_reservation.each do |time| %>
+          <li>
+          	<%= button_tag(type: 'submit',name: 'daytime',value: time,:class => 'btn btn-default') do %>
+          		<span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+							<%= content_tag(:strong, "#{time}:00") %>
+						<% end %>
+          </li>
         <% end %>
       </ul>
       <%= f.hidden_field :day,:value => params[:day] %>

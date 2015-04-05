@@ -6,6 +6,8 @@ module ApplicationHelper
 	STORE_START_TIME = 10
 	STORE_END_TIME = 20
 
+	MAX_SEATS = 2
+
 	def tag_cloud(tags, classes)
 
 		max = tags.sort_by(&:count).last
@@ -132,21 +134,70 @@ module ApplicationHelper
 
 	def todaysReservation(day)
 		@todays_reservation = []
-		from = Time.zone.parse(day)
-		to = Time.zone.parse((from + 1.day).strftime("%Y-%m-%d"))
+		
+		#時間があるときと無い時 直接とカレンダーから	
+		# if(day ){
+
+		# }
+
+		from = Time.zone.parse(day)+(STORE_START_TIME.hours)
+		to = from+1.day
 
 		if Reservation.where(day: from...to).any?
-			@get_reservations = Reservation.where(day: from...to)
+			@get_reservations = Reservation.where(day: from...to).order("day")
 			
-			@get_reservations.each do |t|
-				num = 0
-				while num <= t.time.strftime("%H").to_i-t.day.strftime("%H").to_i do
-					@todays_reservation.push(t.day.strftime("%H").to_i+num)
-					num = num +1
+			@get_reservations.each do |reservation|
+				reserved_time = 0
+				while reserved_time <= reservation.time.strftime("%H").to_i-reservation.day.strftime("%H").to_i do
+					# if @ticket < MAX_SEATS
+							@todays_reservation.push(reservation.day.strftime("%H").to_i+reserved_time)
+							reserved_time = reserved_time +1
+					# end
 				end
+				# @ticket = @ticket+1
 			end
 		end
 
+	end
+
+	def searchReservation(params_day)
+		@search_reservation = []
+		@exist_reservations = []
+
+		today = Time.zone.parse(params_day).beginning_of_day
+
+		@business_hours = (STORE_START_TIME...STORE_END_TIME).to_a
+
+		@business_hours.each do |this_time|
+
+			#既存予約時間の終了チェック
+			@exist_reservations.each do |reservation|
+				if reservation.time.strftime('%H').to_i <= this_time
+					@exist_reservations.delete(reservation)
+				end
+			end
+	
+			if @exist_reservations.length < MAX_SEATS
+
+				#1時間づつチェック
+				this_time_reservations = Reservation.where(day: today+this_time.hours...today+(this_time+1).hours)
+
+				if this_time_reservations.order("day").any?
+					
+					this_time_reservations.each do |r|
+
+						@exist_reservations.push(r)
+						if @exist_reservations.length < MAX_SEATS
+							@search_reservation.push(this_time)
+						end							
+					end
+
+				else
+					@search_reservation.push(this_time)
+				end
+
+			end
+		end
 	end
 
 	def setTime

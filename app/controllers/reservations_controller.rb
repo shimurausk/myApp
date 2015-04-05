@@ -15,25 +15,17 @@ include ApplicationHelper
 
 	def show
 		# @reservation = Reservation.find(params[:id])
-
 	end
 
 	def list
+		searchReservation(params[:day])
 
-		todaysReservation(params[:day])
-		@todays_reservation.sort!
-
-		#予約が入っていない時間を返す
-		@yet_reservation_time = {}
-		@business_hours = (STORE_START_TIME...STORE_END_TIME).to_a
-
-		@business_hours.each do |hour|
-			if @todays_reservation.nil?
-				@yet_reservation_time[hour] = '○'			
-			else 
-				@yet_reservation_time[hour] = @todays_reservation.index(hour) ? 'X' : '○'
+		if params[:day].match(/:/)
+			search_time =  Time.zone.parse(params[:day])
+			unless @search_reservation.include?(search_time.strftime('%H').to_i)
+				@not_reservation_text = "申し訳ございません。満席となっております。"
 			end
-		end	
+		end
 
 		allReservation
 		@new_reservation = Reservation.new
@@ -53,14 +45,14 @@ include ApplicationHelper
 
 	def confirm
 
-  	#入力チェック
   	@new_reservation = Reservation.new(reservation_params)
 
   	setStaff()
   	setTime()
   	setMember()
   	setContent()
-  		@staff_name = Staff.all[@new_reservation.staff_id][:name]
+  	@staff_name = Staff.all[@new_reservation.staff_id][:name]
+  	
   	if @new_reservation.valid?
   		render :action => 'confirm'
   	else
