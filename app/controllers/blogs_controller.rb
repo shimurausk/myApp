@@ -12,7 +12,6 @@ class BlogsController < ApplicationController
 		@blogs_hava_category.each do |c|
 			@blogs_category.push(c.category)
 		end 
-		
 		@blogs_category = @blogs_category.uniq()
 	end
 
@@ -22,27 +21,16 @@ class BlogsController < ApplicationController
 
 		@blogs.each do |t|
 			#raw d.tags.map(&:name).map { |t| link_to t, tag_path(d)}.join(', ')
-			if(t.tags.any?)
-				t.tags.each do |hadTag|
-					@blogs_tags.push(hadTag.name)
+			if t.status == 'public'
+				if(t.tags.any?)
+					t.tags.each do |hadTag|
+						@blogs_tags.push(hadTag.name)
+					end
 				end
 			end
 			#t.tags.any? ? @blogs_tags.push(t.tags.map(&:name)) : ''
 		end
-		
 		@blogs_tags = @blogs_tags.uniq()
-	end
-
-	def related_post
-		@Recently =  Blog.where(created_at: Date.today<<6...Date.today)
-	end
-
-	def index
-		@blogs = Blog.all.order("id DESC")
-	end
-
-	def show
-		@blog = Blog.find(params[:id])
 	end
 
 	def category
@@ -53,9 +41,18 @@ class BlogsController < ApplicationController
 		@tag = Tag.find_by_name(params[:tag]).blogs
 	end
 
+	def related_post
+		@blog = Blog.all
+	end
+
+	def new
+		@blog = Blog.new
+		all_category
+		all_tag
+	end
+
 	def create
 		@blog = Blog.new(blogs_params)
-
 		if @blog.save
 			redirect_to @blog
 		else
@@ -65,10 +62,14 @@ class BlogsController < ApplicationController
 		end	
 	end
 
-	def new
-		@blog = Blog.new
-		all_category
-		all_tag
+	def show
+		@blogs = Blog.new
+		@blog = Blog.find(params[:id])
+	end
+
+	def index
+		@blogs = Blog.all.order("id DESC")
+		@tags = Tag.all
 	end
 
 	def edit
@@ -91,7 +92,6 @@ class BlogsController < ApplicationController
 
 	def destroy
 		@blog = Blog.find(params[:id])
-
 		@blog.destroy
 		redirect_to blogs_path
 	end

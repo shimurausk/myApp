@@ -12,7 +12,6 @@ class Blog < ActiveRecord::Base
   end
 
   def self.tag_counts
-    #binding.pry
   	Tag.select("tags.*,count(taggings.tag_id) as count").
   	joins(:taggings).group("taggings.tag_id")
   end
