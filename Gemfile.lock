@@ -140,6 +140,7 @@ GEM
     rb-readline (0.5.1)
     rdoc (4.1.2)
       json (~> 1.4)
+    redcarpet (3.2.3)
     ref (1.0.5)
     remotipart (1.2.1)
     rmagick (2.13.4)
@@ -207,6 +208,7 @@ DEPENDENCIES
   rails (= 4.1.5)
   rails_admin
   rb-readline
+  redcarpet
   rmagick
   sass-rails (~> 4.0.3)
   sdoc (~> 0.4.0)

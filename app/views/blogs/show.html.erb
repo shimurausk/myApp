@@ -6,7 +6,7 @@
 				<div class="post">
 				  <h2><%= @blog.title %></h2>
 				  <div class="option">
-				  	<span><%= @blog.updated_at %></span>
+				  	<span><%= @blog.updated_at.strftime('%Y/%m/%d') %></span>
 					  <span>Category:<%= link_to @blog.category, category_path(@blog.category) %></span>
 					  <% if @blog.tags.any? %>
 					  <span>Tag:<%= raw @blog.tags.map(&:name).map { |t| link_to t, tag_path(t)}.join(', ') %></span>
@@ -15,8 +15,8 @@
 				  <div class="box">
 					  <div class="photo"><%= image_tag @blog.avatar.thumb.url if @blog.avatar? %></div>
 					  <div class="text"><%= @blog.text %></div>
-					   <%= render 'sns' %>
 				  </div>
+				  <%= render 'sns' %>
 				</div>
 			</article>
     </div>

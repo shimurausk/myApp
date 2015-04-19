@@ -89,13 +89,32 @@ body{
 }
 
 .post{
-	padding: $basemargin 0;
+	margin-bottom: $basemargin*4;
+	padding: 0 $basemargin*2;
 	color: #333;
+	.box{
+		margin: $basemargin 0;
+	}
 	h2{
 	  margin:0 0 8px;
 	}
 	.option {
 		font-size: 16px;
+		strong{
+			font-weight: normal;
+		}
+		span{
+			margin: $basemargin;
+		}
+	}
+	.sns_btn{
+		overflow: hidden;
+		list-style: none;
+		margin-right: -$basemargin;
+		li{
+			float: left;
+			margin-right: $basemargin; 
+		}
 	}
 	.comment_area{
 		h3 {
@@ -126,7 +145,7 @@ body{
 		}
 	}
 	 .box {
-	 	margin-bottom:$basemargin;
+	 	margin-bottom:$basemargin*3;
 		padding: $basemargin $basemargin*2;
 		//background: $baselinkcolor;
 		//color: white;
@@ -138,7 +157,7 @@ body{
 		font-size: $basefontsize *1.5;
 	}
 	ul{
-		padding:0 $basemargin*2;
+		//padding:0 $basemargin*2;
 	}
 	a{
 		color:$sidelinkcolor;
