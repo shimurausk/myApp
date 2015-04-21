@@ -58,6 +58,11 @@ delete 'dashboards/blogs/:id/', to:'dashboards_blog#destroy', as: :delete_dashbo
 get 'dashboards/workday/:workday' ,to: 'dashboards#workday', as: :workday
 match 'dashboards/confirm' ,:via => :post
 resources :dashboards
+
+get 'contacts' => 'contacts#index'
+match 'contacts/confirm' ,:via => :post
+match 'contacts/create' ,:via => :post
+
 # Blog.all.each do |cat|
 #   get "#{cat.category}" => 'blogs#view', :id => cat.id
 # end

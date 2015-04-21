@@ -1,0 +1,38 @@
+<%= render 'layouts/header' %>
+<section>
+  <div class="contents contact row">
+	  	<h4 class="tbar">お問い合わせ</h4>
+			<div class="new">
+      <p>以下の内容でご予約を承ります。よろしいでしょうか？ </p>
+
+      <%= form_for @contact,:url => contacts_create_path,html:{class:"form-group contact_form"} do |f| %>
+      <dl>
+        <dt class="col-sm-12 col-md-2"><%= f.label 'お名前' %></dt>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :name %><%= @contact.name %></dd>
+        <dt class="col-sm-12 col-md-2"><%= f.label 'メールアドレス' %></dt>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :email %><%= @contact.email %></dd>
+        <dt class="col-sm-12 col-md-2"><%= f.label 'お問い合わせの種類' %></dt>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :genre %><%= @contact.genre %></dd>
+        <dt class="col-sm-12 col-md-2"><%= f.label 'お問い合わせ内容' %></dt>
+        <dd class="col-sm-12 col-md-10"><%= f.hidden_field :message %><%= @contact.message %></dd>
+      </dl>
+
+      <p class="tac">
+        <%= button_tag(type: 'button',class:"btn btn-default") do
+          content_tag(:span, '戻る')
+        end %>
+        <%= f.submit '送信',class:"btn btn-default" %>
+      </p>
+      <% end %>
+    </div>
+  </div>
+</section>
+<script type="text/javascript">
+    $(function () {
+        $('button').click(function(){
+          window.history.back(-1);
+          return false;
+        });
+    });
+</script>
+<%= render 'layouts/footer' %>

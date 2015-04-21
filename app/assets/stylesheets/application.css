@@ -107,5 +107,15 @@ padding: 4px 4px 0;
 
 
 @media all and (max-width:768px) {
+  
+  .content{
+    margin:0 auto;
+    width: 95%;
+  }
+
+}
+
+
+@media all and (max-width:768px) {
 
 }

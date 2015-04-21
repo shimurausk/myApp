@@ -1,0 +1,34 @@
+// Place all the styles related to the contacts controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$basebgcolor: #e5e5e5;
+$basemargin: 8px;
+$baselinkcolor : #464646;
+$sidelinkcolor: #429e99;
+$basefontsize : 150%;
+$errorcolor : #f10000;
+
+.contact{
+	.note{
+		font-size: 80%;
+	}
+	.contact_form{
+	  margin: $basemargin*4 0;
+	  dd{
+	  	margin: $basemargin/2 0 $basemargin*3;
+	  }
+	  textarea{
+	  	height: $basemargin*20;
+	  }
+	  .cb{
+	  	margin-right: $basemargin;
+	  }
+	  .errors{
+	  	li{
+	  		color: $errorcolor;
+	  	}
+	  }
+	}
+}
+

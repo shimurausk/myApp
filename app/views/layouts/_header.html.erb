@@ -7,7 +7,7 @@
 						<li><%= link_to 'ブログ', blogs_path %></li>
 						<li><%= link_to '予約', reservations_path %></li>
 						<li><a href="/">EC Shop</a></li>
-						<li><a href="">お問い合わせ</a></li>
+						<li><%= link_to 'お問い合わせ', contacts_path %></li>
 				<% if user_signed_in? %>
 					<% if can? :manage, Staff %>
 						<li><%= link_to 'スタッフ管理', staffs_path %></li>
