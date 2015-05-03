@@ -14,7 +14,7 @@ module ApplicationHelper
 
 		tags.each do |tag|
 							
-			index = tag.count.to_f / max.count * (classes.size-1)
+			index = tag.count.to_f / Integer(max.count) * (classes.size-1)
 
 			yield(tag,classes[index.round])
 		end

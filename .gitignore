@@ -27,3 +27,6 @@ doc/
 .DS_Store
 .idea
 .secret
+
+config/database.yml
+db/data.yml
