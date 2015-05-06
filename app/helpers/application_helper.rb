@@ -118,14 +118,14 @@ module ApplicationHelper
 			@start_end = reservation.day.strftime("%H:%M")+'-'+reservation.time.strftime("%H:%M")
 					
 			@reservation_data = {
-								'id' => reservation.id,
-								'title' => @start_end,
-								'start' => reservation.day.strftime("%Y-%m-%d %H:%M:%S"),
-								'end' => reservation.time.strftime("%Y-%m-%d %H:%M:%S"),
-								'backgroundColor' => '#aaa',
-								'borderColor' => '#aaa',
-								'textColor' => '#ccc'
-							}
+				'id' => reservation.id,
+				'title' => @start_end,
+				'start' => reservation.day.strftime("%Y-%m-%d %H:%M:%S"),
+				'end' => reservation.time.strftime("%Y-%m-%d %H:%M:%S"),
+				'backgroundColor' => '#aaa',
+				'borderColor' => '#aaa',
+				'textColor' => '#ccc'
+			}
 
 			@all_reservation.push(@reservation_data)
 		end
@@ -203,8 +203,8 @@ module ApplicationHelper
 	def setTime
 		@time = []
 
-		if @new_reservation[:day].nil? 
-			@new_reservation[:day] = Date.today
+		if @new_reservation.day.nil? 
+			@new_reservation.day = Date.today
 		end
 
 		#予約できる時間を割り出す
@@ -218,7 +218,7 @@ module ApplicationHelper
 
 				# 予約が入ってない、選択時間が予約時間より後の場合は営業終了時間までを表示
 				while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
-					@time.push([num+1,@new_reservation[:day]+(num+1).hour])
+					@time.push([num+1,@new_reservation.day+(num+1).hour])
 					num = num +1
 				end
 
@@ -226,7 +226,7 @@ module ApplicationHelper
 
 				next_reservation_time = @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0]
 				while num < next_reservation_time-params[:daytime].to_i do
-					@time.push([num+1,@new_reservation[:day]+(num+1).hour])
+					@time.push([num+1,@new_reservation.day+(num+1).hour])
 					num = num +1
 				end
 
