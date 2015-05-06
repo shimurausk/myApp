@@ -17,7 +17,7 @@ include ApplicationHelper
 	def new
 		@new_work = Work.new
 		halfMonth
-		
+		@bisnesstime = STAFF_START_TIME..STAFF_END_TIME
 	end
 
 	def workday
@@ -54,36 +54,25 @@ include ApplicationHelper
 	end
 
 	def create
-		# @blog = Blog.new(blogs_params)
-		# if @blog.save
-		# 	redirect_to @blog
-		# else
-		# 	render 'new'
-		# end
 
-		works = work_params
 		@works =[]
 
-		works.each do |w|
+		work_params.each do |w|
 			unless w[:start].empty?
 				work = Work.new(w)
 				@works.push(work)
 			end
 		end
 
-		@works.each do |work|
-			#binding.pry
-			@work = Work.new(work)
-			unless @work.save
+		@works.each do |w|
+			unless w.save
 				render 'new'
 			end
-			@work.save
+			w.save
 			#メール送信
-	  	# @works = Work.new(work_params)
-	  	# @works.save
 	  	#ContactMailer.received_email(@new_reservation).deliver
-	  	render :action => 'create'
 		end
+		render :action => 'create'
 	end
 
 	def edit

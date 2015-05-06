@@ -25,7 +25,7 @@
 
 	    <% 
 	    	@worktimes = []
-		    (10..22).each { |n| @worktimes.push([n,day+n.hour]) }
+		    @bisnesstime.each { |n| @worktimes.push([n,day+n.hour]) }
 	     %>
 			<%= fields_for 'work[]',day,index: nil do |fh| %>
 			<%= fh.hidden_field :staff_id,:value => current_user.staff[:id] %>

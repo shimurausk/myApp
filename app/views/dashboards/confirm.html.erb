@@ -21,9 +21,9 @@
            <%= fields_for 'work[]',work,index: nil do |fh| %>
             <tr>
               <td><%= fh.hidden_field :date %><%= work.date.strftime("%Y/%m/%d") %></td>
-              <td><%= fh.hidden_field :start %><%= work.start %></td>
+              <td><%= fh.hidden_field :start %><%= work.start.try(:strftime, "%Y/%m/%d %H:%M")  %></td>
               <td>
-                  <%= fh.hidden_field :end %><%= work.end %>
+                  <%= fh.hidden_field :end %><%= work.end.try(:strftime, "%Y/%m/%d %H:%M")  %>
                   <%= fh.hidden_field :break %>
                   <%= fh.hidden_field :staff_id %>
               </td>
