@@ -232,7 +232,7 @@ module ApplicationHelper
 
 			end
 		else 
-				#日付が決まってない場合 page/index reservation/index
+				#予約がはいっていない　日付が決まってない場合 page/index reservation/index
 				while num < (STORE_END_TIME.to_i)-(STORE_START_TIME.to_i) do
 					@time.push([num+1,num+1])
 					num = num +1
