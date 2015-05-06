@@ -44,8 +44,11 @@ include ApplicationHelper
 	end
 
 	def confirm
-  	@new_reservation = Reservation.new(reservation_params)
+		
 
+  	@new_reservation = Reservation.new(reservation_params)
+		@new_reservation[:time] = Time.zone.parse(reservation_params[:day])+(reservation_params[:time].to_i).hours
+		
   	setStaff()
   	setTime()
   	setMember()
