@@ -44,15 +44,19 @@ include ApplicationHelper
 	end
 
 	def confirm
-
   	@new_reservation = Reservation.new(reservation_params)
 
   	setStaff()
   	setTime()
   	setMember()
   	setContent()
-  	@staff_name = Staff.all[@new_reservation.staff_id][:name]
-  	
+
+  	if @new_reservation.staff_id.nil?
+  		@staff_name = Staff.first[:name]
+	  else 
+	  	@staff_name = Staff.all[@new_reservation.staff_id][:name]
+	  end
+
   	if @new_reservation.valid?
   		render :action => 'confirm'
   	else
