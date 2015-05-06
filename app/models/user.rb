@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   # end
 
   validates :username, length: { maximum: 50 },:presence => {:message => 'ユーザ名を入力してください'}
-  validates :email, :presence => {:message => 'メールアドレスを選択してください'}
+  validates :email, :presence => {:message => 'メールアドレスをご確認ください'}
 
   has_one :staff,dependent: :destroy
   has_and_belongs_to_many :roles
