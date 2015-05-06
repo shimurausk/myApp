@@ -71,17 +71,19 @@ include ApplicationHelper
 			end
 		end
 
-		#@works = Work.new(work_params)
-		#if @works.save
+		@works.each do |work|
+			#binding.pry
+			@work = Work.new(work)
+			unless @work.save
+				render 'new'
+			end
+			@work.save
 			#メール送信
 	  	# @works = Work.new(work_params)
 	  	# @works.save
 	  	#ContactMailer.received_email(@new_reservation).deliver
 	  	render :action => 'create'
-		#else
-		#	render 'new'
-		#end	
-
+		end
 	end
 
 	def edit
