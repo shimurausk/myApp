@@ -57,7 +57,7 @@ include ApplicationHelper
   	if @new_reservation.staff_id.nil?
   		@staff_name = Staff.first[:name]
 	  else 
-	  	@staff_name = Staff.all[@new_reservation.staff_id][:name]
+	  	@staff_name = Staff.find_by(id: @new_reservation.staff_id).try(:name)
 	  end
 
   	if @new_reservation.valid?
