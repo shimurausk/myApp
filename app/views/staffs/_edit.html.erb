@@ -1,0 +1,24 @@
+<div class="mw_bd">
+	<form action="" class="form-inline">
+		<%#= form_tag('reservations/list/',class: "form-inline reservation_form search_box") do %>
+    <div class='input-group date' id='datetimepicker1'>
+    	2015/4/11
+      <%#= text_field_tag 'day',{}, placeholder: '2015/2/10 14:30',:class => 'form-control' %>
+    </div>
+    <div class="form-group time">
+        <%#= select_tag 'time',options_for_select(@time),:prompt => '利用時間を選択',:class => 'form-control' %><span>namae</span>
+    </div>
+    <div class="form-group member">
+      <input type="text">
+      <%#= select_tag 'member', options_for_select(@member),:class => 'form-control' %><span>人</span>
+    </div>
+    <div class="form-group content">
+      <input type="text">
+        <%#= select_tag 'content', options_for_select(@content),:prompt => 'プランを選択',:class => 'form-control' %>
+    </div>
+    <div class="form-group search_btn">
+        <%= button_to '変更', {},class: "btn btn-default" %>
+    </div>
+<%# end %>
+	</form>
+</div>

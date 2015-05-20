@@ -1,8 +1,25 @@
 <%= javascript_tag do %>
 $(function(){
+var mw = new modalWindow;
+
+  mw._load();
+
+  $('.mw').click(function(){
+  mw._click();
+  })
+
+
 	$('#calendar').fullCalendar({
 		lang: 'ja',
 		height:1000,
+		editable: true,
+		eventDrop: function(event, delta, revertFunc) {
+			//移動した後のイベント	
+    },
+    eventClick: function(event) {
+       mw._click();
+        
+    },
 		eventRender: function(events, element) {
 			//if(events.img){
 			//    $(element[0]).find('.fc-title').prepend('.fc-content')
@@ -16,20 +33,21 @@ $(function(){
 				left: 'prev,next today',
 				center: 'title',
 				right: 'month,basicWeek,basicDay'
-			},
+		},
 		displayEventEnd:{
-    month: true,
-    basicWeek: true,
-    'default': true
-},	
+		    month: true,
+		    basicWeek: true,
+		    'default': true
+		},	
 		events: 
-		<%= raw @works_json.to_json() %>
-	,
-		timeFormat: 'H:mm', // uppercase H for 24-hour clock
+			<%= raw @works_json.to_json() %>
+		,
+			timeFormat: 'H:mm', // uppercase H for 24-hour clock
 
-	})
-	//$($(".fc-event-container")[0]).addClass('icons').prepend($('.fc-content'));
-	//$(".fc-time").css('display','none');
+		})
+		
+	
+
 })
   
 <% end %>

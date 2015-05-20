@@ -54,4 +54,36 @@ $(function(){
 
   });
 
+  //Modal window
+  modalWindow = function(){
+    
+  }
+
+  modalWindow.prototype = {
+    def:{
+      
+    },
+    
+    _load : function(){
+      $('.mw_bd').hide();
+    },
+    
+    _click : function(){
+      var modalbg='<div id="mw_bg"></div>';
+
+      $("body").append(modalbg);
+      $(".mw_bd").addClass('overlay');
+      $(".mw_bd").show();
+      $("#mw_bg").show();
+      
+      $("#mw_bg").click(function(){
+      
+          $(this).remove();
+          $(".mw_bd").hide().removeClass('overlay');
+      });
+
+    }
+  }
+
+  
 })
