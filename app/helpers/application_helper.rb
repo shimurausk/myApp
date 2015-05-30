@@ -140,7 +140,11 @@ module ApplicationHelper
 
 		if Reservation.where(day: from...to).any?
 			@get_reservations = Reservation.where(day: from...to).order("day")
-			#binding.pry
+			
+			# @get_reservations.each do |reservation|
+			# 	@todays_reservation.push([reservation[:day],reservation[:time]])
+			# end
+
 			@get_reservations.each do |reservation|
 				reserved_time = 0
 				while reserved_time <= reservation.time.strftime("%H").to_i-reservation.day.strftime("%H").to_i do
@@ -228,7 +232,7 @@ module ApplicationHelper
 				#選択した日付 params[:daytime]
 				#今日の予約を取得
 				#予約可能な時間までを取得
-binding.pry
+#binding.pry
 				next_reservation_time = @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0]
 				while num < next_reservation_time-params[:daytime].to_i do
 					@time.push([num+1,@new_reservation.day+(num+1).hour])
@@ -248,6 +252,47 @@ binding.pry
 				end
 		end
 		
+	end
+
+	def reservationCheck
+		@time = []
+
+		#該当日の予約を取得
+		@todays_reservation = todaysReservation(params[:reservation][:day])
+		
+		selectedTime = @new_reservation.day;
+		num = 0
+
+		if @todays_reservation.nil?
+			#予約がはいっていない　日付が決まってない場合 営業終了時間までを表示 page/index reservation/index
+			while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
+				@time.push([num+1,@new_reservation.day+(num+1).hour])
+				num = num +1
+			end
+		else
+			@todays_reservation.each do |r|
+
+			#選択した時間とすでにある予約を比較して、予約できる時間帯だけを表示
+				startTime = r.day;
+				endTime = r.time;
+binding.pry
+				#選択時間より予約終了時間が前だったら営業終了時間までを表示
+				if selectedTime>endTime
+					while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
+						@time.push([num+1,@new_reservation.day+(num+1).hour])
+						num = num +1
+					end
+				else
+					#選択時間より予約開始時間が前だったら既に予約がある
+					
+					#選択時間より予約開始時間が前だったら差を取得
+					while num < ((startTime.to_time-selectedTime.to_time)/60/60) do
+						@time.push([num+1,@new_reservation.day+(num+1).hour])
+						num = num +1
+					end
+				end	
+			end
+		end
 	end
 
 	def setMember

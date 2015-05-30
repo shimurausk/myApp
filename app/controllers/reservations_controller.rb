@@ -18,6 +18,7 @@ include ApplicationHelper
 	end
 
 	def list
+		#reservationCheck(params[:day])
 		searchReservation(params[:day])
 
 		if params[:day].match(/:/)
@@ -39,7 +40,8 @@ include ApplicationHelper
 		todaysReservation(params[:reservation][:day])
 
 		setStaff()
-		setTime()
+		#setTime()
+		reservationCheck()
 		setMember()
 		setContent()
 	end
