@@ -256,44 +256,35 @@ module ApplicationHelper
 
 	def reservationCheck
 		@time = []
-
-		#該当日の予約を取得
-		@todays_reservation = todaysReservation(params[:reservation][:day])
-		
+		s = Time.zone.parse(params[:reservation][:day])+(STORE_START_TIME.hours)
+		e = Time.zone.parse(params[:reservation][:day])+(STORE_END_TIME.hours)
 		selectedTime = @new_reservation.day;
-		num = 0
 
-		if @todays_reservation.nil?
-			#予約がはいっていない　日付が決まってない場合 営業終了時間までを表示 page/index reservation/index
-			while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
-				@time.push([num+1,@new_reservation.day+(num+1).hour])
-				num = num +1
-			end
-		else
-			@todays_reservation.each do |r|
+		#予約開始時間<選択終了時間　予約終了時間>選択開始時間
 
-			#選択した時間とすでにある予約を比較して、予約できる時間帯だけを表示
-				startTime = r.day;
-				endTime = r.time;
-binding.pry
-				#選択時間より予約終了時間が前だったら営業終了時間までを表示
-				if selectedTime>endTime
-					while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
-						@time.push([num+1,@new_reservation.day+(num+1).hour])
-						num = num +1
-					end
-				else
-					#選択時間より予約開始時間が前だったら既に予約がある
-					
-					#選択時間より予約開始時間が前だったら差を取得
-					while num < ((startTime.to_time-selectedTime.to_time)/60/60) do
-						@time.push([num+1,@new_reservation.day+(num+1).hour])
-						num = num +1
-					end
-				end	
-			end
+		#選択時間から営業終了時間までに存在する予約を取得	
+		@re = Reservation.where(time: selectedTime...e)
+
+		#営業終了時間までの時間をチェック
+		@checkTime = (e-selectedTime)/60/60
+
+		num = 1
+
+		#一つ目の時間範囲の開始時間 < 二つ目の時間範囲の終了時間 && 二つ目の時間範囲の開始時間 < 一つ目の時間範囲の終了時間
+		while num < @checkTime do
+			@overlap = @re.where("day < ?", selectedTime+num.hours).where("time>=?",selectedTime+num.hours);
+      
+      if @overlap.count < MAX_SEATS
+      	option = (@new_reservation.day).strftime("%H:%M")+"〜"+(@new_reservation.day+(num).hour).strftime("%H:%M")
+      	@time.push([option,@new_reservation.day+(num).hour])
+      else
+      	break
+      end
+			
+			num = num +1
 		end
 	end
+
 
 	def setMember
 		@member = []
