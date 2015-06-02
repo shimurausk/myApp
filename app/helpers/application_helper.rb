@@ -1,10 +1,10 @@
 module ApplicationHelper
 
-	STAFF_START_TIME = 9
-	STAFF_END_TIME = 21
-
 	STORE_START_TIME = 10
 	STORE_END_TIME = 20
+
+	STAFF_START_TIME = STORE_START_TIME-1
+	STAFF_END_TIME = STORE_END_TIME-1
 
 	MAX_SEATS = 2
 
@@ -134,11 +134,6 @@ module ApplicationHelper
 
 	def todaysReservation(day)
 		@todays_reservation = []
-		
-		#時間があるときと無い時 直接とカレンダーから	
-		# if(day ){
-
-		# }
 
 		from = Time.zone.parse(day)+(STORE_START_TIME.hours)
 		to = from+1.day
@@ -146,6 +141,10 @@ module ApplicationHelper
 		if Reservation.where(day: from...to).any?
 			@get_reservations = Reservation.where(day: from...to).order("day")
 			
+			# @get_reservations.each do |reservation|
+			# 	@todays_reservation.push([reservation[:day],reservation[:time]])
+			# end
+
 			@get_reservations.each do |reservation|
 				reserved_time = 0
 				while reserved_time <= reservation.time.strftime("%H").to_i-reservation.day.strftime("%H").to_i do
@@ -162,7 +161,7 @@ module ApplicationHelper
 
 	def searchReservation(params_day)
 		@search_reservation = []
-		@exist_reservations = []
+		@exist_reservations =[]
 
 		today = Time.zone.parse(params_day).beginning_of_day
 
@@ -187,8 +186,13 @@ module ApplicationHelper
 					this_time_reservations.each do |r|
 
 						@exist_reservations.push(r)
+
 						if @exist_reservations.length < MAX_SEATS
 							@search_reservation.push(this_time)
+						else
+								if @search_reservation.include?(this_time)
+									@search_reservation.delete_at(@search_reservation.index(this_time))
+								end
 						end							
 					end
 
@@ -214,9 +218,10 @@ module ApplicationHelper
 
 		if @todays_reservation.present?
 
+			#選択した時間がすでに予約されている時間より後か
 			if @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0].nil?
 
-				# 予約が入ってない、選択時間が予約時間より後の場合は営業終了時間までを表示
+				# 選択時間が予約時間より後の場合は営業終了時間までを表示
 				while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
 					@time.push([num+1,@new_reservation.day+(num+1).hour])
 					num = num +1
@@ -224,6 +229,10 @@ module ApplicationHelper
 
 			else	
 
+				#選択した日付 params[:daytime]
+				#今日の予約を取得
+				#予約可能な時間までを取得
+#binding.pry
 				next_reservation_time = @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0]
 				while num < next_reservation_time-params[:daytime].to_i do
 					@time.push([num+1,@new_reservation.day+(num+1).hour])
@@ -232,14 +241,50 @@ module ApplicationHelper
 
 			end
 		else 
-				#予約がはいっていない　日付が決まってない場合 page/index reservation/index
-				while num < (STORE_END_TIME.to_i)-(STORE_START_TIME.to_i) do
-					@time.push([num+1,num+1])
+				#予約がはいっていない　日付が決まってない場合 営業終了時間までを表示 page/index reservation/index
+				if params[:daytime].to_i.nil?
+					params[:daytime] = STORE_START_TIME.to_i
+				end
+
+				while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
+					@time.push([num+1,@new_reservation.day+(num+1).hour])
 					num = num +1
 				end
 		end
 		
 	end
+
+	def reservationCheck
+		@time = []
+		s = Time.zone.parse(params[:reservation][:day])+(STORE_START_TIME.hours)
+		e = Time.zone.parse(params[:reservation][:day])+(STORE_END_TIME.hours)
+		selectedTime = @new_reservation.day;
+
+		#予約開始時間<選択終了時間　予約終了時間>選択開始時間
+
+		#選択時間から営業終了時間までに存在する予約を取得	
+		@re = Reservation.where(time: selectedTime...e)
+
+		#営業終了時間までの時間をチェック
+		@checkTime = (e-selectedTime)/60/60
+
+		num = 1
+
+		#一つ目の時間範囲の開始時間 < 二つ目の時間範囲の終了時間 && 二つ目の時間範囲の開始時間 < 一つ目の時間範囲の終了時間
+		while num < @checkTime do
+			@overlap = @re.where("day < ?", selectedTime+num.hours).where("time>=?",selectedTime+num.hours);
+      
+      if @overlap.count < MAX_SEATS
+      	option = (@new_reservation.day).strftime("%H:%M")+"〜"+(@new_reservation.day+(num).hour).strftime("%H:%M")
+      	@time.push([option,@new_reservation.day+(num).hour])
+      else
+      	break
+      end
+			
+			num = num +1
+		end
+	end
+
 
 	def setMember
 		@member = []
