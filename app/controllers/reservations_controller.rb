@@ -18,6 +18,7 @@ include ApplicationHelper
 	end
 
 	def list
+		#reservationCheck(params[:day])
 		searchReservation(params[:day])
 
 		if params[:day].match(/:/)
@@ -37,8 +38,10 @@ include ApplicationHelper
 		@new_reservation.day = params[:reservation][:day] + ' ' + params[:daytime]
 
 		todaysReservation(params[:reservation][:day])
+
 		setStaff()
-		setTime()
+		#setTime()
+		reservationCheck()
 		setMember()
 		setContent()
 	end
@@ -46,7 +49,7 @@ include ApplicationHelper
 	def confirm
 		
   	@new_reservation = Reservation.new(reservation_params)
-		@new_reservation.time = Time.zone.parse(reservation_params[:day])+(reservation_params[:time].to_i).hours
+		#@new_reservation.time = Time.zone.parse(reservation_params[:day])+(reservation_params[:time].to_i).hours
 
   	setStaff()
   	setTime()
