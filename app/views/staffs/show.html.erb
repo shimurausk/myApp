@@ -2,7 +2,7 @@
 <%= render 'layouts/header' %>
 <section>
   <div class="contents staff row">
-  	<div class="tbar">スタッフ詳細</div>
+  	<div class="tbar"><span>スタッフ詳細</span><%= link_to '編集',edit_staff_path,class:'btn btn-primary' %> <%= link_to '削除',staff_path,class:'btn btn-warning',method: :delete, data:{confirm:'削除します。よろしいですか？'} %></div>
 		<table class="staff_table">
 				<tr>
 					<th>名前</th>
@@ -25,7 +25,7 @@
 		</table>
 		
 
-		<div class="sch">
+		<div class="sch detail">
 			<%= render 'detail' %>
 		</div>
 	</div>

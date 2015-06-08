@@ -44,9 +44,6 @@ class StaffsController < ApplicationController
 									'reservation_time' => r.time,
 									'reservation_member' => r.member,
 									'reservation_content' => r.content
-									#'backgroundColor' => '#fc0',
-									#'borderColor' => '#fc3',
-									#'img' => staff.icon.url
 								}
 				@works_json.push(@r_data)
 
@@ -76,24 +73,34 @@ class StaffsController < ApplicationController
 	end
 
 	def edit
-		binding.pry
-		
-		@new_staff = Staff.new
+		@staff = Staff.find(params[:id])
 	end
 
 	def update
-		#binding.pry
-    @new_work = Work.find(params[:work][:id])
-    if @new_work.update(work_params)
+    if params[:staff].present?
+    	@new = Staff.find(params[:id])
+    	@params = staff_params
+    else
+    	@new = Work.find(params[:work][:id])
+    	@params = work_params
+    end
+		
+    if @new.update(@params)
     	redirect_to '/staffs'
     else
     	render 'edit'
     end
 	end
 
+	def destroy
+		@staff = Staff.find(params[:id])
+		@staff.destroy
+		redirect_to staffs_path
+	end
+
 	private
 	  def staff_params
-	  	params.require(:staff).permit(:date,:start,:end,:id,:staff_id)
+	  	params.require(:staff).permit(:name,:icon,:email,:address,:age,:post,:memo,:hourlywage)
 	  end
 	  def work_params
 	  	params.require(:work).permit(:date,:start,:end,:id,:staff_id)

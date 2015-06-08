@@ -7,6 +7,7 @@ $(function(){
 		editable: true,
 		eventDrop: function(event, delta, revertFunc) {
 			//移動した後のイベント
+
 			this_data = event;
 			if(this_data.label == 'staff'){
 				$('.edit .staff').show();
@@ -32,11 +33,9 @@ $(function(){
 				var form_action = $('.edit .reservation form').attr('action');
 				$('.edit .reservation form').attr('action',form_action.replace(/(reservations)/,'$1/'+this_data.r_id));
 			}
-			//$('.fc-center').append(this_data.work_id+'<button type="button" class="pure-button">決定</button>');
 			
     },
     eventClick: function(calEvent) {
-       //mw._click();
          alert(calEvent.popup);
     },
 		eventRender: function(events, element) {

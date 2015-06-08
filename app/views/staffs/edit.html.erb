@@ -8,14 +8,33 @@
     </div>
   	<div class="tbar Btn">スタッフ一覧▼</div>
   	 <div class="Inner">
+     <%= form_for @staff, method: :patch,class:"form-inline" do |f| %>
       <table class="staff_table">
 				<tr>
 					<th>名前</th>
+          <th>アイコン</th>
+          <th>メール</th>
+          <th>住所</th>
+          <th>年齢</th>
+          <th>役職</th>
+          <th>備考</th>
+          <th>時給</th>
 				</tr>
-				<%# @staffs.each do |staff| %>
-					
-				<%# end %>
+        <tr>
+					<td><%= f.text_field :name %></td>
+          <td><%= f.file_field :icon %><%= f.hidden_field :icon_cache %></td>
+          <td><%= f.text_field :email %></td>
+          <td><%= f.text_field :address %></td>
+          <td><%= f.text_field :age %></td>
+          <td><%= f.text_field :post %></td>
+          <td><%= f.text_field :memo %></td>
+          <td><%= f.text_field :hourlywage %></td>
+        </tr>
 			</table>
+      <div class="tac">
+        <%= button_tag '確定する',class:'btn btn-primary' %>
+      </div>
+     <% end %>
     </div>
   </div>
 </section>
