@@ -50,4 +50,18 @@
 	.fc-basicDay-view{
 
 	}
+
+	.edit{
+		.staff,.reservation{
+			margin-bottom:32px;
+			//display: none;
+		}
+		.reservation{
+			.member{
+			  input {
+			  	width: 40px;
+			  }
+			}
+		}
+	}
 }

@@ -4,19 +4,17 @@
   <div class="contents staff Slide">
     
   	<div class="sch">
-      <%= render 'schedule' %>
+      <%#= render 'schedule' %>
     </div>
   	<div class="tbar Btn">スタッフ一覧▼</div>
-  	<div class="Inner">
+  	 <div class="Inner">
       <table class="staff_table">
 				<tr>
 					<th>名前</th>
 				</tr>
-				<% @staffs.each do |staff| %>
-					<tr>
-						<td><%= link_to staff.name,staff_path(staff) %>　<% if staff.icon? %> <%= image_tag(staff.icon, :size => "16x16") %> <% end %></td>
-					</tr>
-				<% end %>
+				<%# @staffs.each do |staff| %>
+					
+				<%# end %>
 			</table>
     </div>
   </div>

@@ -1,0 +1,32 @@
+<% if @new_reservation.errors.any? %>
+    <div class="bg-danger">
+      <strong>入力内容をご確認ください</strong>
+      <ul class="error">
+        <% @new_reservation.errors.each do |attr,msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+<% end %>
+
+<%= form_tag('/reservations/#{@new_reservation.id}',method: :patch,class:"form-inline") do %>
+  <div class='input-group day'>
+    <%= text_field :reservation,:day,class:"form-control" %>
+    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+  </div>
+  <div class="form-group time">
+    <%= label :reservation, :time ,'利用時間' %>
+    <%= text_field :reservation, :time ,class:"form-control"%>
+  </div>
+  <div class="form-group member">
+    <%= label :reservation, :member ,'人数' %>
+    <%= text_field :reservation, :member ,class:"form-control"%>
+  </div>
+  <div class="form-group content">
+    <%= label :reservation, :content ,'プラン' %>
+    <%= text_field :reservation, :content ,class:"form-control"%>
+  </div>
+  <div class="form-group search_btn">
+      <%= button_to '変更', {},class: "btn btn-default" %>
+  </div>
+<% end %>

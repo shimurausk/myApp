@@ -37,6 +37,7 @@ Rails.application.routes.draw do
 resources :staffs do
   resources :works
 end
+match 'staffs/work/edit' ,:via => :post
 
 #match 'reservations/entry' ,:via => :post,as: :reservations_entry
 #match 'reservations/search_result' ,:via => :post

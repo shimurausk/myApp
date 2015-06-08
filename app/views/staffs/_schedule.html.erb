@@ -1,24 +1,43 @@
 <%= javascript_tag do %>
 $(function(){
-var mw = new modalWindow;
-
-  mw._load();
-
-  $('.mw').click(function(){
-  mw._click();
-  })
-
 
 	$('#calendar').fullCalendar({
 		lang: 'ja',
 		height:1000,
 		editable: true,
 		eventDrop: function(event, delta, revertFunc) {
-			//移動した後のイベント	
+			//移動した後のイベント
+			this_data = event;
+			if(this_data.label == 'staff'){
+				$('.edit .staff').show();
+				$('.edit .staff .name').text(this_data.title);
+				$('.edit .staff .date input').val(event.start.format());
+				$('.edit .staff .start input').val(event.start.format());
+				$('.edit .staff .end input').val(event.end.format());
+				$('.edit .staff .id').val(this_data.work_id);
+				$('.edit .staff .staff_id').val(this_data.work_staff_id);
+
+				var saff_id = this_data.work_staff_id;
+				var form_action = $('.edit .staff form').attr('action');
+				$('.edit .staff form').attr('action',form_action.replace(/(staffs)/,'$1/'+this_data.work_staff_id));
+			} else {
+				$('.edit .reservation').show();
+				$('.edit .reservation .name').text(this_data.title);
+				$('.edit .reservation .day input').val(event.start.format());
+				$('.edit .reservation .time input').val(this_data.reservation_time);
+				$('.edit .reservation .member input').val(this_data.reservation_member);
+				$('.edit .reservation .content input').val(this_data.reservation_content);
+
+				var r_id = this_data.reservation_id;
+				var form_action = $('.edit .reservation form').attr('action');
+				$('.edit .reservation form').attr('action',form_action.replace(/(reservations)/,'$1/'+this_data.r_id));
+			}
+			//$('.fc-center').append(this_data.work_id+'<button type="button" class="pure-button">決定</button>');
+			
     },
-    eventClick: function(event) {
-       mw._click();
-        
+    eventClick: function(calEvent) {
+       //mw._click();
+         alert(calEvent.popup);
     },
 		eventRender: function(events, element) {
 			//if(events.img){
@@ -46,10 +65,17 @@ var mw = new modalWindow;
 
 		})
 		
-	
-
 })
-  
-<% end %>
 
+<% end %>
+<div class="edit">
+	<div class="edit_bd">
+		<div class="staff">
+			<%= render 'edit_staff' %>
+		</div>
+		<div class="reservation">
+			<%= render 'edit_reservation' %>
+		</div>
+	</div>
+</div>
 <div id="calendar"></div>
