@@ -67,7 +67,9 @@ form input[type=checkbox] {
 background: #fbfbfb;
 }
 .field_with_errors {
-  float: none;
+  .cb{
+    float: left;
+  }
 }
 .devise br{
 display:none;

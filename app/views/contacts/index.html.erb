@@ -1,11 +1,11 @@
-<%= render 'layouts/header' %>
+<%= render 'shared/header' %>
 <section>
   <div class="contents contact row">
-	  	<h4 class="tbar">お問い合わせ</h4>
-			<p>等サイトをご覧いただきありがとうございます。不明点ございましたら、どうぞお気軽にお問い合わせください。</p>
-			<div class="note">※ご回答には多少のお日にちをいただく事があります。予めご了承下さいますようお願いいたします。</div>
+  	<h4 class="tbar">お問い合わせ</h4>
+		<p>等サイトをご覧いただきありがとうございます。不明点ございましたら、どうぞお気軽にお問い合わせください。</p>
+		<div class="note">※ご回答には多少のお日にちをいただく事があります。予めご了承下さいますようお願いいたします。</div>
 
-			<%= form_for @contact,:url => contacts_confirm_path,:html => {:class => 'contact_form'} do |f| %>
+		<%= form_for @contact,:url => contacts_confirm_path,:html => {:class => 'contact_form'} do |f| %>
 
 			<% if @contact.errors.any? %>
 			<div class="errors">
@@ -19,25 +19,24 @@
 			<% end %>
 
 			<dl id="name" class="row">
-			    <dt class="col-sm-12"><%= f.label :name, "お名前" %></dt>
-			    <dd class="col-sm-12"><%= f.text_field :name, class: "form-control" %></dd>
-			    <dt class="col-sm-12"><%= f.label :email, "メールアドレス（半角）" %></dt>
-			    <dd class="col-sm-12"><%= f.text_field :email, class: "form-control" %></dd>
-			    <dt class="col-sm-12"><%= f.label :genre, "お問い合わせの種類" %></dt>
-			    <dd class="col-sm-12">
-		        <ul>
-	            <li><%= f.radio_button :genre, "サイト内の内容について",{ class: "cb",id:'contact_cb1' } %><%= f.label :cb1 ,"サイト内の内容について" %></li>
-	            <li><%= f.radio_button :genre, "予約の仕方について",{ class: "cb",id:'contact_cb2' } %><%= f.label :cb2, "予約の仕方について" %></li>
-	            <li><%= f.radio_button :genre, "その他",{ class: "cb",id:'contact_cb3' } %><%= f.label :cb3, "その他" %></li>
-		        </ul>
-			    </dd>
-			    <dt class="col-sm-12"><%= f.label :message, "お問い合わせ内容" %></dt>
-			    <dd class="col-sm-12"><%= f.text_area :message, class: "form-control" %></dd>
+		    <dt class="col-sm-12"><%= f.label :name, "お名前" %></dt>
+		    <dd class="col-sm-12"><%= f.text_field :name, class: "form-control" %></dd>
+		    <dt class="col-sm-12"><%= f.label :email, "メールアドレス（半角）" %></dt>
+		    <dd class="col-sm-12"><%= f.text_field :email, class: "form-control" %></dd>
+		    <dt class="col-sm-12"><%= f.label :genre, "お問い合わせの種類" %></dt>
+		    <dd class="col-sm-12">
+	        <ul>
+            <li><%= f.radio_button :genre, "サイト内の内容について",{ class: "cb",id:'contact_cb1' } %><%= f.label :cb1 ,"サイト内の内容について" %></li>
+            <li><%= f.radio_button :genre, "予約の仕方について",{ class: "cb",id:'contact_cb2' } %><%= f.label :cb2, "予約の仕方について" %></li>
+            <li><%= f.radio_button :genre, "その他",{ class: "cb",id:'contact_cb3' } %><%= f.label :cb3, "その他" %></li>
+	        </ul>
+		    </dd>
+		    <dt class="col-sm-12"><%= f.label :message, "お問い合わせ内容" %></dt>
+		    <dd class="col-sm-12"><%= f.text_area :message, class: "form-control" %></dd>
 			</dl>
-			<div class="submit tac"><%= f.submit "この内容で送信する",class: "btn btn-default" %></div> 
-
-			<% end %>	
+			<div class="submit tac"><%= f.submit "この内容で送信する",class: "btn btn-default" %></div>
+		<% end %>
 
   </div>
 </section>
-<%= render 'layouts/footer' %>
+<%= render 'shared/footer' %>

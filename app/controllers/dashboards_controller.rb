@@ -17,7 +17,7 @@ include ApplicationHelper
 	def new
 		@new_work = Work.new
 		halfMonth
-		@bisnesstime = STAFF_START_TIME..STAFF_END_TIME
+		@bisnesstime = ApplicationHelper::STAFF_START_TIME..ApplicationHelper::STAFF_END_TIME
 	end
 
 	def workday
@@ -26,8 +26,9 @@ include ApplicationHelper
 		
 		@worktimes = []
 		num = 0
-		while num < STAFF_END_TIME-STAFF_START_TIME do
-			@worktimes.push([STAFF_START_TIME+num,@new_work.date+(STAFF_START_TIME+num).hour])
+		#module名も一緒に書いておくとよい
+		while num < ApplicationHelper::STAFF_END_TIME-ApplicationHelper::STAFF_START_TIME do
+			@worktimes.push([ApplicationHelper::STAFF_START_TIME+num,@new_work.date+(ApplicationHelper::STAFF_START_TIME+num).hour])
 			num = num+1
 		end
 	end	
@@ -39,7 +40,6 @@ include ApplicationHelper
 		works.each do |w|
 
 			work = Work.new(w)
-			#work.valid?
 			@works.push(work)
 		end
 
@@ -58,6 +58,7 @@ include ApplicationHelper
 		@works =[]
 
 		work_params.each do |w|
+			#
 			unless w[:start].empty?
 				work = Work.new(w)
 				@works.push(work)
@@ -65,6 +66,7 @@ include ApplicationHelper
 		end
 
 		@works.each do |w|
+			#ループを抜けてからsaveさせる　saveが2回
 			unless w.save
 				render 'new'
 			end
@@ -76,12 +78,15 @@ include ApplicationHelper
 	end
 
 	def edit
+		#User.find(params[:id]).staffはnilになる可能性あり
+		#User.find(params[:id]).present?
 		@staff_data = User.find(params[:id]).staff
 		@staff_reservations = Reservation.where(:staff_id=>@staff_data[:id])
 
 	end
 
 	def update
+		#nilになる可能性あり↓
 		@staff_update = Staff.find(params[:staff][:id])
 		if @staff_update.update(staff_params)
 			redirect_to dashboard_path
@@ -91,6 +96,7 @@ include ApplicationHelper
 	end
 
 	def destroy
+		#nilになる可能性あり↓
 		@blog = Blog.find(params[:id])
 
 		@blog.destroy
@@ -105,11 +111,6 @@ include ApplicationHelper
 		def staff_params
 			params.require(:staff).permit(:name,:email,:address,:age,:hourlywage)	
 		end
-
-		# def work_params
-		# 	params.require(:work).permit(:date,:start,:end,:break,:staff_id)
-		# end
-
 		
 		def work_params
 			params.require(:work).map do |param|

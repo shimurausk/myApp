@@ -6,7 +6,7 @@ class BlogsController < ApplicationController
 	before_action :related_post
 
 	def get_category
-		#@blogs_hava_category = Blog.where("category not?",nil)
+		binding.pry
 		@blogs_hava_category = Blog.where(status:true)
 		@blogs_category = []
 		@blogs_hava_category.each do |c|
@@ -19,16 +19,16 @@ class BlogsController < ApplicationController
 		@blogs = Blog.all
 		@blogs_tags = []
 
-		@blogs.each do |t|
-			#raw d.tags.map(&:name).map { |t| link_to t, tag_path(d)}.join(', ')
-			if t.status == 'public'
-				if(t.tags.any?)
-					t.tags.each do |hadTag|
+		@blogs.each do |blog|
+			if blog.status == 'public'
+				if(blog.tags.any?)
+					blog.tags.each do |hadTag|
+						#if blog.include?
 						@blogs_tags.push(hadTag.name)
 					end
 				end
+
 			end
-			#t.tags.any? ? @blogs_tags.push(t.tags.map(&:name)) : ''
 		end
 		@blogs_tags = @blogs_tags.uniq()
 	end
@@ -92,7 +92,7 @@ class BlogsController < ApplicationController
 
 	def destroy
 		@blog = Blog.find(params[:id])
-		@blog.destroy
+		@blog.destroy if @blog.present?
 		redirect_to blogs_path
 	end
 

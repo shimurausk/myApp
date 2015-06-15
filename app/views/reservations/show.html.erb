@@ -53,19 +53,6 @@ $(function(){
 
 <%= raw @reservation_list.to_json %>
 
-
-        <%#= select_tag 'time',options_for_select([["利用時間を選択",""],["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"], ["6", "6"], ["7", "7"], ["8", "8"]]),:class => 'form-control' %>
-
-        <%#= select_tag 'member', options_for_select([["人数を選択",""],["1", "1"], ["2", "2"], ["3", "3"], ["4", "4"], ["5", "5"]]),:class => 'form-control' %>
-        
-        <%#= select_tag 'content', options_for_select([["プランを選択",""],["コースA", "コースA"], ["コースB", "コースB"], ["カット", "カット"], ["パーマ", "パーマ"]]),:class => 'form-control' %>
-
-							<%#= button_to "#{t[0]}:00",:class =>'btn btn-default' %>
-
-              <!-- <a href="<%=  %>" class="btn btn-default">
-                <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span><strong><%= t[0] %><span>:</span>00</strong>
-              </a> -->
-
     <div class='input-group date' id='datetimepicker1'>
         <%= f.text_field :day, data: { :date_format => 'YYYY/MM/DD hh:mm' }, :class => 'form-control', placeholder: '2015/2/10 14:30' %>
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>

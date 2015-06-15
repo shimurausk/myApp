@@ -1,8 +1,8 @@
-<%= render 'layouts/header' %>
+<%= render 'shared/header' %>
 <section>
   <div class="contents contact row">
-	  	<h4 class="tbar">お問い合わせ</h4>
-			<div class="new">
+  	<h4 class="tbar">お問い合わせ</h4>
+		<div class="new">
       <p>以下の内容でご予約を承ります。よろしいでしょうか？ </p>
 
       <%= form_for @contact,:url => contacts_create_path,html:{class:"form-group contact_form"} do |f| %>
@@ -18,9 +18,9 @@
       </dl>
 
       <p class="tac">
-        <%= button_tag(type: 'button',class:"btn btn-default") do
-          content_tag(:span, '戻る')
-        end %>
+        <%= button_tag(type: 'button',class:"btn btn-default") do %>
+        <%= content_tag(:span, '戻る') %>
+        <% end %>
         <%= f.submit '送信',class:"btn btn-default" %>
       </p>
       <% end %>
@@ -28,11 +28,11 @@
   </div>
 </section>
 <script type="text/javascript">
-    $(function () {
-        $('button').click(function(){
-          window.history.back(-1);
-          return false;
-        });
+  $(function () {
+    $('button').click(function(){
+      window.history.back(-1);
+      return false;
     });
+  });
 </script>
-<%= render 'layouts/footer' %>
+<%= render 'shared/footer' %>

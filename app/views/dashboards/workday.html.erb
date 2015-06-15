@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
-<%= render 'layouts/header' %>
+<%= render 'shared/header' %>
 <div class="dash">
 	<div class="title">
 		<h2>Dashboard<strong>:<%= current_user.username %></strong></h2>
@@ -42,5 +42,5 @@
 	<% end %>	
 </div>
 
-<%= render 'layouts/footer' %>
+<%= render 'shared/footer' %>
 <% end %>

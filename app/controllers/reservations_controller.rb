@@ -49,7 +49,6 @@ include ApplicationHelper
 	def confirm
 		
   	@new_reservation = Reservation.new(reservation_params)
-		#@new_reservation.time = Time.zone.parse(reservation_params[:day])+(reservation_params[:time].to_i).hours
 
   	setStaff()
   	setTime()
@@ -71,8 +70,8 @@ include ApplicationHelper
   end
 
   def create
-  	#メール送信
   	@new_reservation = Reservation.new(reservation_params)
+  	#saveが失敗するかも
   	@new_reservation.save
   	#ContactMailer.received_email(@new_reservation).deliver
   	render :action => 'create'

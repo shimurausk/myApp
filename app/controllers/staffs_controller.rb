@@ -55,6 +55,7 @@ class StaffsController < ApplicationController
 	end
 
 	def show
+		#nilなるかも
 		@staff = Staff.find(params[:id])
 
 		@works_json =[]
@@ -77,6 +78,7 @@ class StaffsController < ApplicationController
 	end
 
 	def update
+		#@newを変える
     if params[:staff].present?
     	@new = Staff.find(params[:id])
     	@params = staff_params
@@ -93,6 +95,7 @@ class StaffsController < ApplicationController
 	end
 
 	def destroy
+		#nilなるかも
 		@staff = Staff.find(params[:id])
 		@staff.destroy
 		redirect_to staffs_path

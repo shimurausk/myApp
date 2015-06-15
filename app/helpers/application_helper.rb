@@ -67,6 +67,7 @@ module ApplicationHelper
 		today = Time.zone.now
 
 		#1--14,15--30(28.31)
+		#today.beginning_of_month+2.weekを変数にいれる
 		if today<today.beginning_of_month+2.week
 			startday = today.beginning_of_month
 			endday = today.beginning_of_month+2.week
@@ -87,6 +88,7 @@ module ApplicationHelper
 	end
 
 	def workList
+		#nilになるかも
 		@works = Work.where(:staff_id => current_user.staff[:id])
 		@work_list = []
 
@@ -175,7 +177,7 @@ module ApplicationHelper
 					@exist_reservations.delete(reservation)
 				end
 			end
-	
+			#eachごとに分けたほうがよい helperに
 			if @exist_reservations.length < MAX_SEATS
 
 				#1時間づつチェック
@@ -222,6 +224,7 @@ module ApplicationHelper
 			if @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0].nil?
 
 				# 選択時間が予約時間より後の場合は営業終了時間までを表示
+				#外に出した方がよい
 				while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
 					@time.push([num+1,@new_reservation.day+(num+1).hour])
 					num = num +1
@@ -232,7 +235,6 @@ module ApplicationHelper
 				#選択した日付 params[:daytime]
 				#今日の予約を取得
 				#予約可能な時間までを取得
-#binding.pry
 				next_reservation_time = @todays_reservation.sort.select{|x| x > params[:daytime].to_i}[0]
 				while num < next_reservation_time-params[:daytime].to_i do
 					@time.push([num+1,@new_reservation.day+(num+1).hour])
@@ -245,7 +247,7 @@ module ApplicationHelper
 				if params[:daytime].to_i.nil?
 					params[:daytime] = STORE_START_TIME.to_i
 				end
-
+				#外に出したほうがよい
 				while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
 					@time.push([num+1,@new_reservation.day+(num+1).hour])
 					num = num +1
