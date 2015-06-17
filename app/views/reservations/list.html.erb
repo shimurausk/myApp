@@ -8,6 +8,7 @@ $(function(){
 				center: 'title',
 				right: ''
 			},
+    defaultDate: '<%= raw params[:day] %>',
 		events: 
 		<%= raw @all_reservation.to_json %>,
     dayClick: function(date, jsEvent, view) {

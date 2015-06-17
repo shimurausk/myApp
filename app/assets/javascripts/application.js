@@ -27,11 +27,7 @@
 //= require moment
 //= require bootstrap-datetimepicker
 $(function(){
- //slide
-	// $('.Slide .Btn').click(function() {
- //      var Inner= $(this).parent().children('.Inner');
- //      Inner.toggle();
- //  });
+ 
   $('.search_btn').click(function(){
       if($('#datetimepicker1 input').val().length>0){
           var date = $('#datetimepicker1 input').val().split(/\s/)[0].replace(/\//g,'-');
@@ -54,36 +50,14 @@ $(function(){
 
   });
 
-  //Modal window
-  modalWindow = function(){
-    
-  }
-
-  modalWindow.prototype = {
-    def:{
-      
-    },
-    
-    _load : function(){
-      $('.mw_bd').hide();
-    },
-    
-    _click : function(){
-      var modalbg='<div id="mw_bg"></div>';
-
-      $("body").append(modalbg);
-      $(".mw_bd").addClass('overlay');
-      $(".mw_bd").show();
-      $("#mw_bg").show();
-      
-      $("#mw_bg").click(function(){
-      
-          $(this).remove();
-          $(".mw_bd").hide().removeClass('overlay');
-      });
-
+  $(window).on('load resize', function(){
+    if($(window).width()>902){
+      $(".header .nav").css("display","block");
     }
-  }
+  });
+  $(".smart").click(function() {
+    $(".header .nav").toggle();
+  });
 
   
 })

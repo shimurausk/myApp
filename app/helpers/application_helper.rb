@@ -1,10 +1,10 @@
 module ApplicationHelper
 
-	STORE_START_TIME = 10
-	STORE_END_TIME = 20
+	ApplicationHelper::STORE_START_TIME = 10
+	ApplicationHelper::STORE_END_TIME = 20
 
-	STAFF_START_TIME = STORE_START_TIME-1
-	STAFF_END_TIME = STORE_END_TIME-1
+	STAFF_START_TIME = ApplicationHelper::STORE_START_TIME-1
+	STAFF_END_TIME = ApplicationHelper::STORE_END_TIME-1
 
 	MAX_SEATS = 2
 
@@ -57,8 +57,8 @@ module ApplicationHelper
   end
 
 	def businessHours
-		@business_hours = (STORE_START_TIME..STORE_END_TIME).to_a
-		values = (STORE_START_TIME..STORE_END_TIME).to_a
+		@business_hours = (ApplicationHelper::STORE_START_TIME..ApplicationHelper::STORE_END_TIME).to_a
+		values = (ApplicationHelper::STORE_START_TIME..ApplicationHelper::STORE_END_TIME).to_a
 		transposed = [keys, values].transpose
 		@business_hours = Hash[transposed]
 	end
@@ -88,12 +88,14 @@ module ApplicationHelper
 	end
 
 	def workList
-		#nilになるかも
-		@works = Work.where(:staff_id => current_user.staff[:id])
+
+		#@works = Work.where(:staff_id => current_user.staff[:id])
+		@works = Work.all
 		@work_list = []
 
 		@works.each do |work|
 
+			name = Staff.find(work.staff_id).name
 			@start_end = work.start.strftime("%H:%M")+'-'+work.end.strftime("%H:%M")
 					
 			@work_data = {
@@ -101,6 +103,7 @@ module ApplicationHelper
 								'title' => @start_end,
 								'start' => work.date.strftime("%Y-%m-%d %H:%M:%S"),
 								'end' => work.date.strftime("%Y-%m-%d %H:%M:%S"),
+								'name' => name, 
 								'backgroundColor' => '#fc0',
 								'borderColor' => '#fc0',
 								'textColor' => '#fff'
@@ -137,25 +140,18 @@ module ApplicationHelper
 	def todaysReservation(day)
 		@todays_reservation = []
 
-		from = Time.zone.parse(day)+(STORE_START_TIME.hours)
+		from = Time.zone.parse(day)+(ApplicationHelper::STORE_START_TIME.hours)
 		to = from+1.day
 
 		if Reservation.where(day: from...to).any?
 			@get_reservations = Reservation.where(day: from...to).order("day")
-			
-			# @get_reservations.each do |reservation|
-			# 	@todays_reservation.push([reservation[:day],reservation[:time]])
-			# end
 
 			@get_reservations.each do |reservation|
 				reserved_time = 0
 				while reserved_time <= reservation.time.strftime("%H").to_i-reservation.day.strftime("%H").to_i do
-					# if @ticket < MAX_SEATS
-							@todays_reservation.push(reservation.day.strftime("%H").to_i+reserved_time)
-							reserved_time = reserved_time +1
-					# end
+					@todays_reservation.push(reservation.day.strftime("%H").to_i+reserved_time)
+					reserved_time = reserved_time +1
 				end
-				# @ticket = @ticket+1
 			end
 		end
 
@@ -165,9 +161,9 @@ module ApplicationHelper
 		@search_reservation = []
 		@exist_reservations =[]
 
-		today = Time.zone.parse(params_day).beginning_of_day
+		today = params_day.beginning_of_day
 
-		@business_hours = (STORE_START_TIME...STORE_END_TIME).to_a
+		@business_hours = (ApplicationHelper::STORE_START_TIME...ApplicationHelper::STORE_END_TIME).to_a
 
 		@business_hours.each do |this_time|
 
@@ -225,7 +221,7 @@ module ApplicationHelper
 
 				# 選択時間が予約時間より後の場合は営業終了時間までを表示
 				#外に出した方がよい
-				while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
+				while num < (ApplicationHelper::STORE_END_TIME.to_i)-(params[:daytime].to_i) do
 					@time.push([num+1,@new_reservation.day+(num+1).hour])
 					num = num +1
 				end
@@ -243,23 +239,25 @@ module ApplicationHelper
 
 			end
 		else 
-				#予約がはいっていない　日付が決まってない場合 営業終了時間までを表示 page/index reservation/index
-				if params[:daytime].to_i.nil?
-					params[:daytime] = STORE_START_TIME.to_i
-				end
-				#外に出したほうがよい
-				while num < (STORE_END_TIME.to_i)-(params[:daytime].to_i) do
-					@time.push([num+1,@new_reservation.day+(num+1).hour])
-					num = num +1
-				end
+			#予約がはいっていない　日付が決まってない場合 営業終了時間までを表示 page/index reservation/index
+			if params[:daytime].to_i.nil?
+				params[:daytime] = ApplicationHelper::STORE_START_TIME.to_i
+			else
+				params[:daytime] = ApplicationHelper::STORE_END_TIME.to_i-ApplicationHelper::STORE_START_TIME.to_i
+			end
+			#外に出したほうがよい
+			while num < (ApplicationHelper::STORE_END_TIME.to_i)-(params[:daytime].to_i) do
+				@time.push([num+1,@new_reservation.day+(num+1).hour])
+				num = num +1
+			end
 		end
 		
 	end
 
 	def reservationCheck
 		@time = []
-		s = Time.zone.parse(params[:reservation][:day])+(STORE_START_TIME.hours)
-		e = Time.zone.parse(params[:reservation][:day])+(STORE_END_TIME.hours)
+		s = Time.zone.parse(params[:reservation][:day]).beginning_of_day+(ApplicationHelper::STORE_START_TIME.hours)
+		e = Time.zone.parse(params[:reservation][:day]).beginning_of_day+(ApplicationHelper::STORE_END_TIME.hours)
 		selectedTime = @new_reservation.day;
 
 		#予約開始時間<選択終了時間　予約終了時間>選択開始時間

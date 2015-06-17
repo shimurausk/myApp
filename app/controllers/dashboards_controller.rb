@@ -26,7 +26,7 @@ include ApplicationHelper
 		
 		@worktimes = []
 		num = 0
-		#module名も一緒に書いておくとよい
+
 		while num < ApplicationHelper::STAFF_END_TIME-ApplicationHelper::STAFF_START_TIME do
 			@worktimes.push([ApplicationHelper::STAFF_START_TIME+num,@new_work.date+(ApplicationHelper::STAFF_START_TIME+num).hour])
 			num = num+1
@@ -58,7 +58,6 @@ include ApplicationHelper
 		@works =[]
 
 		work_params.each do |w|
-			#
 			unless w[:start].empty?
 				work = Work.new(w)
 				@works.push(work)
@@ -66,28 +65,36 @@ include ApplicationHelper
 		end
 
 		@works.each do |w|
-			#ループを抜けてからsaveさせる　saveが2回
-			unless w.save
-				render 'new'
+			if w.valid?
+				w.save
 			end
-			w.save
-			#メール送信
-	  	#ContactMailer.received_email(@new_reservation).deliver
 		end
+		
+		#メール送信
+  	#ContactMailer.received_email(@new_reservation).deliver
 		render :action => 'create'
 	end
 
 	def edit
-		#User.find(params[:id]).staffはnilになる可能性あり
-		#User.find(params[:id]).present?
-		@staff_data = User.find(params[:id]).staff
+
+		if User.find(params[:id]).staff.present?
+			@staff_data = User.find(params[:id]).staff
+		else 
+			redirect_to '/dashboards'
+		end
+
 		@staff_reservations = Reservation.where(:staff_id=>@staff_data[:id])
 
 	end
 
 	def update
-		#nilになる可能性あり↓
-		@staff_update = Staff.find(params[:staff][:id])
+		
+		if Staff.find(params[:staff][:id]).present?
+			@staff_update = Staff.find(params[:staff][:id])
+		else 
+			redirect_to '/dashboards'
+		end
+
 		if @staff_update.update(staff_params)
 			redirect_to dashboard_path
 		else
@@ -96,9 +103,13 @@ include ApplicationHelper
 	end
 
 	def destroy
-		#nilになる可能性あり↓
-		@blog = Blog.find(params[:id])
 
+		if Blog.find(params[:id]).present?
+			@blog = Blog.find(params[:id])
+		else 
+			redirect_to '/dashboards'
+		end
+		
 		@blog.destroy
 		redirect_to blogs_path
 	end

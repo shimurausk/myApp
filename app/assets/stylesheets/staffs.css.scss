@@ -8,6 +8,23 @@
 			margin-right: 16px;
 		}
 	}
+	.dl_table{
+		overflow: hidden;
+		display: flex;
+		dt,dd{
+			//float: left;
+		}
+		dt{
+			//clear: both;
+			background: #f7f7f7;
+			//display: inline;
+		  //vertical-align: middle; 
+		  //height: 46px;
+		}
+		dd{
+
+		}
+	}
 	.staff_table {
 			width: 100%;
 			border-collapse: collapse;
@@ -31,10 +48,6 @@
 		margin: 24px auto;
 		width: 100%;
 	}
-	//.fc-event{
-	//	border: none;
-	//	background: none;
-	//}
 	.fc-content{
 		font-size:125%;
 	}

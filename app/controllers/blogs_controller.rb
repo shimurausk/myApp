@@ -6,7 +6,6 @@ class BlogsController < ApplicationController
 	before_action :related_post
 
 	def get_category
-		binding.pry
 		@blogs_hava_category = Blog.where(status:true)
 		@blogs_category = []
 		@blogs_hava_category.each do |c|
@@ -23,8 +22,7 @@ class BlogsController < ApplicationController
 			if blog.status == 'public'
 				if(blog.tags.any?)
 					blog.tags.each do |hadTag|
-						#if blog.include?
-						@blogs_tags.push(hadTag.name)
+						@blogs_tags.push(hadTag.name) if blog.include?
 					end
 				end
 
@@ -64,7 +62,13 @@ class BlogsController < ApplicationController
 
 	def show
 		@blogs = Blog.new
-		@blog = Blog.find(params[:id])
+
+		if Blog.find(params[:id]).present?
+			@blog = Blog.find(params[:id])
+		else 
+			redirect_to '/blogs'
+		end
+		
 	end
 
 	def index
@@ -73,13 +77,23 @@ class BlogsController < ApplicationController
 	end
 
 	def edit
-		@blog = Blog.find(params[:id])
+		
+		if Blog.find(params[:id]).present?
+			@blog = Blog.find(params[:id])
+		else 
+			redirect_to '/blogs'
+		end
+
 		all_category
 		all_tag
 	end
 
 	def update
-		@blog = Blog.find(params[:id])
+		if Blog.find(params[:id]).present?
+			@blog = Blog.find(params[:id])
+		else 
+			redirect_to '/blogs'
+		end
 
 		if @blog.update(blogs_params)
 			redirect_to @blog
@@ -91,7 +105,12 @@ class BlogsController < ApplicationController
 	end
 
 	def destroy
-		@blog = Blog.find(params[:id])
+		if Blog.find(params[:id]).present?
+			@blog = Blog.find(params[:id])
+		else 
+			redirect_to '/blogs'
+		end
+
 		@blog.destroy if @blog.present?
 		redirect_to blogs_path
 	end

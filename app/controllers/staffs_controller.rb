@@ -55,8 +55,12 @@ class StaffsController < ApplicationController
 	end
 
 	def show
-		#nilなるかも
-		@staff = Staff.find(params[:id])
+		
+		if Staff.find_by_id(params[:id]).present?
+			@staff = Staff.find_by_id(params[:id])
+		else 
+			redirect_to '/staffs'
+		end
 
 		@works_json =[]
 			@staff.works.each do |work|
@@ -74,20 +78,23 @@ class StaffsController < ApplicationController
 	end
 
 	def edit
-		@staff = Staff.find(params[:id])
+		if Staff.find_by_id(params[:id]).present?
+			@staff = Staff.find_by_id(params[:id])
+		else 
+			redirect_to '/staffs'
+		end
 	end
 
 	def update
-		#@newを変える
     if params[:staff].present?
-    	@new = Staff.find(params[:id])
+    	@new_staff = Staff.find(params[:id])
     	@params = staff_params
     else
-    	@new = Work.find(params[:work][:id])
+    	@new_staff = Work.find(params[:work][:id])
     	@params = work_params
     end
 		
-    if @new.update(@params)
+    if @new_staff.update(@params)
     	redirect_to '/staffs'
     else
     	render 'edit'
@@ -95,10 +102,20 @@ class StaffsController < ApplicationController
 	end
 
 	def destroy
-		#nilなるかも
-		@staff = Staff.find(params[:id])
-		@staff.destroy
-		redirect_to staffs_path
+		if params[:staff].present?
+    	@staff = Staff.find(params[:id])
+    	@params = staff_params
+    else
+    	@staff = Work.find(params[:work][:id])
+    	@params = work_params
+    end
+
+    if @staff.destroy
+    	redirect_to '/staffs'
+    else
+    	redirect_to staffs_path
+    end
+
 	end
 
 	private

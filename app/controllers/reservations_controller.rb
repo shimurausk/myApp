@@ -17,27 +17,19 @@ include ApplicationHelper
 		# @reservation = Reservation.find(params[:id])
 	end
 
-	def list
-		#reservationCheck(params[:day])
-		searchReservation(params[:day])
-
-		if params[:day].match(/:/)
-			search_time =  Time.zone.parse(params[:day])
-			unless @search_reservation.include?(search_time.strftime('%H').to_i)
-				@not_reservation_text = "申し訳ございません。満席となっております。"
-			end
-		end
-
-		allReservation
-		@new_reservation = Reservation.new
-	end
-
 	def new
 		@new_reservation = Reservation.new
 
-		@new_reservation.day = params[:reservation][:day] + ' ' + params[:daytime]
+		#営業終了時間より後ろの時間で検索したとき
+		if params[:daytime]>ApplicationHelper::STORE_END_TIME.to_s || params[:daytime]<ApplicationHelper::STORE_START_TIME.to_s
+			this_daytime = Time.zone.parse(params[:reservation][:day]).beginning_of_day+ApplicationHelper::STORE_START_TIME.hours
+		else
+			this_daytime = Time.zone.parse(params[:reservation][:day]).beginning_of_day+(params[:daytime].to_i).hours
+		end
 
-		todaysReservation(params[:reservation][:day])
+		@new_reservation.day = this_daytime.to_s
+
+		#todaysReservation(this_daytime.to_s)
 
 		setStaff()
 		#setTime()
@@ -46,8 +38,70 @@ include ApplicationHelper
 		setContent()
 	end
 
+  def create
+  	@new_reservation = Reservation.new(reservation_params)
+  	
+  	if @new_reservation.save
+    	render :action => 'create'
+    else
+    	render 'confirm'
+    end
+
+  	#ContactMailer.received_email(@new_reservation).deliver
+  	
+  end
+
+	def update
+		@new_reservation = Reservation.find(params[:id])
+		@params = reservation_params
+
+		if @new_reservation.update(@params)
+    	redirect_to '/staffs'
+    else
+    	render 'edit'
+    end
+
+	end
+
+	def edit
+
+	end
+
+	def destroy
+
+		if params[:id].present?
+			@reservation = Reservation.find(params[:id])
+			@reservation.destroy
+			redirect_to '/staffs'
+		else
+			redirect_to '/staffs'
+		end
+
+	end
+
+	def list
+		this_day = params[:day].to_time
+
+		#カレンダーをクリックしたとき
+		if this_day.strftime('%H')<ApplicationHelper::STORE_START_TIME.to_s
+			this_day = this_day.beginning_of_day+ApplicationHelper::STORE_START_TIME.hours
+		end
+
+		#reservationCheck(params[:day])
+		searchReservation(this_day)
+
+		# if params[:day].match(/:/)
+		# 	search_time =  Time.zone.parse(params[:day])
+		# 	unless @search_reservation.include?(search_time.strftime('%H').to_i)
+		# 		@not_reservation_text = "申し訳ございません。満席となっております。"
+		# 	end
+		# end
+
+		allReservation
+		@new_reservation = Reservation.new
+	end
+
 	def confirm
-		
   	@new_reservation = Reservation.new(reservation_params)
 
   	setStaff()
@@ -67,14 +121,6 @@ include ApplicationHelper
   		render :action => 'new'
   	end
 
-  end
-
-  def create
-  	@new_reservation = Reservation.new(reservation_params)
-  	#saveが失敗するかも
-  	@new_reservation.save
-  	#ContactMailer.received_email(@new_reservation).deliver
-  	render :action => 'create'
   end
 
   private

@@ -18,20 +18,24 @@ $(function(){
 				$('.edit .staff .id').val(this_data.work_id);
 				$('.edit .staff .staff_id').val(this_data.work_staff_id);
 
-				var saff_id = this_data.work_staff_id;
+				var staff_id = this_data.work_staff_id;
 				var form_action = $('.edit .staff form').attr('action');
-				$('.edit .staff form').attr('action',form_action.replace(/(staffs)/,'$1/'+this_data.work_staff_id));
+				$('.edit .staff form').attr('action',form_action.replace(/(staffs)/,'$1/'+staff_id));
+				var btn_href = $('.edit .staff .del').attr('href');
+				$('.edit .staff .del').attr('href',btn_href.replace(/(staffs)/,'$1/'+staff_id+'?work[id]='+this_data.work_id));
 			} else {
 				$('.edit .reservation').show();
 				$('.edit .reservation .name').text(this_data.title);
 				$('.edit .reservation .day input').val(event.start.format());
-				$('.edit .reservation .time input').val(this_data.reservation_time);
+				$('.edit .reservation .time input').val(event.end.format());
 				$('.edit .reservation .member input').val(this_data.reservation_member);
 				$('.edit .reservation .content input').val(this_data.reservation_content);
 
 				var r_id = this_data.reservation_id;
 				var form_action = $('.edit .reservation form').attr('action');
-				$('.edit .reservation form').attr('action',form_action.replace(/(reservations)/,'$1/'+this_data.r_id));
+				$('.edit .reservation form').attr('action',form_action.replace(/(reservations)/,'$1/'+r_id));
+				var btn_href = $('.edit .reservation .del').attr('href');
+				$('.edit .reservation .del').attr('href',btn_href.replace(/(reservations)/,'$1/'+r_id));
 			}
 			
     },
@@ -39,13 +43,7 @@ $(function(){
          alert(calEvent.popup);
     },
 		eventRender: function(events, element) {
-			//if(events.img){
-			//    $(element[0]).find('.fc-title').prepend('.fc-content')
-			//imgプロパティが存在するイベントだけtitleを画像に差し替え
-			//    .css("border-color", "transparent")
-			//    .css("background-color", "transparent")
-			//    .html('<img src="'+events.img+'" width="32" height="32" class="icon" alt="'+ events.title +'" title="'+  events.title +'" />');
-			//}
+			
     },
 		header: {
 				left: 'prev,next today',

@@ -1,12 +1,12 @@
 <% if @new_work.errors.any? %>
-    <div class="bg-danger">
-      <strong>入力内容をご確認ください</strong>
-      <ul class="error">
-        <% @new_work.errors.each do |attr,msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
+  <div class="bg-danger">
+    <strong>入力内容をご確認ください</strong>
+    <ul class="error">
+      <% @new_work.errors.each do |attr,msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
 <%= form_tag "/staffs/#{@new_work.id}", method: :patch,class:"form-inline" do %>
@@ -16,17 +16,18 @@
 
   <div class='form-group date'>
     <%= label :work, :date ,'日付' %>
-    <%= text_field :work ,:date ,class:"form-control"%>
+    <%= text_field :work ,:date ,class:"form-control" %>
   </div>            
   <div class="form-group start">
     <%= label :work, :start ,'開始時間' %>
-    <%= text_field :work, :start ,class:"form-control"%>
+    <%= text_field :work, :start ,class:"form-control" %>
   </div>
   <div class="form-group end">
     <%= label :work, :end ,'終了時間' %>
-    <%= text_field :work, :end ,class:"form-control"%>
+    <%= text_field :work, :end ,class:"form-control" %>
   </div>
   <div class="form-group submit">
-    <%= button_tag '変更',class:"form-control"  %>
+    <%= button_tag '変更',class:"form-control" %>
   </div>
+  <%= link_to '削除',"/staffs",class:'del form-control',method: :delete, data:{confirm:'削除します。よろしいですか？',work:'work_id'} %>
 <% end %>
